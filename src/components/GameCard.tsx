@@ -1,16 +1,10 @@
 'use client'
 import Image from 'next/image'
-import Button from "@/components/Button";
-type RentalDetails = {
-    gameTitle: string
-    weeklyPlanPrice: number
-    monthlyPlanPrice: number
-    trophyAvailability: boolean
-    nonTrophyAvailability: boolean
-}
+import { DialogCloseButton } from './Modal'
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+
 type GameCardProps = {
-    setModalOpen: (value: boolean) => void,
-    setRentalDetails: React.Dispatch<React.SetStateAction<RentalDetails>>,
     gameDetails: {
         gameImage: string,
         gameTitle: string,
@@ -22,27 +16,18 @@ type GameCardProps = {
         availableSlot: number,
     }
 }
-export default function GameCard({ setModalOpen, setRentalDetails, gameDetails }: GameCardProps) {
+export default function GameCard({ gameDetails }: GameCardProps) {
     return (
-        <div className="bg-zinc-900 p-4 rounded-lg flex flex-col gap-y-2 text-sm border border-gray-500">
-            <Image src={gameDetails.gameImage} alt={gameDetails.gameTitle} width={500} height={500} className="rounded-lg w-full" />
-            <h1 className="font-semibold text-lg truncate">{gameDetails.gameTitle}</h1>
-            <p>{gameDetails.weeklyPrice}/7 days</p>
-            <p>{gameDetails.monthlyPrice}/month</p>
-            <p>Primary: {gameDetails.trophy ? 'available' : 'unavailable'}</p>
-            <p>Secondary: {gameDetails.nonTrophy ? 'available' : 'unavailable'}</p>
-            <p>Renters: {gameDetails.renters ? gameDetails.renters : 0}</p>
-            <p>Slot: {gameDetails.availableSlot ? gameDetails.availableSlot : 0}</p>
-            <Button buttonName={'Rent Now'} onButtonClick={() => {
-                setModalOpen(true)
-                setRentalDetails({
-                    gameTitle: gameDetails.gameTitle,
-                    weeklyPlanPrice: gameDetails.weeklyPrice,
-                    monthlyPlanPrice: gameDetails.monthlyPrice,
-                    trophyAvailability: gameDetails.trophy,
-                    nonTrophyAvailability: gameDetails.nonTrophy,
-                })
-            }} />
-        </div>
+        <Card className="relative mx-auto w-full max-w-sm pt-0" size={'sm'}>
+            <Image src={gameDetails.gameImage} alt={gameDetails.gameTitle} width={500} height={500} className="h-36 w-full object-cover object-top" />
+            <CardHeader>
+                <CardTitle className='text-lg truncate'>{gameDetails.gameTitle}</CardTitle>
+                <Badge variant={gameDetails.availableSlot !== 0 ? 'outline' : 'destructive'}>Available slot: {gameDetails.availableSlot ? gameDetails.availableSlot : 0}</Badge>
+                <Badge variant="outline">Renters: {gameDetails.renters ? gameDetails.renters : 0}</Badge>
+            </CardHeader>
+            <CardFooter>
+                <DialogCloseButton gameDetails={gameDetails} />
+            </CardFooter>
+        </Card>
     )
 }

@@ -1,0 +1,61 @@
+import { Field, FieldContent, FieldDescription, FieldLabel, FieldTitle } from "@/components/ui/field"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+
+type Props = {
+    weeklyPrice: number,
+    monthlyPrice: number,
+    trophy: boolean,
+    nonTrophy: boolean,
+    setSelectedPlan: React.Dispatch<React.SetStateAction<string>>,
+    setSelectedAccountPlan: React.Dispatch<React.SetStateAction<string>>,
+}
+export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, trophy, nonTrophy, setSelectedPlan, setSelectedAccountPlan }: Props) {
+    return (
+        <>
+             <RadioGroup defaultValue="weekly" className="w-full grid grid-cols-1 md:grid-cols-2" onValueChange={(value) => setSelectedPlan(value)}>
+                <FieldLabel htmlFor="weekly-plan">
+                    <Field orientation="horizontal" className={'cursor-pointer'}>
+                        <FieldContent>
+                            <FieldTitle>Speedrunner Plan</FieldTitle>
+                            <FieldDescription>For gamers who loves speedrunning or just want to try the game.</FieldDescription>
+                            <FieldDescription className={'font-semibold text-blue-600'}>₱{weeklyPrice} per week</FieldDescription>
+                        </FieldContent>
+                        <RadioGroupItem value="weekly" id="weekly-plan" />
+                    </Field>
+                </FieldLabel>
+                <FieldLabel htmlFor="monthly-plan">
+                    <Field orientation="horizontal" className={'cursor-pointer'}>
+                        <FieldContent>
+                            <FieldTitle>Casual Dad Plan</FieldTitle>
+                            <FieldDescription>For gamers with limited play time but wants to finish the game.</FieldDescription>
+                            <FieldDescription className={'font-semibold text-blue-600'}>₱{monthlyPrice} per month</FieldDescription>
+                        </FieldContent>
+                        <RadioGroupItem value="monthly" id="monthly-plan" />
+                    </Field>
+                </FieldLabel>
+            </RadioGroup>
+
+            <RadioGroup defaultValue="primary" className="w-full grid grid-cols-1 md:grid-cols-2" onValueChange={(value) => setSelectedAccountPlan(value)}>
+                <FieldLabel htmlFor="primary-account">
+                    <Field orientation="horizontal" className={'cursor-pointer'}>
+                        <FieldContent>
+                            <FieldTitle>Primary</FieldTitle>
+                            <FieldDescription>Progress and achievements on your main account are tracked. Ideal for trophy hunters and completionists.</FieldDescription>
+                            <FieldDescription className={'font-semibold text-blue-600'}>+₱50 (One-time)</FieldDescription>
+                        </FieldContent>
+                        <RadioGroupItem value="primary" id="primary-account" disabled={!trophy} />
+                    </Field>
+                </FieldLabel>
+                <FieldLabel htmlFor="secondary-account">
+                    <Field orientation="horizontal" className={'cursor-pointer'}>
+                        <FieldContent>
+                            <FieldTitle>Secondary</FieldTitle>
+                            <FieldDescription>Full game access without restrictions. Simpler experience but no trophy syncing.</FieldDescription>
+                        </FieldContent>
+                        <RadioGroupItem value="secondary" id="secondary-account" disabled={!nonTrophy} />
+                    </Field>
+                </FieldLabel>
+            </RadioGroup>
+        </>
+    )
+}

@@ -13,7 +13,7 @@ export default function Header() {
             <h1>RentaPH</h1>
             <ul className="flex flex-row gap-x-6 cursor-pointer">
                 {
-                    ['Home', 'My Rentals', 'Dashboard'].map(item => (
+                    ['My Rentals', 'Dashboard', 'Login'].map(item => (
                         <li key={item}>
                             <Link href={page(item)}>{item}</Link>
                         </li>
