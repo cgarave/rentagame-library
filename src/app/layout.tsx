@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "RentaPH",
-  description: "Renting made cheap & easy",
+  description: "Play more, pay less",
 };
 
 export default function RootLayout({

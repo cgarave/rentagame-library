@@ -19,7 +19,8 @@ type GameCardProps = {
 export default function GameCard({ gameDetails }: GameCardProps) {
     return (
         <Card className="relative mx-auto w-full max-w-sm pt-0" size={'sm'}>
-            <Image src={gameDetails.gameImage} alt={gameDetails.gameTitle} width={500} height={500} className="h-36 w-full object-cover object-top" />
+            <Image src={gameDetails.gameImage} alt={gameDetails.gameTitle} width={500} height={500} className="h-48 w-full object-cover object-top" />
+            <Badge variant={'secondary'} className={'absolute top-4 right-4'}>Remaining: 1 day/s</Badge>
             <CardHeader>
                 <CardTitle className='text-lg truncate'>{gameDetails.gameTitle}</CardTitle>
                 <Badge variant={gameDetails.availableSlot !== 0 ? 'outline' : 'destructive'}>Available slot: {gameDetails.availableSlot ? gameDetails.availableSlot : 0}</Badge>
