@@ -11,6 +11,8 @@ type Props = {
         monthlyPrice: number,
         trophy: boolean,
         nonTrophy: boolean,
+        availableTrophy: number,
+        availableNonTrophy: number,
         renters: number,
         availableSlot: number,
     }
@@ -18,6 +20,10 @@ type Props = {
 export function DialogCloseButton({ gameDetails }: Props) {
     const [selectedPlan, setSelectedPlan] = useState<string>('weekly')
     const [selectedAccountPlan, setSelectedAccountPlan] = useState<string>('primary')
+
+    function handlePayment() {
+        console.log('Payment Test')
+    }
 
     return (
         <Dialog>
@@ -40,6 +46,8 @@ export function DialogCloseButton({ gameDetails }: Props) {
                             monthlyPrice={gameDetails.monthlyPrice}
                             trophy={gameDetails.trophy}
                             nonTrophy={gameDetails.nonTrophy}
+                            availableTrophy={gameDetails.availableTrophy}
+                            availableNonTrophy={gameDetails.availableNonTrophy}
                             setSelectedPlan={setSelectedPlan}
                             setSelectedAccountPlan={setSelectedAccountPlan}
                         />
@@ -49,7 +57,7 @@ export function DialogCloseButton({ gameDetails }: Props) {
                 <DialogFooter className="flex justify-end items-center">
                     <DialogTitle>Total: ₱{(selectedPlan === 'weekly' ? gameDetails.weeklyPrice : gameDetails.monthlyPrice) + (selectedAccountPlan === 'primary' ? 50 : 0)}</DialogTitle>
                     <DialogClose asChild>
-                        <Button type="button" className={'cursor-pointer'} disabled={gameDetails.availableSlot === 0}>Proceed to Payment</Button>
+                        <Button type="button" className={'cursor-pointer'} disabled={gameDetails.availableSlot === 0} onClick={handlePayment}>Proceed to Payment</Button>
                     </DialogClose>
                 </DialogFooter>
             </DialogContent>

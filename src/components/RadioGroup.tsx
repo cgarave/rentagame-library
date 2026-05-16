@@ -1,15 +1,18 @@
 import { Field, FieldContent, FieldDescription, FieldLabel, FieldTitle } from "@/components/ui/field"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Badge } from "@/components/ui/badge"
 
 type Props = {
     weeklyPrice: number,
     monthlyPrice: number,
     trophy: boolean,
     nonTrophy: boolean,
+    availableTrophy: number,
+    availableNonTrophy: number,
     setSelectedPlan: React.Dispatch<React.SetStateAction<string>>,
     setSelectedAccountPlan: React.Dispatch<React.SetStateAction<string>>,
 }
-export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, trophy, nonTrophy, setSelectedPlan, setSelectedAccountPlan }: Props) {
+export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, trophy, nonTrophy, availableTrophy, availableNonTrophy, setSelectedPlan, setSelectedAccountPlan }: Props) {
     return (
         <>
              <RadioGroup defaultValue="weekly" className="w-full grid grid-cols-1 md:grid-cols-2" onValueChange={(value) => setSelectedPlan(value)}>
@@ -39,7 +42,10 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, trophy, nonTro
                 <FieldLabel htmlFor="primary-account">
                     <Field orientation="horizontal" className={'cursor-pointer'}>
                         <FieldContent>
-                            <FieldTitle>Primary</FieldTitle>
+                            <FieldTitle>
+                                Primary
+                                <Badge variant={availableTrophy !== 0 ? 'outline' : 'destructive'}>Available: {availableTrophy}</Badge>
+                            </FieldTitle>
                             <FieldDescription>Progress and achievements on your main account are tracked. Ideal for trophy hunters and completionists.</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>+₱50 (One-time)</FieldDescription>
                         </FieldContent>
@@ -49,7 +55,10 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, trophy, nonTro
                 <FieldLabel htmlFor="secondary-account">
                     <Field orientation="horizontal" className={'cursor-pointer'}>
                         <FieldContent>
-                            <FieldTitle>Secondary</FieldTitle>
+                            <FieldTitle>
+                                Secondary
+                                <Badge variant={availableNonTrophy !== 0 ? 'outline' : 'destructive'}>Available: {availableNonTrophy}</Badge>
+                            </FieldTitle>
                             <FieldDescription>Full game access without restrictions. Simpler experience but no trophy syncing.</FieldDescription>
                         </FieldContent>
                         <RadioGroupItem value="secondary" id="secondary-account" disabled={!nonTrophy} />
