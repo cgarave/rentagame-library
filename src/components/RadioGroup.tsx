@@ -5,14 +5,12 @@ import { Badge } from "@/components/ui/badge"
 type Props = {
     weeklyPrice: number,
     monthlyPrice: number,
-    trophy: boolean,
-    nonTrophy: boolean,
     availableTrophy: number,
     availableNonTrophy: number,
     setSelectedPlan: React.Dispatch<React.SetStateAction<string>>,
     setSelectedAccountPlan: React.Dispatch<React.SetStateAction<string>>,
 }
-export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, trophy, nonTrophy, availableTrophy, availableNonTrophy, setSelectedPlan, setSelectedAccountPlan }: Props) {
+export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, setSelectedPlan, setSelectedAccountPlan }: Props) {
     return (
         <>
              <RadioGroup defaultValue="weekly" className="w-full grid grid-cols-1 md:grid-cols-2" onValueChange={(value) => setSelectedPlan(value)}>
@@ -49,7 +47,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, trophy, nonTro
                             <FieldDescription>Progress and achievements on your main account are tracked. Ideal for trophy hunters and completionists.</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>+₱50 (One-time)</FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="primary" id="primary-account" disabled={!trophy} />
+                        <RadioGroupItem value="primary" id="primary-account" disabled={availableTrophy === 0} />
                     </Field>
                 </FieldLabel>
                 <FieldLabel htmlFor="secondary-account">
@@ -61,7 +59,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, trophy, nonTro
                             </FieldTitle>
                             <FieldDescription>Full game access without restrictions. Simpler experience but no trophy syncing.</FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="secondary" id="secondary-account" disabled={!nonTrophy} />
+                        <RadioGroupItem value="secondary" id="secondary-account" disabled={availableNonTrophy === 0} />
                     </Field>
                 </FieldLabel>
             </RadioGroup>

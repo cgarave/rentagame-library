@@ -11,8 +11,6 @@ type GameCardProps = {
         gameTitle: string,
         weeklyPrice: number,
         monthlyPrice: number,
-        trophy: boolean,
-        nonTrophy: boolean,
         availableTrophy: number,
         availableNonTrophy: number,
         renters: number,

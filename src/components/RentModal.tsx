@@ -9,8 +9,6 @@ type Props = {
         gameTitle: string,
         weeklyPrice: number,
         monthlyPrice: number,
-        trophy: boolean,
-        nonTrophy: boolean,
         availableTrophy: number,
         availableNonTrophy: number,
         renters: number,
@@ -44,8 +42,6 @@ export function DialogCloseButton({ gameDetails }: Props) {
                         <RadioGroupChoiceCard
                             weeklyPrice={gameDetails.weeklyPrice}
                             monthlyPrice={gameDetails.monthlyPrice}
-                            trophy={gameDetails.trophy}
-                            nonTrophy={gameDetails.nonTrophy}
                             availableTrophy={gameDetails.availableTrophy}
                             availableNonTrophy={gameDetails.availableNonTrophy}
                             setSelectedPlan={setSelectedPlan}

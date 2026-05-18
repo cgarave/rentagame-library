@@ -1,31 +1,24 @@
+'use client'
+
 import { Plus } from "lucide-react"
 import Header from '@/components/Header'
 import AddGameModal from "@/components/AddGameModal";
 import { DropdownMenuComponent } from "@/components/DropdownMenu";
-import { mockData } from '@/app/mock.data'
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { GameDetails } from "@/types/GameDetails";
+import { useEffect, useState } from "react";
 
-type AddedGameDetailsProps = {
-    gameImage: string,
-    gameTitle: string,
-    weeklyPrice: number,
-    monthlyPrice: number,
-    trophy: boolean,
-    nonTrophy: boolean,
-    availableTrophy: number,
-    availableNonTrophy: number,
-    renters: number,
-    availableSlot: number,
-}
 export default function DashboardPage() {
+
+    const [games, setGames] = useState([])
+    useEffect(() => {
+        async function fetchGames() {
+            const response = await fetch('/api/games')
+            const games = await response.json()
+            setGames(games)
+        }
+        fetchGames()
+    }, []);
 
     return (
         <>
@@ -34,6 +27,7 @@ export default function DashboardPage() {
                 <h1 className={'font-bold text-4xl'}>Dashboard</h1>
                 <div className={'flex flex-row justify-end'}>
                     <AddGameModal
+                        gameListTitle={games}
                         buttonVariant={'default'}
                         buttonIcon={<Plus/>}
                         buttonName={'Add Game'}
@@ -43,11 +37,13 @@ export default function DashboardPage() {
                             closeButtonName: 'Cancel',
                             submitButtonName: 'Add Game',
                         }}
+                        onSubmitButton={'addGameFunction'}
                     />
                 </div>
                 <Table className={'mx-auto border'}>
                     <TableHeader>
                         <TableRow>
+                            <TableHead>Game Id</TableHead>
                             <TableHead>Game Title</TableHead>
                             <TableHead>Current Renters</TableHead>
                             <TableHead>Available Slots</TableHead>
@@ -59,16 +55,19 @@ export default function DashboardPage() {
                     </TableHeader>
                     <TableBody>
                         {
-                            mockData.map((game) => (
+                            games.map((game: GameDetails) => (
                                 <TableRow key={game.id}>
+                                    <TableCell>{game.id}</TableCell>
                                     <TableCell className={'font-semibold'}>{game.gameTitle}</TableCell>
-                                    <TableCell>{game.renters}</TableCell>
-                                    <TableCell>{game.availableSlot}</TableCell>
+                                    <TableCell>0</TableCell>
+                                    <TableCell>{game.slot}</TableCell>
                                     <TableCell>{game.weeklyPrice}</TableCell>
                                     <TableCell>{game.monthlyPrice}</TableCell>
                                     <TableCell>{game.availableTrophy}</TableCell>
                                     <TableCell>{game.availableNonTrophy}</TableCell>
-                                    <TableCell><DropdownMenuComponent/></TableCell>
+                                    <TableCell>
+                                        <DropdownMenuComponent/>
+                                    </TableCell>
                                 </TableRow>
                             ))
                         }
