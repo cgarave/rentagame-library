@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RentaPH",
+  title: "GameRentPH",
   description: "Play more, pay less",
 };
 

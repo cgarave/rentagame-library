@@ -4,12 +4,11 @@ import { Plus } from "lucide-react"
 import Header from '@/components/Header'
 import AddGameModal from "@/components/AddGameModal";
 import { DropdownMenuComponent } from "@/components/DropdownMenu";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { GameDetails } from "@/types/GameDetails";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useEffect, useState } from "react";
+import { GameDetails } from "@/types/GameDetails";
 
 export default function DashboardPage() {
-
     const [games, setGames] = useState([])
     useEffect(() => {
         async function fetchGames() {
@@ -19,6 +18,16 @@ export default function DashboardPage() {
         }
         fetchGames()
     }, []);
+
+    const [inputFieldsToAddGame, setInputFieldsToAddGame] = useState<GameDetails>({
+        gameImage: '',
+        gameTitle: '',
+        weeklyPrice: 0,
+        monthlyPrice: 0,
+        availableTrophy: 0,
+        availableNonTrophy: 0,
+        slot: 0,
+    } as GameDetails)
 
     return (
         <>
@@ -37,7 +46,9 @@ export default function DashboardPage() {
                             closeButtonName: 'Cancel',
                             submitButtonName: 'Add Game',
                         }}
-                        onSubmitButton={'addGameFunction'}
+                        buttonType={'add'}
+                        inputFieldsToAddGame={inputFieldsToAddGame}
+                        setInputFieldsToAddGame={setInputFieldsToAddGame}
                     />
                 </div>
                 <Table className={'mx-auto border'}>
@@ -66,7 +77,10 @@ export default function DashboardPage() {
                                     <TableCell>{game.availableTrophy}</TableCell>
                                     <TableCell>{game.availableNonTrophy}</TableCell>
                                     <TableCell>
-                                        <DropdownMenuComponent/>
+                                        <DropdownMenuComponent inputFieldsToAddGame={inputFieldsToAddGame}
+                                                               setInputFieldsToAddGame={setInputFieldsToAddGame}
+                                                               game={game}
+                                        />
                                     </TableCell>
                                 </TableRow>
                             ))

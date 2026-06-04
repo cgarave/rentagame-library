@@ -11,6 +11,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model Game {
     id Int @id @default(autoincrement())
     gameImage String
@@ -20,4 +25,13 @@ model Game {
     availableTrophy Int
     availableNonTrophy Int
     slot Int
+}
+
+model User {
+  user_id String @id @default(cuid())
+  name String
+  email String @unique
+  active_rent String[]
+  rent_history String[]
+  isAdmin Boolean @default(false)
 }
