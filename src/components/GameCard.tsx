@@ -1,5 +1,3 @@
-'use client'
-
 import Image from 'next/image'
 import { DialogCloseButton } from './RentModal'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,8 +9,6 @@ type GameCardProps = {
         gameTitle: string,
         weeklyPrice: number,
         monthlyPrice: number,
-        trophy: boolean,
-        nonTrophy: boolean,
         availableTrophy: number,
         availableNonTrophy: number,
         renters: number,
