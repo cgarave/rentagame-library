@@ -34,7 +34,7 @@ export function DropdownMenuComponent({ inputFieldsToAddGame, setInputFieldsToAd
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem variant="destructive" onClick={() => deleteGame(game.id)}>
+                    <DropdownMenuItem variant="destructive" onClick={() => game.id ? deleteGame(game.id) : null}>
                         <TrashIcon />
                         Delete
                     </DropdownMenuItem>

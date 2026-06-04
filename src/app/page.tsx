@@ -1,10 +1,10 @@
-import prisma from "@/lib/prisma"
 import Header from '@/components/Header'
 import { GamesContainer } from "@/components/GamesContainer";
 import GameCard from "@/components/GameCard";
+import { getGames } from "@/lib/actions";
 
 export default async function Home() {
-    const games = await prisma.game.findMany()
+    const games = await getGames();
     return (
         <>
             <Header />

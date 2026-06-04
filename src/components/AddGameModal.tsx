@@ -22,7 +22,7 @@ interface ModalDetails {
 }
 
 type Props = {
-    gameListTitle?: string[],
+    gameListTitle?: GameDetails[],
     buttonVariant: "link" | "default" | "outline" | "secondary" | "ghost" | "destructive" | null | undefined;
     buttonIcon?: React.ReactNode;
     buttonName: string;
@@ -70,17 +70,19 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
         }
     }
     async function updateGameFunction() {
-        if(inputFieldsToAddGame.gameImage !== '' && inputFieldsToAddGame.gameTitle !== '' && !newMap?.includes(inputFieldsToAddGame.gameTitle.toLowerCase())) {
-            await updateGame({
-                id: inputFieldsToAddGame.id,
-                gameImage: inputFieldsToAddGame.gameImage,
-                gameTitle: inputFieldsToAddGame.gameTitle,
-                weeklyPrice: inputFieldsToAddGame.weeklyPrice,
-                monthlyPrice: inputFieldsToAddGame.monthlyPrice,
-                availableTrophy: inputFieldsToAddGame.availableTrophy,
-                availableNonTrophy: inputFieldsToAddGame.availableNonTrophy,
-                slot: inputFieldsToAddGame.slot,
-            })
+        if(inputFieldsToAddGame.id && inputFieldsToAddGame.gameImage !== '' && inputFieldsToAddGame.gameTitle !== '' && !newMap?.includes(inputFieldsToAddGame.gameTitle.toLowerCase())) {
+            await updateGame(
+                inputFieldsToAddGame.id,
+                {
+                    gameImage: inputFieldsToAddGame.gameImage,
+                    gameTitle: inputFieldsToAddGame.gameTitle,
+                    weeklyPrice: inputFieldsToAddGame.weeklyPrice,
+                    monthlyPrice: inputFieldsToAddGame.monthlyPrice,
+                    availableTrophy: inputFieldsToAddGame.availableTrophy,
+                    availableNonTrophy: inputFieldsToAddGame.availableNonTrophy,
+                    slot: inputFieldsToAddGame.slot,
+                }
+            )
         } else {
             return null
         }

@@ -7,14 +7,16 @@ import { DropdownMenuComponent } from "@/components/DropdownMenu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useEffect, useState } from "react";
 import { GameDetails } from "@/types/GameDetails";
+import {getGames} from "@/lib/actions";
 
 export default function DashboardPage() {
-    const [games, setGames] = useState([])
+    const [games, setGames] = useState<GameDetails[]>([])
     useEffect(() => {
         async function fetchGames() {
-            const response = await fetch('/api/games')
-            const games = await response.json()
-            setGames(games)
+            // const response = await fetch('/api/games')
+            // const games = await response.json()
+            const data = await getGames()
+            setGames(data)
         }
         fetchGames()
     }, []);

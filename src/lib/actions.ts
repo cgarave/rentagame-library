@@ -1,42 +1,25 @@
 'use server'
 
-import {NextRequest, NextResponse} from 'next/server'
-import prisma from "@/lib/prisma";
-import { GameDetails } from "@/types/GameDetails";
+import { Prisma } from "@prisma/client";
+import prisma from "@/lib/prisma"
 
-export async function createGame(data: GameDetails): Promise<GameDetails> {
-    try {
-        return await prisma.game.create({ data })
-    } catch (error) {
-        console.error('Create game failed:', error)
-        throw new Error('Failed to create game')
-    }
+export async function getGames() {
+    return prisma.game.findMany()
 }
 
-export async function updateGame(data: GameDetails): Promise<GameDetails> {
-    try {
-        return await prisma.game.update({
-            where: {
-                id: data.id
-            },
-            data: data
-        })
-    } catch (error) {
-        console.error('Update game details failed:',error);
-        throw new Error('Failed to update game details')
-    }
+export async function createGame(data: Prisma.GameCreateInput) {
+    return prisma.game.create({ data })
 }
 
-export async function deleteGame(id: number | undefined) {
-    try {
-        return await prisma.game.delete({
-            where: {
-                id: id
-            }
-        })
-    } catch (error) {
-        console.error('Delete game failed:',error);
-        throw new Error('Failed to delete game')
-    }
+export async function updateGame(id: string, data: Prisma.GameUpdateInput) {
+    return prisma.game.update({
+        where: { id: id },
+        data
+    })
 }
 
+export async function deleteGame(id: string) {
+    return prisma.game.delete({
+        where: { id: id },
+    })
+}

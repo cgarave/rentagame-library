@@ -11,13 +11,8 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
 model Game {
-    id Int @id @default(autoincrement())
+    id String @id @default(cuid(1))
     gameImage String
     gameTitle String
     weeklyPrice Int
@@ -28,7 +23,7 @@ model Game {
 }
 
 model User {
-  user_id String @id @default(cuid())
+  user_id String @id @default(cuid(1))
   name String
   email String @unique
   active_rent String[]

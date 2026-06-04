@@ -1,5 +1,5 @@
 export interface GameDetails {
-    id?: number,
+    id?: string,
     gameImage: string,
     gameTitle: string,
     weeklyPrice: number,
