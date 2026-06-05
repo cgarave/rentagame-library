@@ -56,7 +56,6 @@ export default function DashboardPage() {
                 <Table className={'mx-auto border'}>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Game Id</TableHead>
                             <TableHead>Game Title</TableHead>
                             <TableHead>Current Renters</TableHead>
                             <TableHead>Available Slots</TableHead>
@@ -70,7 +69,6 @@ export default function DashboardPage() {
                         {
                             games.map((game: GameDetails) => (
                                 <TableRow key={game.id}>
-                                    <TableCell>{game.id}</TableCell>
                                     <TableCell className={'font-semibold'}>{game.gameTitle}</TableCell>
                                     <TableCell>0</TableCell>
                                     <TableCell>{game.slot}</TableCell>
