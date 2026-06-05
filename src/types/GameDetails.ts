@@ -6,5 +6,6 @@ export interface GameDetails {
     monthlyPrice: number,
     availableTrophy: number,
     availableNonTrophy: number,
+    renters: number,
     slot: number
 }

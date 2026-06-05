@@ -28,6 +28,7 @@ export default function DashboardPage() {
         monthlyPrice: 0,
         availableTrophy: 0,
         availableNonTrophy: 0,
+        renters: 0,
         slot: 0,
     } as GameDetails)
 
@@ -70,7 +71,7 @@ export default function DashboardPage() {
                             games.map((game: GameDetails) => (
                                 <TableRow key={game.id}>
                                     <TableCell className={'font-semibold'}>{game.gameTitle}</TableCell>
-                                    <TableCell>0</TableCell>
+                                    <TableCell>{game.renters}</TableCell>
                                     <TableCell>{game.slot}</TableCell>
                                     <TableCell>{game.weeklyPrice}</TableCell>
                                     <TableCell>{game.monthlyPrice}</TableCell>

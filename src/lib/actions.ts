@@ -2,24 +2,28 @@
 
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma"
+import { refresh, revalidatePath } from 'next/cache'
 
 export async function getGames() {
     return prisma.game.findMany()
 }
 
 export async function createGame(data: Prisma.GameCreateInput) {
-    return prisma.game.create({ data })
+    await prisma.game.create({ data })
 }
 
 export async function updateGame(id: string, data: Prisma.GameUpdateInput) {
-    return prisma.game.update({
+    await prisma.game.update({
         where: { id: id },
         data
     })
+
+    revalidatePath('/');
+    revalidatePath('/dashboard');
 }
 
 export async function deleteGame(id: string) {
-    return prisma.game.delete({
+    await prisma.game.delete({
         where: { id: id },
     })
 }

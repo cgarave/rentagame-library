@@ -14,16 +14,15 @@ export default async function Home() {
                     {
                         games.map((game) => (
                             <GameCard key={game.id}
-                                      gameDetails={{
-                                          gameImage: game.gameImage,
-                                          gameTitle: game.gameTitle,
-                                          weeklyPrice: game.weeklyPrice,
-                                          monthlyPrice: game.monthlyPrice,
-                                          availableTrophy: game.availableTrophy,
-                                          availableNonTrophy: game.availableNonTrophy,
-                                          renters: 0,
-                                          availableSlot: game.slot,
-                                      }}
+                                      id={game.id}
+                                      gameImage={game.gameImage}
+                                      gameTitle={game.gameTitle}
+                                      weeklyPrice={game.weeklyPrice}
+                                      monthlyPrice={game.monthlyPrice}
+                                      availableTrophy={game.availableTrophy}
+                                      availableNonTrophy={game.availableNonTrophy}
+                                      renters={game.renters}
+                                      slot={game.slot}
                             />
                         ))
                     }

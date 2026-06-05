@@ -2,31 +2,28 @@ import Image from 'next/image'
 import { DialogCloseButton } from './RentModal'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { GameDetails } from '@/types/GameDetails'
 
-type GameCardProps = {
-    gameDetails: {
-        gameImage: string,
-        gameTitle: string,
-        weeklyPrice: number,
-        monthlyPrice: number,
-        availableTrophy: number,
-        availableNonTrophy: number,
-        renters: number,
-        availableSlot: number,
-    }
-}
-export default function GameCard({ gameDetails }: GameCardProps) {
+export default function GameCard({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot }: GameDetails) {
     return (
         <Card className="relative mx-auto w-full max-w-sm pt-0" size={'sm'}>
-            <Image src={gameDetails.gameImage} alt={gameDetails.gameTitle} width={500} height={500} className="h-48 w-full object-cover object-top" />
+            <Image src={gameImage} alt={gameTitle} width={500} height={500} className="h-48 w-full object-cover object-top" />
             <Badge variant={'secondary'} className={'absolute top-4 right-4'}>Remaining: 1 day/s</Badge>
             <CardHeader>
-                <CardTitle className='text-lg truncate'>{gameDetails.gameTitle}</CardTitle>
-                <Badge variant={gameDetails.availableSlot !== 0 ? 'outline' : 'destructive'}>Available slot: {gameDetails.availableSlot ? gameDetails.availableSlot : 0}</Badge>
-                <Badge variant="outline">Renters: {gameDetails.renters ? gameDetails.renters : 0}</Badge>
+                <CardTitle className='text-lg truncate'>{gameTitle}</CardTitle>
+                <Badge variant={slot !== 0 ? 'outline' : 'destructive'}>Available slot: {slot ? slot : 0}</Badge>
+                <Badge variant="outline">Renters: {renters ? renters : 0}</Badge>
             </CardHeader>
             <CardFooter>
-                <DialogCloseButton gameDetails={gameDetails} />
+                <DialogCloseButton  id={id}
+                                    gameImage={gameImage}
+                                    gameTitle={gameTitle}
+                                    weeklyPrice={weeklyPrice}
+                                    monthlyPrice={monthlyPrice}
+                                    availableTrophy={availableTrophy}
+                                    availableNonTrophy={availableNonTrophy}
+                                    renters={renters}
+                                    slot={slot} />
             </CardFooter>
         </Card>
     )

@@ -19,6 +19,7 @@ model Game {
     monthlyPrice Int
     availableTrophy Int
     availableNonTrophy Int
+    renters Int @default(0)
     slot Int
 }
 
