@@ -1,10 +1,12 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Field, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { GameDetails } from "@/types/GameDetails";
-import {ChangeEvent } from "react"
+import { ChangeEvent, useState, ReactNode } from "react"
 import { createGame, updateGame } from "@/lib/actions";
 
 interface ModalDetails {
@@ -24,16 +26,25 @@ interface ModalDetails {
 type Props = {
     gameListTitle?: GameDetails[],
     buttonVariant: "link" | "default" | "outline" | "secondary" | "ghost" | "destructive" | null | undefined;
-    buttonIcon?: React.ReactNode;
+    buttonIcon?: ReactNode;
     buttonName: string;
     modalDetails: ModalDetails;
     buttonType: "add" | "update";
-    inputFieldsToAddGame: GameDetails;
-    setInputFieldsToAddGame: React.Dispatch<React.SetStateAction<GameDetails>>;
     game?: GameDetails;
 }
-export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, buttonName, modalDetails, buttonType, inputFieldsToAddGame, setInputFieldsToAddGame, game}: Props) {
+export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, buttonName, modalDetails, buttonType, game}: Props) {
     //asChild meaning handle as child yung component instead yung default
+
+    const [inputFieldsToAddGame, setInputFieldsToAddGame] = useState<GameDetails>({
+        gameImage: '',
+        gameTitle: '',
+        weeklyPrice: 0,
+        monthlyPrice: 0,
+        availableTrophy: 0,
+        availableNonTrophy: 0,
+        renters: 0,
+        slot: 0,
+    } as GameDetails)
 
     const newMap = gameListTitle?.flatMap(game => {
         return Object.values(game)[2].toLowerCase()
@@ -95,15 +106,16 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                     <Button variant={buttonVariant}
                             className={'w-full justify-start'}
                             //to avoid type checking error when using optional prop on reusable components, use && to confirm that game has
-                            onClick={buttonType === 'update' && game ? () => setInputFieldsToAddGame(game) : buttonType === 'add' ? () => setInputFieldsToAddGame({
-                        gameImage: '',
-                        gameTitle: '',
-                        weeklyPrice: 0,
-                        monthlyPrice: 0,
-                        availableTrophy: 0,
-                        availableNonTrophy: 0,
-                        slot: 0,
-                    } as GameDetails) : undefined}>
+                            onClick={ buttonType === 'update' && game ? () => setInputFieldsToAddGame(game) : buttonType === 'add' ? () => setInputFieldsToAddGame({
+                                gameImage: '',
+                                gameTitle: '',
+                                weeklyPrice: 0,
+                                monthlyPrice: 0,
+                                availableTrophy: 0,
+                                availableNonTrophy: 0,
+                                slot: 0,
+                            } as GameDetails) : undefined } 
+                    >
                         {buttonIcon}
                         {buttonName}
                     </Button>

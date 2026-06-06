@@ -7,7 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { GameDetails } from "@/types/GameDetails";
 import { deleteGame } from "@/lib/actions";
 
-export function DropdownMenuComponent({ inputFieldsToAddGame, setInputFieldsToAddGame, game }: {inputFieldsToAddGame: GameDetails, setInputFieldsToAddGame: React.Dispatch<React.SetStateAction<GameDetails>>, game: GameDetails} ) {
+export function DropdownMenuComponent({ game }: {game: GameDetails} ) {
 
     return (
         <DropdownMenu>
@@ -27,8 +27,6 @@ export function DropdownMenuComponent({ inputFieldsToAddGame, setInputFieldsToAd
                             submitButtonName: 'Update',
                         }}
                         buttonType={'update'}
-                        inputFieldsToAddGame={inputFieldsToAddGame}
-                        setInputFieldsToAddGame={setInputFieldsToAddGame}
                         game={game}
                     />
                 </DropdownMenuGroup>
