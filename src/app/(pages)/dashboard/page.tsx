@@ -1,36 +1,14 @@
-'use client'
-
 import { Plus } from "lucide-react"
 import Header from '@/components/Header'
 import AddGameModal from "@/components/AddGameModal";
 import { DropdownMenuComponent } from "@/components/DropdownMenu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useEffect, useState } from "react";
 import { GameDetails } from "@/types/GameDetails";
-import {getGames} from "@/lib/actions";
+import { getGames } from "@/lib/actions";
 
-export default function DashboardPage() {
-    const [games, setGames] = useState<GameDetails[]>([])
-    useEffect(() => {
-        async function fetchGames() {
-            // const response = await fetch('/api/games')
-            // const games = await response.json()
-            const data = await getGames()
-            setGames(data)
-        }
-        fetchGames()
-    }, []);
+export default async function DashboardPage() {
 
-    const [inputFieldsToAddGame, setInputFieldsToAddGame] = useState<GameDetails>({
-        gameImage: '',
-        gameTitle: '',
-        weeklyPrice: 0,
-        monthlyPrice: 0,
-        availableTrophy: 0,
-        availableNonTrophy: 0,
-        renters: 0,
-        slot: 0,
-    } as GameDetails)
+    const games = await getGames()
 
     return (
         <>
@@ -39,7 +17,6 @@ export default function DashboardPage() {
                 <h1 className={'font-bold text-4xl'}>Dashboard</h1>
                 <div className={'flex flex-row justify-end'}>
                     <AddGameModal
-                        gameListTitle={games}
                         buttonVariant={'default'}
                         buttonIcon={<Plus/>}
                         buttonName={'Add Game'}
@@ -50,8 +27,6 @@ export default function DashboardPage() {
                             submitButtonName: 'Add Game',
                         }}
                         buttonType={'add'}
-                        inputFieldsToAddGame={inputFieldsToAddGame}
-                        setInputFieldsToAddGame={setInputFieldsToAddGame}
                     />
                 </div>
                 <Table className={'mx-auto border'}>
@@ -78,10 +53,7 @@ export default function DashboardPage() {
                                     <TableCell>{game.availableTrophy}</TableCell>
                                     <TableCell>{game.availableNonTrophy}</TableCell>
                                     <TableCell>
-                                        <DropdownMenuComponent inputFieldsToAddGame={inputFieldsToAddGame}
-                                                               setInputFieldsToAddGame={setInputFieldsToAddGame}
-                                                               game={game}
-                                        />
+                                        <DropdownMenuComponent game={game} />
                                     </TableCell>
                                 </TableRow>
                             ))
