@@ -42,7 +42,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                         <FieldContent>
                             <FieldTitle>
                                 Primary
-                                <Badge variant={availableTrophy !== 0 ? 'outline' : 'destructive'}>Available: {availableTrophy}</Badge>
+                                <Badge variant={availableTrophy !== 0 ? 'outline' : 'destructive'}>{availableTrophy !== 0 ? 'Available' : 'Unavailable'}: {availableTrophy}</Badge>
                             </FieldTitle>
                             <FieldDescription>Progress and achievements on your main account are tracked. Ideal for trophy hunters and completionists.</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>+₱50 (One-time)</FieldDescription>
@@ -55,7 +55,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                         <FieldContent>
                             <FieldTitle>
                                 Secondary
-                                <Badge variant={availableNonTrophy !== 0 ? 'outline' : 'destructive'}>Available: {availableNonTrophy}</Badge>
+                                <Badge variant={availableNonTrophy !== 0 ? 'outline' : 'destructive'}>{availableNonTrophy !== 0 ? 'Available' : 'Unavailable'}: {availableNonTrophy}</Badge>
                             </FieldTitle>
                             <FieldDescription>Full game access without restrictions. Simpler experience but no trophy syncing.</FieldDescription>
                         </FieldContent>

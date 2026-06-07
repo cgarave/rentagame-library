@@ -13,14 +13,22 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
     const [selectedAccountPlan, setSelectedAccountPlan] = useState<string>('primary')
 
     async function handlePayment() {
-        if (id) await updateGame(id, {
-            renters: renters + 1,
-            slot: slot - 1,
-        })
-        // if (id) await updateGame(id, {
-        //     renters: 0,
-        //     slot: 1,
-        // })
+        switch (selectedAccountPlan) {
+            case 'primary':
+                if (id) await updateGame(id, {
+                    availableTrophy: availableTrophy - 1,
+                    renters: renters + 1,
+                    slot: slot - 1,
+                })
+                break;
+            case 'secondary':
+                if (id) await updateGame(id, {
+                    availableNonTrophy: availableNonTrophy - 1,
+                    renters: renters + 1,
+                    slot: slot - 1,
+                })
+                break;
+        }
     }
 
     return (
