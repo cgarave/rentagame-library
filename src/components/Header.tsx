@@ -2,20 +2,10 @@
 import Link from 'next/link'
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button"
+import { User } from "@/types/User"
 
-// const Dashboard = () => {
-//     const isAdmin = true
-//     if (isAdmin) {
-//         return (
-//             <li>
-//                 <Link className={`${pathname === '/my-rentals' ? 'text-white' : 'text-zinc-400'}`} href={'/dashboard'}>Dashboard</Link>
-//             </li>
-//         )
-//     }
-// }
-export default function Header() {
+export default function Header({ user }: { user: User | null }) {
     const pathname = usePathname()
-    const isAdmin = true
     return (
         <header className="fixed top-0 flex flex-row justify-between items-center px-6 py-4 bg-zinc-800 w-full text-white">
             <h1 className='font-bold text-xl'>GameRentPH</h1>
@@ -28,8 +18,7 @@ export default function Header() {
                         <Link className={`${pathname === '/my-rentals' ? 'text-white font-semibold' : 'text-zinc-400 cursor-pointer py-4'}`} href={'/my-rentals'}>My Rentals</Link>
                     </li>
                     {
-                        isAdmin &&
-                        (
+                        user?.isAdmin && (
                             <li>
                                 <Link className={`${pathname === '/dashboard' ? 'text-white font-semibold' : 'text-zinc-400 cursor-pointer py-4'}`} href={'/dashboard'}>Dashboard</Link>
                             </li>

@@ -32,3 +32,9 @@ export async function deleteGame(id: string) {
     revalidatePath('/');
     revalidatePath('/dashboard');
 }
+
+export async function userAuth(id: string) {
+    return prisma.user.findUnique({
+        where: { id: id }
+    })
+}

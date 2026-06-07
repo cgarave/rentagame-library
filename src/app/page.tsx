@@ -1,13 +1,14 @@
 import Header from '@/components/Header'
 import { GamesContainer } from "@/components/GamesContainer";
 import GameCard from "@/components/GameCard";
-import { getGames } from "@/lib/actions";
+import { getGames, userAuth } from "@/lib/actions";
 
 export default async function Home() {
     const games = await getGames();
+    const user = await userAuth('rave123');
     return (
         <>
-            <Header />
+            <Header user={user} />
             <main className={'flex flex-col gap-y-6 mt-30 px-3 xl:px-0 xl:w-[1280px] xl:mx-auto'}>
                 <h1 className={'font-bold text-4xl'}>Browse Games</h1>
                 <GamesContainer>

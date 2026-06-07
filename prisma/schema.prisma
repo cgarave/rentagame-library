@@ -21,13 +21,42 @@ model Game {
     availableNonTrophy Int
     renters Int @default(0)
     slot Int
+    rentals Rental[]
 }
 
 model User {
-  user_id String @id @default(cuid(1))
-  name String
-  email String @unique
-  active_rent String[]
-  rent_history String[]
-  isAdmin Boolean @default(false)
+    id String @id @default(cuid(1))
+    name String
+    email String @unique
+    isAdmin Boolean @default(false)
+    rentals Rental[]
+}
+
+model Rental {
+    id          String @id @default(cuid(1))
+
+    user        User @relation(fields: [userId], references: [id])
+    userId      String
+
+    game        Game @relation(fields: [gameId], references: [id])
+    gameId      String
+
+    rentType    RentType
+    status      RentStatus
+
+    rentedAt    DateTime @default(now())
+    expiresAt   DateTime
+
+    createdAt   DateTime @default(now())
+}
+
+enum RentType {
+    WEEKLY
+    MONTHLY
+}
+
+enum RentStatus {
+    ACTIVE
+    COMPLETED
+    CANCELLED
 }
