@@ -5,7 +5,7 @@ import { getGames, userAuth } from "@/lib/actions";
 
 export default async function Home() {
     const games = await getGames();
-    const user = await userAuth('rave123');
+    const user = await userAuth('rave1234');
     return (
         <>
             <Header user={user} />
