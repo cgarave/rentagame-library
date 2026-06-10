@@ -43,6 +43,7 @@ model Rental {
 
     rentType    RentType
     status      RentStatus
+    accountPlan AccountPlan @default(TROPHY)
 
     rentedAt    DateTime @default(now())
     expiresAt   DateTime
@@ -59,4 +60,9 @@ enum RentStatus {
     ACTIVE
     COMPLETED
     CANCELLED
+}
+
+enum AccountPlan {
+    TROPHY
+    NONTROPHY
 }

@@ -1,5 +1,4 @@
 import { Plus } from "lucide-react"
-import Header from '@/components/Header'
 import AddGameModal from "@/components/AddGameModal";
 import { DropdownMenuComponent } from "@/components/DropdownMenu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -12,7 +11,6 @@ export default async function DashboardPage() {
 
     return (
         <>
-            <Header />
             <main className={'flex flex-col gap-y-6 py-30 px-40 h-screen'}>
                 <h1 className={'font-bold text-4xl'}>Dashboard</h1>
                 <div className={'flex flex-row justify-end'}>

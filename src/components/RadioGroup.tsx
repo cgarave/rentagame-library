@@ -47,7 +47,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                             <FieldDescription>Progress and achievements on your main account are tracked. Ideal for trophy hunters and completionists.</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>+₱50 (One-time)</FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="primary" id="primary-account" disabled={availableTrophy === 0} />
+                        <RadioGroupItem value="trophy" id="primary-account" disabled={availableTrophy === 0} />
                     </Field>
                 </FieldLabel>
                 <FieldLabel htmlFor="secondary-account">
@@ -59,7 +59,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                             </FieldTitle>
                             <FieldDescription>Full game access without restrictions. Simpler experience but no trophy syncing.</FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="secondary" id="secondary-account" disabled={availableNonTrophy === 0} />
+                        <RadioGroupItem value="nonTrophy" id="secondary-account" disabled={availableNonTrophy === 0} />
                     </Field>
                 </FieldLabel>
             </RadioGroup>

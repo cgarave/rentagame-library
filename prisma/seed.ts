@@ -17,7 +17,7 @@ const gameData: Prisma.GameCreateInput[] = [
         availableTrophy: 1,
         availableNonTrophy: 1,
         renters: 0,
-        slot: 1
+        slot: 2
     },
     {
         gameImage: 'https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/97e9f5fa6e50c185d249956c6f198a2652a9217e69a59ecd.jpg?',
@@ -27,7 +27,7 @@ const gameData: Prisma.GameCreateInput[] = [
         availableTrophy: 2,
         availableNonTrophy: 2,
         renters: 0,
-        slot: 2
+        slot: 4
     }
 ]
 

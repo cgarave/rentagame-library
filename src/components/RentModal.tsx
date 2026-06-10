@@ -6,28 +6,80 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 import { GameDetails } from "@/types/GameDetails";
-import { updateGame } from "@/lib/actions";
+import {updateGame, createRental} from "@/lib/actions";
 
 export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot }: GameDetails) {
     const [selectedPlan, setSelectedPlan] = useState<string>('weekly')
-    const [selectedAccountPlan, setSelectedAccountPlan] = useState<string>('primary')
+    const [selectedAccountPlan, setSelectedAccountPlan] = useState<string>('trophy')
 
     async function handlePayment() {
-        switch (selectedAccountPlan) {
-            case 'primary':
-                if (id) await updateGame(id, {
-                    availableTrophy: availableTrophy - 1,
-                    renters: renters + 1,
-                    slot: slot - 1,
-                })
-                break;
-            case 'secondary':
-                if (id) await updateGame(id, {
-                    availableNonTrophy: availableNonTrophy - 1,
-                    renters: renters + 1,
-                    slot: slot - 1,
-                })
-                break;
+        if (id){
+            switch (selectedPlan){
+                case 'weekly':
+                    switch (selectedAccountPlan){
+                        case 'trophy':
+                            await updateGame(id, {
+                                availableTrophy: availableTrophy! - 1,
+                                renters: renters! + 1,
+                                slot: slot! - 1,
+                            })
+                            await createRental({
+                                userId: 'rave123',
+                                gameId: id,
+                                status: "ACTIVE",
+                                rentType: "WEEKLY",
+                                accountPlan: "TROPHY"
+                            })
+                            break
+                        case 'nonTrophy':
+                            await updateGame(id, {
+                                availableNonTrophy: availableNonTrophy! - 1,
+                                renters: renters! + 1,
+                                slot: slot! - 1,
+                            })
+                            await createRental({
+                                userId: 'rave123',
+                                gameId: id,
+                                status: "ACTIVE",
+                                rentType: "WEEKLY",
+                                accountPlan: "NONTROPHY"
+                            })
+                            break
+                    }
+                    break
+                case 'monthly':
+                    switch (selectedAccountPlan){
+                        case 'trophy':
+                            await updateGame(id, {
+                                availableTrophy: availableTrophy! - 1,
+                                renters: renters! + 1,
+                                slot: slot! - 1,
+                            })
+                            await createRental({
+                                userId: 'rave123',
+                                gameId: id,
+                                status: "ACTIVE",
+                                rentType: "MONTHLY",
+                                accountPlan: "TROPHY"
+                            })
+                            break
+                        case 'nonTrophy':
+                            await updateGame(id, {
+                                availableNonTrophy: availableNonTrophy! - 1,
+                                renters: renters! + 1,
+                                slot: slot! - 1,
+                            })
+                            await createRental({
+                                userId: 'rave123',
+                                gameId: id,
+                                status: "ACTIVE",
+                                rentType: "MONTHLY",
+                                accountPlan: "NONTROPHY"
+                            })
+                            break
+                    }
+                    break
+            }
         }
     }
 
@@ -48,10 +100,10 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                     </div>
                     <div className="grid flex-1 gap-2">
                         <RadioGroupChoiceCard
-                            weeklyPrice={weeklyPrice}
-                            monthlyPrice={monthlyPrice}
-                            availableTrophy={availableTrophy}
-                            availableNonTrophy={availableNonTrophy}
+                            weeklyPrice={weeklyPrice!}
+                            monthlyPrice={monthlyPrice!}
+                            availableTrophy={availableTrophy!}
+                            availableNonTrophy={availableNonTrophy!}
                             setSelectedPlan={setSelectedPlan}
                             setSelectedAccountPlan={setSelectedAccountPlan}
                         />
@@ -59,7 +111,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                 </div>
 
                 <DialogFooter className="flex justify-end items-center">
-                    <DialogTitle>Total: ₱{(selectedPlan === 'weekly' ? weeklyPrice : monthlyPrice) + (selectedAccountPlan === 'primary' ? 50 : 0)}</DialogTitle>
+                    <DialogTitle>Total: ₱{(selectedPlan === 'weekly' ? weeklyPrice! : monthlyPrice!) + (selectedAccountPlan === 'trophy' ? 50 : 0)}</DialogTitle>
                     <DialogClose asChild>
                         <Button type="button" 
                                 className={'cursor-pointer'} 

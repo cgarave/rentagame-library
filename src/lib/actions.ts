@@ -1,9 +1,10 @@
 'use server'
 
-import { Prisma } from "@prisma/client";
+import { Prisma, RentStatus, RentType, AccountPlan } from "@prisma/client";
 import prisma from "@/lib/prisma"
 import { revalidatePath } from 'next/cache'
 
+// Dashboard CRUD actions
 export async function getGames() {
     return prisma.game.findMany()
 }
@@ -33,8 +34,60 @@ export async function deleteGame(id: string) {
     revalidatePath('/dashboard');
 }
 
+// Authentication
 export async function userAuth(id: string) {
     return prisma.user.findUnique({
-        where: { id: id }
+        where: { id: id },
+        include: {
+            rentals: true
+        }
+    })
+}
+
+// Rentals
+function getExpiryDate(rentType: RentType) {
+    const date = new Date()
+
+    switch (rentType) {
+        case "WEEKLY":
+            date.setDate(date.getDate() + 7)
+            break
+        case "MONTHLY":
+            date.setMonth(date.getMonth() + 1)
+            break
+    }
+
+    return date
+}
+interface rentalData {
+    userId: string;
+    gameId: string;
+    status: RentStatus;
+    rentType: RentType;
+    accountPlan : AccountPlan;
+}
+export async function createRental(input: rentalData) {
+    const { userId, gameId, status, rentType, accountPlan } = input;
+    return prisma.rental.create({
+        data: {
+            userId,
+            gameId,
+            status,
+            rentType,
+            accountPlan,
+            expiresAt: getExpiryDate(rentType),
+        }
+    })
+}
+
+export async function findRental(id: string) {
+    return prisma.game.findMany({
+        where: {
+            rentals: {
+                some: {
+                    userId: id,
+                },
+            },
+        },
     })
 }
