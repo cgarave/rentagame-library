@@ -3,7 +3,7 @@ import GameCard from "@/components/GameCard";
 import { findRental } from "@/lib/actions";
 
 export default async function MyRentalsPage() {
-    const activeGames = await findRental('rave123');
+    const activeGames = await findRental('cmq84g4du00036rpby5amznbr');
 
     return (
         <>

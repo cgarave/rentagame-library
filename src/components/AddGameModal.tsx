@@ -51,7 +51,14 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
     })
 
     async function addGameFunction() {
-        if (inputFieldsToAddGame.gameImage !== '' && inputFieldsToAddGame.gameTitle !== '' && !newMap?.includes(inputFieldsToAddGame.gameTitle.toLowerCase())) {
+        if (inputFieldsToAddGame.gameImage !== ''
+            && inputFieldsToAddGame.gameTitle !== ''
+            && !newMap?.includes(inputFieldsToAddGame.gameTitle.toLowerCase())
+            && inputFieldsToAddGame.weeklyPrice
+            && inputFieldsToAddGame.monthlyPrice
+            && inputFieldsToAddGame.availableTrophy
+            && inputFieldsToAddGame.availableNonTrophy
+            && inputFieldsToAddGame.slot) {
             // await fetch('/api/games/', {
             //     method: 'POST',
             //     headers: {

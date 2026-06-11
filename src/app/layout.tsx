@@ -27,7 +27,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await userAuth('rave1234');
+  const user = await userAuth('cmq84g4du00036rpby5amznbr');
   return (
     <html
       lang="en"

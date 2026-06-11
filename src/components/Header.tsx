@@ -18,15 +18,15 @@ export default function Header({ user }: { user: User | null }) {
                         <Link className={`${pathname === '/my-rentals' ? 'text-white font-semibold' : 'text-zinc-400 cursor-pointer py-4'}`} href={'/my-rentals'}>My Rentals</Link>
                     </li>
                     {
-                        user?.isAdmin && (
+                        user ? user?.isAdmin && (
                             <li>
                                 <Link className={`${pathname === '/dashboard' ? 'text-white font-semibold' : 'text-zinc-400 cursor-pointer py-4'}`} href={'/dashboard'}>Dashboard</Link>
                             </li>
-                        )
+                        ) : null
                     }
                 </ul>
                 <Button asChild variant={'secondary'} className={'px-6'}>
-                    <Link href="/login">Login</Link>
+                    <Link href="/sign-in">Sign In</Link>
                 </Button>
             </nav>
         </header>

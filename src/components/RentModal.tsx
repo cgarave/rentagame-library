@@ -24,7 +24,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 slot: slot! - 1,
                             })
                             await createRental({
-                                userId: 'rave123',
+                                userId: 'cmq84g4du00036rpby5amznbr',
                                 gameId: id,
                                 status: "ACTIVE",
                                 rentType: "WEEKLY",
@@ -38,7 +38,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 slot: slot! - 1,
                             })
                             await createRental({
-                                userId: 'rave123',
+                                userId: 'cmq84g4du00036rpby5amznbr',
                                 gameId: id,
                                 status: "ACTIVE",
                                 rentType: "WEEKLY",
@@ -56,7 +56,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 slot: slot! - 1,
                             })
                             await createRental({
-                                userId: 'rave123',
+                                userId: 'cmq84g4du00036rpby5amznbr',
                                 gameId: id,
                                 status: "ACTIVE",
                                 rentType: "MONTHLY",
@@ -70,7 +70,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 slot: slot! - 1,
                             })
                             await createRental({
-                                userId: 'rave123',
+                                userId: 'cmq84g4du00036rpby5amznbr',
                                 gameId: id,
                                 status: "ACTIVE",
                                 rentType: "MONTHLY",
