@@ -10,4 +10,13 @@ export const auth = betterAuth({
         enabled: true,
     },
     trustedOrigins: ["http://localhost:3001"],
+    user: {
+        additionalFields: {
+            isAdmin: {
+                type: "boolean",
+                defaultValue: false,
+                input: false,
+            }
+        }
+    }
 });

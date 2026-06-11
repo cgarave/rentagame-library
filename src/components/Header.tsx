@@ -2,10 +2,22 @@
 import Link from 'next/link'
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button"
-import { User } from "@/types/User"
+import { signOut, useSession } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
-export default function Header({ user }: { user: User | null }) {
+export default function Header() {
     const pathname = usePathname()
+    const router = useRouter()
+    const { data: session, error, isPending, refetch } = useSession()
+    async function handleLogout() {
+        await signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    router.push("/sign-in")
+                }
+            }
+        })
+    }
     return (
         <header className="fixed top-0 flex flex-row justify-between items-center px-6 py-4 bg-zinc-800 w-full text-white">
             <h1 className='font-bold text-xl'>GameRentPH</h1>
@@ -14,20 +26,29 @@ export default function Header({ user }: { user: User | null }) {
                     <li>
                         <Link className={`${pathname === '/' ? 'text-white font-semibold' : 'text-zinc-400 cursor-pointer py-4'}`} href={'/'}>Browse Games</Link>
                     </li>
-                    <li>
-                        <Link className={`${pathname === '/my-rentals' ? 'text-white font-semibold' : 'text-zinc-400 cursor-pointer py-4'}`} href={'/my-rentals'}>My Rentals</Link>
-                    </li>
                     {
-                        user ? user?.isAdmin && (
+                        session?.user && (
+                            <li>
+                                <Link className={`${pathname === '/my-rentals' ? 'text-white font-semibold' : 'text-zinc-400 cursor-pointer py-4'}`} href={'/my-rentals'}>My Rentals</Link>
+                            </li>
+                        )
+                    }
+                    {
+                        session?.user.isAdmin && (
                             <li>
                                 <Link className={`${pathname === '/dashboard' ? 'text-white font-semibold' : 'text-zinc-400 cursor-pointer py-4'}`} href={'/dashboard'}>Dashboard</Link>
                             </li>
-                        ) : null
+                        )
                     }
                 </ul>
-                <Button asChild variant={'secondary'} className={'px-6'}>
-                    <Link href="/sign-in">Sign In</Link>
-                </Button>
+                {
+                    session?.user ? <Button variant={'secondary'} className={'px-6'} onClick={handleLogout}>
+                                        {session?.user.name}
+                                    </Button>
+                        : <Button asChild variant={'secondary'} className={'px-6'}>
+                            <Link href="/sign-in">Sign In</Link>
+                        </Button>
+                }
             </nav>
         </header>
     )

@@ -3,6 +3,7 @@
 import { Prisma, RentStatus, RentType, AccountPlan } from "@prisma/client";
 import prisma from "@/lib/prisma"
 import { revalidatePath } from 'next/cache'
+import { getSession } from "@/lib/auth-client";
 
 // Dashboard CRUD actions
 export async function getGames() {
@@ -32,16 +33,6 @@ export async function deleteGame(id: string) {
 
     revalidatePath('/');
     revalidatePath('/dashboard');
-}
-
-// Authentication
-export async function userAuth(id: string) {
-    return prisma.user.findUnique({
-        where: { id: id },
-        include: {
-            rentals: true
-        }
-    })
 }
 
 // Rentals
