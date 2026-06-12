@@ -16,6 +16,9 @@ export default async function DashboardPage() {
     if (!session?.user) {
         redirect('/sign-in');
     }
+    if (session?.user.isAdmin === false) {
+        redirect('/');
+    }
 
     const games = await getGames()
 

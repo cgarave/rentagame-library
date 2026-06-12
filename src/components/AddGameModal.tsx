@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label"
 import { GameDetails } from "@/types/GameDetails";
 import { ChangeEvent, useState, ReactNode } from "react"
 import { createGame, updateGame } from "@/lib/actions";
+import { toast } from 'sonner'
 
 interface ModalDetails {
     modalTitle: string,
@@ -83,7 +84,9 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                 availableNonTrophy: inputFieldsToAddGame.availableNonTrophy,
                 slot: inputFieldsToAddGame.slot,
             })
+            toast.success('Game Added!', { position: 'top-center' })
         } else {
+            toast.error('Something went wrong!', { position: 'top-center' })
             return null
         }
     }
@@ -101,7 +104,9 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                     slot: inputFieldsToAddGame.slot,
                 }
             )
+            toast.success('Game has been updated!', { position: 'top-center' })
         } else {
+            toast.error('Something went wrong!', { position: 'top-center' })
             return null
         }
     }
