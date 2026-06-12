@@ -37,7 +37,7 @@ const gameData: Prisma.GameCreateInput[] = [
         availableTrophy: 1,
         availableNonTrophy: 1,
         renters: 0,
-        slot: 1
+        slot: 2
     },
     {
         gameImage: 'https://image.api.playstation.com/vulcan/ap/rnd/202507/0215/f98041a10ccc22d45fc2f6eded09eec50abd106d01547a5d.png',
@@ -47,7 +47,7 @@ const gameData: Prisma.GameCreateInput[] = [
         availableTrophy: 1,
         availableNonTrophy: 1,
         renters: 0,
-        slot: 1
+        slot: 2
     },
     {
         gameImage: 'https://image.api.playstation.com/vulcan/ap/rnd/202509/2318/78549217df5077bea107700e077d04be6a9a4b0dfbcd821a.png',
@@ -57,7 +57,7 @@ const gameData: Prisma.GameCreateInput[] = [
         availableTrophy: 1,
         availableNonTrophy: 1,
         renters: 0,
-        slot: 1
+        slot: 2
     }
 ]
 
@@ -75,8 +75,8 @@ export async function main() {
     for (const u of gameData) {
         await prisma.game.create({ data: u });
     }
-    for (const u of userData) {
-        await prisma.user.create({ data: u });
-    }
+    // for (const u of userData) {
+    //     await prisma.user.create({ data: u });
+    // }
 }
 main();
