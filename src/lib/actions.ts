@@ -9,7 +9,7 @@ export async function getGames() {
     return prisma.game.findMany({
         orderBy: {
             gameTitle: 'desc'
-        }
+        },
     })
 }
 
@@ -62,7 +62,7 @@ interface rentalData {
 }
 export async function createRental(input: rentalData) {
     const { userId, gameId, status, rentType, accountPlan } = input;
-    return prisma.rental.create({
+    await prisma.rental.create({
         data: {
             userId,
             gameId,
@@ -72,6 +72,8 @@ export async function createRental(input: rentalData) {
             expiresAt: getExpiryDate(rentType),
         }
     })
+    revalidatePath('/');
+    revalidatePath('/dashboard');
 }
 
 export async function findRental(id: string) {
