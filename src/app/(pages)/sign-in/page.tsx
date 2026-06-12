@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { Input } from "@/components/ui/input"
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
+import { toast } from "sonner"
 
 export default function SignInPage() {
     const router = useRouter();
@@ -25,8 +26,10 @@ export default function SignInPage() {
 
         if (res.error) {
             setError(res.error.message || "Something went wrong.");
+            toast.error(res.error.message || "Something went wrong.", {position: "top-center"});
         } else {
             router.push("/");
+            toast.success('Signed in', {position: 'top-center'});
         }
     }
 
@@ -34,7 +37,6 @@ export default function SignInPage() {
         <main className="h-screen flex items-center justify-center">
             <div className="flex flex-col items-center space-y-4">
                 <h1 className="text-2xl font-bold mb-10">Sign In to Game<span className={'text-red-500'}>RentPH</span></h1>
-                {error && <p className="text-red-500 text-xs">{error}</p>}
                 <form onSubmit={handleSubmit} className="space-y-4 w-96 max-w-sm">
                     <div className={'space-y-4'}>
                         <Label htmlFor="email">Email</Label>

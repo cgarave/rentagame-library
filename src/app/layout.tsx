@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
+import { Toaster } from "@/components/ui/sonner"
 
 const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
 
@@ -29,6 +30,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <body className="min-h-full flex flex-col">
       <Header />
       {children}
+      <Toaster />
       </body>
     </html>
   );

@@ -7,6 +7,7 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {Label} from "@/components/ui/label";
+import { toast } from "sonner"
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -27,9 +28,11 @@ export default function SignUpPage() {
 
         if (res.error) {
             setError(res.error.message || "Something went wrong.");
+            toast.error(res.error.message || "Something went wrong.", {position: "top-center"});
         }
         else {
             router.push("/");
+            toast.success('Account successfully created', {position: 'top-center'});
         }
     }
 
@@ -37,7 +40,6 @@ export default function SignUpPage() {
         <main className="h-screen flex items-center justify-center">
             <div className="flex flex-col items-center space-y-4">
                 <h1 className="text-2xl font-bold">Create an account</h1>
-                {error && <p className="text-red-500 text-xs">{error}</p>}
                 <form onSubmit={handleSubmit} className="space-y-4 w-96 max-w-sm">
                     <div className={'space-y-4'}>
                         <Label htmlFor="name">Username</Label>
