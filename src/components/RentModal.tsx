@@ -8,6 +8,7 @@ import { useState } from "react"
 import { GameDetails } from "@/types/GameDetails";
 import {updateGame, createRental} from "@/lib/actions";
 import { useSession } from "@/lib/auth-client"
+import { toast } from 'sonner'
 
 export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot }: GameDetails) {
     const [selectedPlan, setSelectedPlan] = useState<string>('weekly')
@@ -82,6 +83,8 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                     }
                     break
             }
+        } else {
+            toast.error('You need to sign in first', { position: 'top-center' })
         }
     }
 
