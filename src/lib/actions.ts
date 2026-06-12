@@ -73,7 +73,6 @@ export async function createRental(input: rentalData) {
         }
     })
     revalidatePath('/');
-    revalidatePath('/dashboard');
 }
 
 export async function findRental(id: string) {
