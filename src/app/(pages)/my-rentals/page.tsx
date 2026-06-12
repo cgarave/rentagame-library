@@ -28,6 +28,7 @@ export default async function MyRentalsPage() {
                                           gameImage={game.gameImage}
                                           gameTitle={game.gameTitle}
                                           includeButton={false}
+                                          includeBadge={true}
                                 />
                             )
                         })

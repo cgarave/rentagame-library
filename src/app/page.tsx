@@ -22,6 +22,7 @@ export default async function Home() {
                                       renters={game.renters}
                                       slot={game.slot}
                                       includeButton={true}
+                                      includeBadge={false}
                             />
                         ))
                     }

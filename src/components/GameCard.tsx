@@ -4,11 +4,13 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/comp
 import { Badge } from "@/components/ui/badge"
 import { GameDetails } from '@/types/GameDetails'
 
-export default function GameCard({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot, includeButton }: GameDetails) {
+export default function GameCard({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot, includeButton, includeBadge }: GameDetails) {
     return (
         <Card className="relative mx-auto w-full max-w-sm pt-0" size={'sm'}>
             <Image src={gameImage} alt={gameTitle} width={500} height={500} className="h-48 w-full object-cover object-top" />
-            <Badge variant={'secondary'} className={'absolute top-4 right-4'}>Remaining: 1 day/s</Badge>
+            {
+                includeBadge && <Badge variant={'secondary'} className={'absolute top-4 right-4'}>Remaining: 1 day/s</Badge>
+            }
             <CardHeader>
                 <CardTitle className='text-lg truncate'>{gameTitle}</CardTitle>
                 {slot || slot == 0 ? <Badge variant={slot !== 0 ? 'outline' : 'destructive'}>Available slot: {slot ? slot : 0}</Badge> : null}

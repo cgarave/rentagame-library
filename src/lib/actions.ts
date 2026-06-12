@@ -6,7 +6,11 @@ import { revalidatePath } from 'next/cache'
 
 // Dashboard CRUD actions
 export async function getGames() {
-    return prisma.game.findMany()
+    return prisma.game.findMany({
+        orderBy: {
+            gameTitle: 'desc'
+        }
+    })
 }
 
 export async function createGame(data: Prisma.GameCreateInput) {

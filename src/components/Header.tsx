@@ -20,8 +20,8 @@ export default function Header() {
         })
     }
     return (
-        <header className="fixed top-0 flex flex-row justify-between items-center px-6 py-4 bg-zinc-800 w-full text-white">
-            <h1 className='font-bold text-xl'>GameRentPH</h1>
+        <header className="fixed top-0 flex flex-row justify-between items-center px-6 py-4 bg-zinc-950 w-full text-white border-b border-zinc-500">
+            <h1 className='font-bold text-xl'>Game<span className={'text-red-500'}>RentPH</span></h1>
             <nav className={'flex flex-row gap-x-6 items-center'}>
                 <ul className="flex flex-row gap-x-6 text-sm">
                     <li>
@@ -36,7 +36,7 @@ export default function Header() {
                     }
                 </ul>
                 {
-                    session?.user ? <UserDropdown logout={handleLogout} /> : <Button asChild variant={'secondary'} className={'px-6'}>
+                    session?.user ? <UserDropdown logout={handleLogout} /> : <Button asChild variant={'secondary'} className={'px-6 bg-white hover:bg-zinc-200 text-black'}>
                                                            <Link href="/sign-in">Sign In</Link>
                                                        </Button>
                 }
