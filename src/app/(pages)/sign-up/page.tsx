@@ -6,6 +6,7 @@ import { signUp } from "@/lib/auth-client";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import {Label} from "@/components/ui/label";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -33,16 +34,27 @@ export default function SignUpPage() {
     }
 
     return (
-        <main className="h-screen flex flex-col items-center justify-center space-y-4">
-            <h1 className="text-2xl font-bold">Create an account</h1>
-            {error && <p className="text-red-500">{error}</p>}
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <Input name={'name'} type={'text'} placeholder={'username'} />
-                <Input name={'email'} type={'email'} required={true} placeholder={'yourname@email.com'} />
-                <Input name={'password'} type={'password'} minLength={8} placeholder={'password'} />
-                <Button type={'submit'} className={'w-full'}>Create Account</Button>
-            </form>
-            <Link href="/sign-in" className={'text-blue-500 text-sm underline'}>Already have an account? Sign-in</Link>
+        <main className="h-screen flex items-center justify-center">
+            <div className="flex flex-col items-center space-y-4">
+                <h1 className="text-2xl font-bold">Create an account</h1>
+                {error && <p className="text-red-500 text-xs">{error}</p>}
+                <form onSubmit={handleSubmit} className="space-y-4 w-96 max-w-sm">
+                    <div className={'space-y-4'}>
+                        <Label htmlFor="name">Username</Label>
+                        <Input id={'name'} name={'name'} type={'text'} required={true} placeholder={'Type username'}/>
+                    </div>
+                    <div className={'space-y-4'}>
+                        <Label htmlFor="email">Email</Label>
+                        <Input id={'email'} name={'email'} type={'email'} required={true} placeholder={'Type email'}/>
+                    </div>
+                    <div className={'space-y-4'}>
+                        <Label htmlFor="password">Password</Label>
+                        <Input id={'password'} name={'password'} type={'password'} minLength={8} required={true} placeholder={'Type password'}/>
+                    </div>
+                    <Button type={'submit'} className={'w-full mt-10'}>Sign Up</Button>
+                </form>
+                <Link href="/sign-in" className={'text-blue-500 text-sm underline'}>Already have an account? Sign-in</Link>
+            </div>
         </main>
     );
 }
