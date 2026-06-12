@@ -1,9 +1,20 @@
 import { GamesContainer } from "@/components/GamesContainer";
+import { redirect } from "next/navigation";
 import GameCard from "@/components/GameCard";
 import { findRental } from "@/lib/actions";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export default async function MyRentalsPage() {
-    const activeGames = await findRental('cmq84g4du00036rpby5amznbr');
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if (!session?.user) {
+        return redirect('/sign-in');
+    }
+
+    const activeGames = await findRental(session?.user.id);
 
     return (
         <>

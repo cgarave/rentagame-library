@@ -7,13 +7,15 @@ import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 import { GameDetails } from "@/types/GameDetails";
 import {updateGame, createRental} from "@/lib/actions";
+import { useSession } from "@/lib/auth-client"
 
 export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot }: GameDetails) {
     const [selectedPlan, setSelectedPlan] = useState<string>('weekly')
     const [selectedAccountPlan, setSelectedAccountPlan] = useState<string>('trophy')
+    const {data: session} = useSession()
 
     async function handlePayment() {
-        if (id){
+        if (id && session?.user.id){
             switch (selectedPlan){
                 case 'weekly':
                     switch (selectedAccountPlan){
@@ -24,7 +26,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 slot: slot! - 1,
                             })
                             await createRental({
-                                userId: 'cmq84g4du00036rpby5amznbr',
+                                userId: session?.user.id,
                                 gameId: id,
                                 status: "ACTIVE",
                                 rentType: "WEEKLY",
@@ -38,7 +40,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 slot: slot! - 1,
                             })
                             await createRental({
-                                userId: 'cmq84g4du00036rpby5amznbr',
+                                userId: session?.user.id,
                                 gameId: id,
                                 status: "ACTIVE",
                                 rentType: "WEEKLY",
@@ -56,7 +58,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 slot: slot! - 1,
                             })
                             await createRental({
-                                userId: 'cmq84g4du00036rpby5amznbr',
+                                userId: session?.user.id,
                                 gameId: id,
                                 status: "ACTIVE",
                                 rentType: "MONTHLY",
@@ -70,7 +72,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 slot: slot! - 1,
                             })
                             await createRental({
-                                userId: 'cmq84g4du00036rpby5amznbr',
+                                userId: session?.user.id,
                                 gameId: id,
                                 status: "ACTIVE",
                                 rentType: "MONTHLY",

@@ -3,7 +3,6 @@
 import { Prisma, RentStatus, RentType, AccountPlan } from "@prisma/client";
 import prisma from "@/lib/prisma"
 import { revalidatePath } from 'next/cache'
-import { getSession } from "@/lib/auth-client";
 
 // Dashboard CRUD actions
 export async function getGames() {

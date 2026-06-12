@@ -4,8 +4,18 @@ import { DropdownMenuComponent } from "@/components/DropdownMenu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { GameDetails } from "@/types/GameDetails";
 import { getGames } from "@/lib/actions";
+import {redirect} from "next/navigation";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export default async function DashboardPage() {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if (!session?.user) {
+        redirect('/sign-in');
+    }
 
     const games = await getGames()
 
