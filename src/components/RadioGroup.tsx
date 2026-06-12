@@ -36,7 +36,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                 </FieldLabel>
             </RadioGroup>
 
-            <RadioGroup defaultValue="primary" className="w-full grid grid-cols-1 md:grid-cols-2" onValueChange={(value) => setSelectedAccountPlan(value)}>
+            <RadioGroup defaultValue="trophy" className="w-full grid grid-cols-1 md:grid-cols-2" onValueChange={(value) => setSelectedAccountPlan(value)}>
                 <FieldLabel htmlFor="primary-account">
                     <Field orientation="horizontal" className={'cursor-pointer'}>
                         <FieldContent>
