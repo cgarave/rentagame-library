@@ -4,6 +4,7 @@ import { getGames } from "@/lib/actions";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import prisma from "@/lib/prisma";
+import {GameDetails} from "@/types/GameDetails";
 
 export default async function Home() {
     const session = await auth.api.getSession({
@@ -18,7 +19,7 @@ export default async function Home() {
                     <h1 className={'font-bold text-4xl'}>Browse Games</h1>
                     <GamesContainer>
                         {
-                            games.map((game) => (
+                            games.map((game: GameDetails) => (
                                 <GameCard key={game.id}
                                           id={game.id}
                                           gameImage={game.gameImage}
@@ -54,7 +55,7 @@ export default async function Home() {
                     <h1 className={'font-bold text-4xl'}>Browse Games</h1>
                     <GamesContainer>
                         {
-                            notRentedGames.map((game) => (
+                            notRentedGames.map((game: GameDetails) => (
                                 <GameCard key={game.id}
                                           id={game.id}
                                           gameImage={game.gameImage}
