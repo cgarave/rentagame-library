@@ -1,6 +1,6 @@
 'use server'
 
-import { Prisma, RentStatus, RentType, AccountPlan } from "@prisma/client";
+import { Prisma, RentStatus, RentType, AccountPlan } from "@/app/generated/prisma/client";
 import prisma from "@/lib/prisma"
 import { revalidatePath } from 'next/cache'
 

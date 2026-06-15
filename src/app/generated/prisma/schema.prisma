@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Game {
+  id                 String   @id @default(cuid(1))
+  gameImage          String
+  gameTitle          String
+  weeklyPrice        Int
+  monthlyPrice       Int
+  availableTrophy    Int
+  availableNonTrophy Int
+  renters            Int      @default(0)
+  slot               Int
+  rentals            Rental[]
+}
+
+model User {
+  id            String    @id @default(cuid(1))
+  name          String
+  email         String    @unique
+  isAdmin       Boolean   @default(false)
+  rentals       Rental[]
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@map("user")
+}
+
+model Rental {
+  id String @id @default(cuid(1))
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  game   Game   @relation(fields: [gameId], references: [id])
+  gameId String
+
+  rentType    RentType
+  status      RentStatus
+  accountPlan AccountPlan @default(TROPHY)
+
+  rentedAt  DateTime @default(now())
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+}
+
+enum RentType {
+  WEEKLY
+  MONTHLY
+}
+
+enum RentStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum AccountPlan {
+  TROPHY
+  NONTROPHY
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
