@@ -4,6 +4,7 @@ import GameCard from "@/components/GameCard";
 import { findRental } from "@/lib/actions";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import {GameDetails} from "@/types/GameDetails";
 
 export default async function MyRentalsPage() {
     const session = await auth.api.getSession({
@@ -14,7 +15,7 @@ export default async function MyRentalsPage() {
         return redirect('/sign-in');
     }
 
-    const activeGames = await findRental(session?.user.id);
+    const activeGames = await findRental(session.user.id);
 
     return (
         <>
@@ -22,7 +23,7 @@ export default async function MyRentalsPage() {
                 <h1 className={'font-bold text-4xl'}>My Rentals</h1>
                 <GamesContainer>
                     {
-                        activeGames.map(game => {
+                        activeGames.map((game: GameDetails) => {
                             return (
                                 <GameCard key={game.id}
                                           gameImage={game.gameImage}
