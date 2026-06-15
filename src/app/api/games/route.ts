@@ -1,7 +1,6 @@
 import {NextRequest, NextResponse} from 'next/server'
 import prisma from "@/lib/prisma";
 import { GameDetails } from "@/types/GameDetails";
-import { Prisma } from "@prisma/client"
 
 export async function GET() {
     const games = await prisma.game.findMany();
@@ -16,11 +15,11 @@ export async function POST(request: NextRequest) {
             data: {
                 gameImage: body.gameImage,
                 gameTitle: body.gameTitle,
-                weeklyPrice: body.weeklyPrice,
-                monthlyPrice: body.monthlyPrice,
-                availableTrophy: body.availableTrophy,
-                availableNonTrophy: body.availableNonTrophy,
-                slot: body.slot
+                weeklyPrice: body.weeklyPrice!,
+                monthlyPrice: body.monthlyPrice!,
+                availableTrophy: body.availableTrophy!,
+                availableNonTrophy: body.availableNonTrophy!,
+                slot: body.slot!
             }
         })
         return NextResponse.json(game)
