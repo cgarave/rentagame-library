@@ -7,12 +7,12 @@ import { GameDetails } from '@/types/GameDetails'
 export default function GameCard({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot, includeButton, includeBadge }: GameDetails) {
     return (
         <Card className="relative mx-auto w-full max-w-sm pt-0" size={'sm'}>
-            <Image src={gameImage} alt={gameTitle} width={500} height={500} className="h-48 w-full object-cover object-top" />
+            <Image src={gameImage} alt={gameTitle} width={500} height={500} className="h-28 md:h-48 w-full object-cover object-top" />
             {
                 includeBadge && <Badge variant={'secondary'} className={'absolute top-4 right-4'}>Remaining: 1 day/s</Badge>
             }
             <CardHeader>
-                <CardTitle className='text-lg truncate'>{gameTitle}</CardTitle>
+                <CardTitle className='text-sm md:text-lg truncate'>{gameTitle}</CardTitle>
                 {slot || slot == 0 ? <Badge variant={slot !== 0 ? 'outline' : 'destructive'}>Available slot: {slot ? slot : 0}</Badge> : null}
                 {renters || renters == 0 ? <Badge variant="outline">Renters: {renters ? renters : 0}</Badge> : null}
             </CardHeader>

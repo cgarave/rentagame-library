@@ -93,9 +93,9 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
             <DialogTrigger asChild>
                 <Button className={'w-full cursor-pointer'} variant="default">Rent Now</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md md:max-w-xl">
+            <DialogContent className="h-[36rem] sm:max-w-md md:max-w-xl overflow-y-scroll">
                 <DialogHeader>
-                    <DialogTitle>{gameTitle}</DialogTitle>
+                    <DialogTitle className={'w-64'}>{gameTitle}</DialogTitle>
                     <DialogDescription>Choose a plan that fits your playstyle.</DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col gap-2">
