@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 import { GameDetails } from "@/types/GameDetails";
 import {updateGame, createRental} from "@/lib/actions";
+import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client"
 import { toast } from 'sonner'
 
@@ -14,73 +15,76 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
     const [selectedPlan, setSelectedPlan] = useState<string>('weekly')
     const [selectedAccountPlan, setSelectedAccountPlan] = useState<string>('trophy')
     const {data: session} = useSession()
+    const router = useRouter()
 
     async function handlePayment() {
-        if (id && session?.user.id){
+        if (id){
             switch (selectedPlan){
                 case 'weekly':
-                    switch (selectedAccountPlan){
-                        case 'trophy':
-                            await updateGame(id, {
-                                availableTrophy: availableTrophy! - 1,
-                                renters: renters! + 1,
-                                slot: slot! - 1,
-                            })
-                            await createRental({
-                                userId: session?.user.id,
-                                gameId: id,
-                                status: "ACTIVE",
-                                rentType: "WEEKLY",
-                                accountPlan: "TROPHY"
-                            })
-                            break
-                        case 'nonTrophy':
-                            await updateGame(id, {
-                                availableNonTrophy: availableNonTrophy! - 1,
-                                renters: renters! + 1,
-                                slot: slot! - 1,
-                            })
-                            await createRental({
-                                userId: session?.user.id,
-                                gameId: id,
-                                status: "ACTIVE",
-                                rentType: "WEEKLY",
-                                accountPlan: "NONTROPHY"
-                            })
-                            break
-                    }
+                    // switch (selectedAccountPlan){
+                    //     case 'trophy':
+                    //         await updateGame(id, {
+                    //             availableTrophy: availableTrophy! - 1,
+                    //             renters: renters! + 1,
+                    //             slot: slot! - 1,
+                    //         })
+                    //         await createRental({
+                    //             userId: session?.user.id,
+                    //             gameId: id,
+                    //             status: "ACTIVE",
+                    //             rentType: "WEEKLY",
+                    //             accountPlan: "TROPHY"
+                    //         })
+                    //         break
+                    //     case 'nonTrophy':
+                    //         await updateGame(id, {
+                    //             availableNonTrophy: availableNonTrophy! - 1,
+                    //             renters: renters! + 1,
+                    //             slot: slot! - 1,
+                    //         })
+                    //         await createRental({
+                    //             userId: session?.user.id,
+                    //             gameId: id,
+                    //             status: "ACTIVE",
+                    //             rentType: "WEEKLY",
+                    //             accountPlan: "NONTROPHY"
+                    //         })
+                    //         break
+                    // }
+                    router.push('https://m.me/1152961824575684')
                     break
                 case 'monthly':
-                    switch (selectedAccountPlan){
-                        case 'trophy':
-                            await updateGame(id, {
-                                availableTrophy: availableTrophy! - 1,
-                                renters: renters! + 1,
-                                slot: slot! - 1,
-                            })
-                            await createRental({
-                                userId: session?.user.id,
-                                gameId: id,
-                                status: "ACTIVE",
-                                rentType: "MONTHLY",
-                                accountPlan: "TROPHY"
-                            })
-                            break
-                        case 'nonTrophy':
-                            await updateGame(id, {
-                                availableNonTrophy: availableNonTrophy! - 1,
-                                renters: renters! + 1,
-                                slot: slot! - 1,
-                            })
-                            await createRental({
-                                userId: session?.user.id,
-                                gameId: id,
-                                status: "ACTIVE",
-                                rentType: "MONTHLY",
-                                accountPlan: "NONTROPHY"
-                            })
-                            break
-                    }
+                    // switch (selectedAccountPlan){
+                    //     case 'trophy':
+                    //         await updateGame(id, {
+                    //             availableTrophy: availableTrophy! - 1,
+                    //             renters: renters! + 1,
+                    //             slot: slot! - 1,
+                    //         })
+                    //         await createRental({
+                    //             userId: session?.user.id,
+                    //             gameId: id,
+                    //             status: "ACTIVE",
+                    //             rentType: "MONTHLY",
+                    //             accountPlan: "TROPHY"
+                    //         })
+                    //         break
+                    //     case 'nonTrophy':
+                    //         await updateGame(id, {
+                    //             availableNonTrophy: availableNonTrophy! - 1,
+                    //             renters: renters! + 1,
+                    //             slot: slot! - 1,
+                    //         })
+                    //         await createRental({
+                    //             userId: session?.user.id,
+                    //             gameId: id,
+                    //             status: "ACTIVE",
+                    //             rentType: "MONTHLY",
+                    //             accountPlan: "NONTROPHY"
+                    //         })
+                    //         break
+                    // }
+                    router.push('https://m.me/1152961824575684')
                     break
             }
         } else {
@@ -93,7 +97,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
             <DialogTrigger asChild>
                 <Button className={'w-full cursor-pointer'} variant="default">Rent Now</Button>
             </DialogTrigger>
-            <DialogContent className="h-[36rem] sm:max-w-md md:max-w-xl overflow-y-scroll">
+            <DialogContent className="h-[36rem] md:h-fit sm:max-w-md md:max-w-xl overflow-y-scroll">
                 <DialogHeader>
                     <DialogTitle className={'w-64'}>{gameTitle}</DialogTitle>
                     <DialogDescription>Choose a plan that fits your playstyle.</DialogDescription>

@@ -86,3 +86,12 @@ export async function findRental(id: string) {
         },
     })
 }
+
+export async function findGameRental(id: string) {
+    return prisma.rental.findMany({
+        where: { userId: id },
+        include: {
+            game: true,
+        },
+    });
+}

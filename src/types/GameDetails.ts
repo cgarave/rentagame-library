@@ -10,4 +10,5 @@ export interface GameDetails {
     slot?: number;
     includeButton?: boolean;
     includeBadge?: boolean;
+    expiresAt?: string;
 }

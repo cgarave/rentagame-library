@@ -59,7 +59,8 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
             && inputFieldsToAddGame.monthlyPrice
             && inputFieldsToAddGame.availableTrophy
             && inputFieldsToAddGame.availableNonTrophy
-            && inputFieldsToAddGame.slot) {
+            && inputFieldsToAddGame.slot
+            && inputFieldsToAddGame.renters) {
             // await fetch('/api/games/', {
             //     method: 'POST',
             //     headers: {
@@ -83,6 +84,7 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                 availableTrophy: inputFieldsToAddGame.availableTrophy,
                 availableNonTrophy: inputFieldsToAddGame.availableNonTrophy,
                 slot: inputFieldsToAddGame.slot,
+                renters: inputFieldsToAddGame.renters,
             })
             toast.success('Game Added!', { position: 'top-center' })
         } else {
@@ -91,7 +93,10 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
         }
     }
     async function updateGameFunction() {
-        if(inputFieldsToAddGame.id && inputFieldsToAddGame.gameImage !== '' && inputFieldsToAddGame.gameTitle !== '' && !newMap?.includes(inputFieldsToAddGame.gameTitle.toLowerCase())) {
+        if(inputFieldsToAddGame.id
+            && inputFieldsToAddGame.gameImage !== ''
+            && inputFieldsToAddGame.gameTitle !== ''
+            && !newMap?.includes(inputFieldsToAddGame.gameTitle.toLowerCase())) {
             await updateGame(
                 inputFieldsToAddGame.id,
                 {
@@ -102,6 +107,7 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                     availableTrophy: inputFieldsToAddGame.availableTrophy,
                     availableNonTrophy: inputFieldsToAddGame.availableNonTrophy,
                     slot: inputFieldsToAddGame.slot,
+                    renters: inputFieldsToAddGame.renters,
                 }
             )
             toast.success('Game has been updated!', { position: 'top-center' })
@@ -126,6 +132,7 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                                 availableTrophy: 0,
                                 availableNonTrophy: 0,
                                 slot: 0,
+                                renters: 0,
                             } as GameDetails) : undefined } 
                     >
                         {buttonIcon}
@@ -159,6 +166,13 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                             <Input id="slot" name="slot" type={'number'} placeholder={'0'} min={0}
                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setInputFieldsToAddGame({...inputFieldsToAddGame, slot: Number(e.target.value) })}
                                    value={inputFieldsToAddGame.slot}
+                            />
+                        </Field>
+                        <Field>
+                            <Label htmlFor="slot">Renters</Label>
+                            <Input id="renters" name="renters" type={'number'} placeholder={'0'} min={0}
+                                   onChange={(e: ChangeEvent<HTMLInputElement>) => setInputFieldsToAddGame({...inputFieldsToAddGame, renters: Number(e.target.value) })}
+                                   value={inputFieldsToAddGame.renters}
                             />
                         </Field>
                         <FieldGroup className={'flex flex-row gap-x-2'}>
