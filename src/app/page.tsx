@@ -48,6 +48,9 @@ export default async function Home() {
                     },
                 },
             },
+            orderBy: {
+                gameTitle: 'desc'
+            },
         })
         return (
             <>

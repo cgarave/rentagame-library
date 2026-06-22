@@ -48,7 +48,7 @@ export default function SignInPage() {
                     </div>
                     <Button type={'submit'} className={'w-full mt-10'}>Sign in</Button>
                 </form>
-                <Link href="/sign-up" className={'text-blue-500 text-sm underline'}>Doesn&apos;t have an account? Sign-up</Link>
+                {/*<Link href="/sign-up" className={'text-blue-500 text-sm underline'}>Doesn&apos;t have an account? Sign-up</Link>*/}
             </div>
         </main>
     );
