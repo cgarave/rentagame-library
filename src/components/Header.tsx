@@ -35,11 +35,11 @@ export default function Header() {
                         ) : null
                     }
                 </ul>
-                {
-                    session?.user ? <UserDropdown logout={handleLogout} /> : <Button asChild variant={'secondary'} className={'px-6 bg-white hover:bg-zinc-200 text-black'}>
-                                                           <Link href="/sign-in">Sign In</Link>
-                                                       </Button>
-                }
+                {/*{*/}
+                {/*    session?.user ? <UserDropdown logout={handleLogout} /> : <Button asChild variant={'secondary'} className={'px-6 bg-white hover:bg-zinc-200 text-black'}>*/}
+                {/*                                           <Link href="/sign-in">Sign In</Link>*/}
+                {/*                                       </Button>*/}
+                {/*}*/}
             </nav>
         </header>
     )
