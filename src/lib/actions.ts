@@ -75,18 +75,6 @@ export async function createRental(input: rentalData) {
     revalidatePath('/');
 }
 
-export async function findRental(id: string) {
-    return prisma.game.findMany({
-        where: {
-            rentals: {
-                some: {
-                    userId: id,
-                },
-            },
-        },
-    })
-}
-
 export async function findGameRental(id: string) {
     return prisma.rental.findMany({
         where: { userId: id },
@@ -94,4 +82,13 @@ export async function findGameRental(id: string) {
             game: true,
         },
     });
+}
+
+export async function getUserRentals() {
+    return prisma.rental.findMany({
+        include: {
+            user: true,
+            game: true,
+        }
+    })
 }

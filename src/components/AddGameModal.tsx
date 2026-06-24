@@ -43,8 +43,8 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
         monthlyPrice: 0,
         availableTrophy: 0,
         availableNonTrophy: 0,
-        renters: 0,
         slot: 0,
+        renters: 0,
     } as GameDetails)
 
     const newMap = gameListTitle?.flatMap(game => {
@@ -59,8 +59,7 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
             && inputFieldsToAddGame.monthlyPrice
             && inputFieldsToAddGame.availableTrophy
             && inputFieldsToAddGame.availableNonTrophy
-            && inputFieldsToAddGame.slot
-            && inputFieldsToAddGame.renters) {
+            && inputFieldsToAddGame.slot) {
             // await fetch('/api/games/', {
             //     method: 'POST',
             //     headers: {

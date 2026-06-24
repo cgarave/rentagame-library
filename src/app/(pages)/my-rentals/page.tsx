@@ -1,7 +1,7 @@
 import { GamesContainer } from "@/components/GamesContainer";
 import { redirect } from "next/navigation";
 import GameCard from "@/components/GameCard";
-import { findRental, findGameRental } from "@/lib/actions";
+import { findGameRental } from "@/lib/actions";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import {GameDetails} from "@/types/GameDetails";

@@ -7,4 +7,5 @@ export interface User {
     name: string
     image?: string | null | undefined
     isAdmin: boolean
+    rentals?: string[]
 }

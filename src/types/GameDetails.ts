@@ -11,4 +11,5 @@ export interface GameDetails {
     includeButton?: boolean;
     includeBadge?: boolean;
     expiresAt?: string;
+    isGameReleased?: boolean;
 }

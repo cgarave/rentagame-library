@@ -18,7 +18,9 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
     const router = useRouter()
 
     async function handlePayment() {
-        if (id){
+        if (id
+            // && session?.user.id
+            ){
             switch (selectedPlan){
                 case 'weekly':
                     // switch (selectedAccountPlan){
