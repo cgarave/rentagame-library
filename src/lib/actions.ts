@@ -84,6 +84,10 @@ export async function findGameRental(id: string) {
     });
 }
 
+export async function getUsers() {
+    return prisma.user.findMany({})
+}
+
 export async function getUserRentals() {
     return prisma.rental.findMany({
         include: {

@@ -1,16 +1,18 @@
 'use client'
-import { useState } from "react";
+import {Fragment, useState} from "react";
 import {GameDetails} from "@/types/GameDetails";
 import { UserRentals } from "@/types/UserRentals";
-import { Plus, Users, List } from "lucide-react"
+import { User } from "@/types/User";
+import { Plus, Users, List, ChevronRight } from "lucide-react"
 import AddGameModal from "@/components/AddGameModal";
 import { Button } from "@/components/ui/button"
 import { DropdownMenuComponent } from "@/components/DropdownMenu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
-export default function GameList({ games, userRentals }: { games: GameDetails[], userRentals: UserRentals[] }) {
+export default function DashboardList({ games, users, userRentals }: { games: GameDetails[], users: User[], userRentals: UserRentals[] }) {
     const [list, setList] = useState('gameList')
-
+    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const [viewGames, setViewGames] = useState<boolean>(false)
     return (
         <>
             <div className={'flex flex-row justify-between'}>
@@ -75,25 +77,55 @@ export default function GameList({ games, userRentals }: { games: GameDetails[],
                 <Table className={'mx-auto border'}>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>User Id</TableHead>
                             <TableHead>Username</TableHead>
                             <TableHead>Email</TableHead>
                             <TableHead>isAdmin</TableHead>
                             <TableHead>Created At</TableHead>
-                            <TableHead>Rentals</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {
-                            userRentals.map((userRental: UserRentals) => (
-                                <TableRow key={userRental.id}>
-                                    <TableCell className={'font-semibold'}>{userRental.user.id}</TableCell>
-                                    <TableCell className={'font-semibold'}>{userRental.user.name}</TableCell>
-                                    <TableCell>{userRental.user.email}</TableCell>
-                                    <TableCell>{String(userRental.user.isAdmin)}</TableCell>
-                                    <TableCell>{String(userRental.user.createdAt)}</TableCell>
-                                    <TableCell>{userRental.game.gameTitle}</TableCell>
-                                </TableRow>
+                            // userRentals.map((userRental: UserRentals) => (
+                            //     <>
+                            //         <TableRow key={userRental.id}>
+                            //             <TableCell className={'font-semibold'}>{userRental.user.id}</TableCell>
+                            //             <TableCell className={'font-semibold'}>{userRental.user.name}</TableCell>
+                            //             <TableCell>{userRental.user.email}</TableCell>
+                            //             <TableCell>{String(userRental.user.isAdmin)}</TableCell>
+                            //             <TableCell>{String(userRental.user.createdAt)}</TableCell>
+                            //         </TableRow>
+                            //         <TableRow key={userRental.game.id}>
+                            //             <TableCell>{userRental.game.gameTitle}</TableCell>
+                            //             <TableCell>{userRental.rentType}</TableCell>
+                            //         </TableRow>
+                            //     </>
+                            // ))
+
+                            users.map((user: User) => (
+                                <Fragment key={user.id}>
+                                    <TableRow key={user.id} onClick={() => setViewGames(!viewGames)}>
+                                        <TableCell>{user.name}</TableCell>
+                                        <TableCell>{user.email}</TableCell>
+                                        <TableCell>{String(user.isAdmin)}</TableCell>
+                                        <TableCell>{`${month[user.createdAt.getMonth()]} ${user.createdAt.getDate()}, ${user.createdAt.getFullYear()}`}</TableCell>
+                                        <TableCell colSpan={2} align={'right'}>
+                                            <ChevronRight size={'16'}/>
+                                        </TableCell>
+                                    </TableRow>
+                                    {
+                                        userRentals.map((userRental: UserRentals) => (
+                                            user.id === userRental.user.id && viewGames &&
+                                            <TableRow key={userRental.game.id}>
+                                                <TableCell>{userRental.game.gameTitle}</TableCell>
+                                                <TableCell>{userRental.rentType}</TableCell>
+                                                <TableCell>{userRental.status}</TableCell>
+                                                <TableCell>{userRental.accountPlan}</TableCell>
+                                                <TableCell>{`${month[userRental.createdAt.getMonth()]} ${userRental.createdAt.getDate()}, ${userRental.createdAt.getFullYear()}`}</TableCell>
+                                                <TableCell>{`${month[userRental.expiresAt.getMonth()]} ${userRental.expiresAt.getDate()}, ${userRental.expiresAt.getFullYear()}`}</TableCell>
+                                            </TableRow>
+                                        ))
+                                    }
+                                </Fragment>
                             ))
                         }
                     </TableBody>
