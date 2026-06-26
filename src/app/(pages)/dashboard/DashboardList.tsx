@@ -3,41 +3,90 @@ import {Fragment, useState} from "react";
 import {GameDetails} from "@/types/GameDetails";
 import { UserRentals } from "@/types/UserRentals";
 import { User } from "@/types/User";
-import { Plus, Users, List, ChevronRight } from "lucide-react"
+import { Plus, Users, List, ChevronRight, FileText } from "lucide-react"
 import AddGameModal from "@/components/AddGameModal";
 import { Button } from "@/components/ui/button"
 import { DropdownMenuComponent } from "@/components/DropdownMenu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
-export default function DashboardList({ games, users, userRentals }: { games: GameDetails[], users: User[], userRentals: UserRentals[] }) {
-    const [list, setList] = useState('gameList')
+function UserTableRow({user, userRentals}: {user: User, userRentals: UserRentals[]}) {
     const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const [viewGames, setViewGames] = useState<boolean>(false)
+
+    return (
+        <Fragment key={user.id}>
+            <TableRow key={user.id} className={'cursor-pointer'} onClick={() => setViewGames(!viewGames)}>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{String(user.isAdmin)}</TableCell>
+                <TableCell>{`${month[user.createdAt.getMonth()]} ${user.createdAt.getDate()}, ${user.createdAt.getFullYear()}`}</TableCell>
+                <TableCell colSpan={2} align={'right'}>
+                    <ChevronRight size={'16'} className={`transition-all duration-300 ease-in-out ${viewGames ? 'rotate-90' : 'rotate-0'}`} />
+                </TableCell>
+            </TableRow>
+            {
+                user.id && viewGames && (
+                    <TableRow className={'bg-zinc-200 hover:bg-zinc-200'}>
+                        <TableHead>Games</TableHead>
+                        <TableHead>Rent Plan</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Profile Plan</TableHead>
+                        <TableHead>Start Date</TableHead>
+                        <TableHead>Expire Date</TableHead>
+                    </TableRow>
+                )
+            }
+            {
+                userRentals.map((userRental: UserRentals) => (
+                    user.id === userRental.user.id && viewGames &&
+                    <TableRow key={userRental.game.id} className={'bg-zinc-100 hover:bg-zinc-100'}>
+                        <TableCell>{userRental.game.gameTitle}</TableCell>
+                        <TableCell>{userRental.rentType}</TableCell>
+                        <TableCell>{userRental.status}</TableCell>
+                        <TableCell>{userRental.accountPlan}</TableCell>
+                        <TableCell>{`${month[userRental.createdAt.getMonth()]} ${userRental.createdAt.getDate()}, ${userRental.createdAt.getFullYear()}`}</TableCell>
+                        <TableCell>{`${month[userRental.expiresAt.getMonth()]} ${userRental.expiresAt.getDate()}, ${userRental.expiresAt.getFullYear()}`}</TableCell>
+                    </TableRow>
+                ))
+            }
+        </Fragment>
+    )
+}
+
+export default function DashboardList({ games, users, userRentals }: { games: GameDetails[], users: User[], userRentals: UserRentals[] }) {
+    const [list, setList] = useState('gameList')
     return (
         <>
             <div className={'flex flex-row justify-between'}>
                 <div className={'flex flex-row gap-x-2'}>
-                    <Button type={"button"} variant={"outline"} onClick={() => setList("gameList")}>
+                    <Button type={"button"} variant={"outline"} className={list === 'gameList' ? 'border border-blue-600 text-blue-600 hover:text-blue-600' : ''}  onClick={() => setList("gameList")}>
                         <List />
                         View Games
                     </Button>
-                    <Button type={"button"} variant={"outline"} onClick={() => setList("userList")}>
+                    <Button type={"button"} variant={"outline"} className={list === 'userList' ? 'border border-blue-600 text-blue-600 hover:text-blue-600' : ''} onClick={() => setList("userList")}>
                         <Users />
                         View Renters
                     </Button>
+                    <Button type={"button"} variant={"outline"} className={list === 'transactionHistoryList' ? 'border border-blue-600 text-blue-600 hover:text-blue-600' : ''} onClick={() => setList("transactionHistoryList")}>
+                        <FileText />
+                        Transaction History
+                    </Button>
                 </div>
-                <AddGameModal
-                    buttonVariant={'default'}
-                    buttonIcon={<Plus/>}
-                    buttonName={'Add Game'}
-                    modalDetails={{
-                        modalTitle: 'Add New Game',
-                        modalDescription: 'Added game will be added to the list',
-                        closeButtonName: 'Cancel',
-                        submitButtonName: 'Add Game',
-                    }}
-                    buttonType={'add'}
-                />
+                {
+                    list === 'gameList' &&
+                    <AddGameModal
+                        buttonVariant={'default'}
+                        buttonIcon={<Plus/>}
+                        buttonName={'Add Game'}
+                        modalDetails={{
+                            modalTitle: 'Add New Game',
+                            modalDescription: 'Added game will be added to the list',
+                            closeButtonName: 'Cancel',
+                            submitButtonName: 'Add Game',
+                        }}
+                        buttonType={'add'}
+                    />
+                }
             </div>
             {list === 'gameList' &&
                 <Table className={'mx-auto border'}>
@@ -85,51 +134,15 @@ export default function DashboardList({ games, users, userRentals }: { games: Ga
                     </TableHeader>
                     <TableBody>
                         {
-                            // userRentals.map((userRental: UserRentals) => (
-                            //     <>
-                            //         <TableRow key={userRental.id}>
-                            //             <TableCell className={'font-semibold'}>{userRental.user.id}</TableCell>
-                            //             <TableCell className={'font-semibold'}>{userRental.user.name}</TableCell>
-                            //             <TableCell>{userRental.user.email}</TableCell>
-                            //             <TableCell>{String(userRental.user.isAdmin)}</TableCell>
-                            //             <TableCell>{String(userRental.user.createdAt)}</TableCell>
-                            //         </TableRow>
-                            //         <TableRow key={userRental.game.id}>
-                            //             <TableCell>{userRental.game.gameTitle}</TableCell>
-                            //             <TableCell>{userRental.rentType}</TableCell>
-                            //         </TableRow>
-                            //     </>
-                            // ))
-
                             users.map((user: User) => (
-                                <Fragment key={user.id}>
-                                    <TableRow key={user.id} onClick={() => setViewGames(!viewGames)}>
-                                        <TableCell>{user.name}</TableCell>
-                                        <TableCell>{user.email}</TableCell>
-                                        <TableCell>{String(user.isAdmin)}</TableCell>
-                                        <TableCell>{`${month[user.createdAt.getMonth()]} ${user.createdAt.getDate()}, ${user.createdAt.getFullYear()}`}</TableCell>
-                                        <TableCell colSpan={2} align={'right'}>
-                                            <ChevronRight size={'16'}/>
-                                        </TableCell>
-                                    </TableRow>
-                                    {
-                                        userRentals.map((userRental: UserRentals) => (
-                                            user.id === userRental.user.id && viewGames &&
-                                            <TableRow key={userRental.game.id}>
-                                                <TableCell>{userRental.game.gameTitle}</TableCell>
-                                                <TableCell>{userRental.rentType}</TableCell>
-                                                <TableCell>{userRental.status}</TableCell>
-                                                <TableCell>{userRental.accountPlan}</TableCell>
-                                                <TableCell>{`${month[userRental.createdAt.getMonth()]} ${userRental.createdAt.getDate()}, ${userRental.createdAt.getFullYear()}`}</TableCell>
-                                                <TableCell>{`${month[userRental.expiresAt.getMonth()]} ${userRental.expiresAt.getDate()}, ${userRental.expiresAt.getFullYear()}`}</TableCell>
-                                            </TableRow>
-                                        ))
-                                    }
-                                </Fragment>
+                                <UserTableRow key={user.id} user={user} userRentals={userRentals} />
                             ))
                         }
                     </TableBody>
                 </Table>
+            }
+            {
+                list === 'transactionHistoryList'
             }
         </>
     )
