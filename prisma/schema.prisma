@@ -23,6 +23,7 @@ model Game {
   renters            Int      @default(0)
   slot               Int
   rentals            Rental[]
+  transactions       NewRentTransaction[]
 }
 
 model User {
@@ -31,6 +32,7 @@ model User {
   email         String    @unique
   isAdmin       Boolean   @default(false)
   rentals       Rental[]
+  transactions  NewRentTransaction[]
   emailVerified Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now())
@@ -122,4 +124,23 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model NewRentTransaction {
+  id              String @id @default(cuid(1))
+
+  user            User   @relation(fields: [userId], references: [id])
+  userId          String
+
+  game            Game   @relation(fields: [gameId], references: [id])
+  gameId          String
+
+  rentType        RentType
+  accountPlan     AccountPlan
+  rentPayment     Int
+  rentDeposit     Int
+
+  isConfirmed     Boolean
+
+  createdAt DateTime @default(now())
 }

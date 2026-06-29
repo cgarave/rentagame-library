@@ -96,3 +96,12 @@ export async function getUserRentals() {
         }
     })
 }
+
+export async function deleteUserRental(id: string) {
+    await prisma.rental.delete({
+        where: { id: id }
+    })
+    revalidatePath('/');
+    revalidatePath('/my-rentals')
+    revalidatePath('/dashboard');
+}

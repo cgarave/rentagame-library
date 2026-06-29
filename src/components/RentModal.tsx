@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 import { GameDetails } from "@/types/GameDetails";
 import {updateGame, createRental} from "@/lib/actions";
+import { createRentTransaction } from "@/lib/rentTransactionAction";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client"
 import { toast } from 'sonner'
@@ -19,74 +20,110 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
 
     async function handlePayment() {
         if (id
-            // && session?.user.id
+            && session?.user.id
             ){
             switch (selectedPlan){
                 case 'weekly':
-                    // switch (selectedAccountPlan){
-                    //     case 'trophy':
-                    //         await updateGame(id, {
-                    //             availableTrophy: availableTrophy! - 1,
-                    //             renters: renters! + 1,
-                    //             slot: slot! - 1,
-                    //         })
-                    //         await createRental({
-                    //             userId: session?.user.id,
-                    //             gameId: id,
-                    //             status: "ACTIVE",
-                    //             rentType: "WEEKLY",
-                    //             accountPlan: "TROPHY"
-                    //         })
-                    //         break
-                    //     case 'nonTrophy':
-                    //         await updateGame(id, {
-                    //             availableNonTrophy: availableNonTrophy! - 1,
-                    //             renters: renters! + 1,
-                    //             slot: slot! - 1,
-                    //         })
-                    //         await createRental({
-                    //             userId: session?.user.id,
-                    //             gameId: id,
-                    //             status: "ACTIVE",
-                    //             rentType: "WEEKLY",
-                    //             accountPlan: "NONTROPHY"
-                    //         })
-                    //         break
-                    // }
-                    router.push('https://m.me/1152961824575684')
+                    switch (selectedAccountPlan){
+                        case 'trophy':
+                            // await updateGame(id, {
+                            //     availableTrophy: availableTrophy! - 1,
+                            //     renters: renters! + 1,
+                            //     slot: slot! - 1,
+                            // })
+                            // await createRental({
+                            //     userId: session?.user.id,
+                            //     gameId: id,
+                            //     status: "ACTIVE",
+                            //     rentType: "WEEKLY",
+                            //     accountPlan: "TROPHY"
+                            // })
+                            await createRentTransaction({
+                                userId: session?.user.id,
+                                gameId: id,
+                                rentType: "WEEKLY",
+                                accountPlan: "TROPHY",
+                                rentPayment: weeklyPrice! + 50,
+                                rentDeposit: 150,
+                                isConfirmed: false,
+                            })
+                            break
+                        case 'nonTrophy':
+                            // await updateGame(id, {
+                            //     availableNonTrophy: availableNonTrophy! - 1,
+                            //     renters: renters! + 1,
+                            //     slot: slot! - 1,
+                            // })
+                            // await createRental({
+                            //     userId: session?.user.id,
+                            //     gameId: id,
+                            //     status: "ACTIVE",
+                            //     rentType: "WEEKLY",
+                            //     accountPlan: "NONTROPHY"
+                            // })
+                            await createRentTransaction({
+                                userId: session?.user.id,
+                                gameId: id,
+                                rentType: "WEEKLY",
+                                accountPlan: "NONTROPHY",
+                                rentPayment: weeklyPrice!,
+                                rentDeposit: 150,
+                                isConfirmed: false,
+                            })
+                            break
+                    }
+                    // router.push('https://m.me/1152961824575684')
                     break
                 case 'monthly':
-                    // switch (selectedAccountPlan){
-                    //     case 'trophy':
-                    //         await updateGame(id, {
-                    //             availableTrophy: availableTrophy! - 1,
-                    //             renters: renters! + 1,
-                    //             slot: slot! - 1,
-                    //         })
-                    //         await createRental({
-                    //             userId: session?.user.id,
-                    //             gameId: id,
-                    //             status: "ACTIVE",
-                    //             rentType: "MONTHLY",
-                    //             accountPlan: "TROPHY"
-                    //         })
-                    //         break
-                    //     case 'nonTrophy':
-                    //         await updateGame(id, {
-                    //             availableNonTrophy: availableNonTrophy! - 1,
-                    //             renters: renters! + 1,
-                    //             slot: slot! - 1,
-                    //         })
-                    //         await createRental({
-                    //             userId: session?.user.id,
-                    //             gameId: id,
-                    //             status: "ACTIVE",
-                    //             rentType: "MONTHLY",
-                    //             accountPlan: "NONTROPHY"
-                    //         })
-                    //         break
-                    // }
-                    router.push('https://m.me/1152961824575684')
+                    switch (selectedAccountPlan){
+                        case 'trophy':
+                            // await updateGame(id, {
+                            //     availableTrophy: availableTrophy! - 1,
+                            //     renters: renters! + 1,
+                            //     slot: slot! - 1,
+                            // })
+                            // await createRental({
+                            //     userId: session?.user.id,
+                            //     gameId: id,
+                            //     status: "ACTIVE",
+                            //     rentType: "MONTHLY",
+                            //     accountPlan: "TROPHY"
+                            // })
+                            await createRentTransaction({
+                                userId: session?.user.id,
+                                gameId: id,
+                                rentType: "MONTHLY",
+                                accountPlan: "TROPHY",
+                                rentPayment: monthlyPrice! + 50,
+                                rentDeposit: 150,
+                                isConfirmed: false,
+                            })
+                            break
+                        case 'nonTrophy':
+                            // await updateGame(id, {
+                            //     availableNonTrophy: availableNonTrophy! - 1,
+                            //     renters: renters! + 1,
+                            //     slot: slot! - 1,
+                            // })
+                            // await createRental({
+                            //     userId: session?.user.id,
+                            //     gameId: id,
+                            //     status: "ACTIVE",
+                            //     rentType: "MONTHLY",
+                            //     accountPlan: "NONTROPHY"
+                            // })
+                            await createRentTransaction({
+                                userId: session?.user.id,
+                                gameId: id,
+                                rentType: "MONTHLY",
+                                accountPlan: "NONTROPHY",
+                                rentPayment: monthlyPrice!,
+                                rentDeposit: 150,
+                                isConfirmed: false,
+                            })
+                            break
+                    }
+                    // router.push('https://m.me/1152961824575684')
                     break
             }
         } else {

@@ -13,28 +13,30 @@ datasource db {
 }
 
 model Game {
-  id                 String   @id @default(cuid(1))
+  id                 String               @id @default(cuid(1))
   gameImage          String
   gameTitle          String
   weeklyPrice        Int
   monthlyPrice       Int
   availableTrophy    Int
   availableNonTrophy Int
-  renters            Int      @default(0)
+  renters            Int                  @default(0)
   slot               Int
   rentals            Rental[]
+  transactions       NewRentTransaction[]
 }
 
 model User {
-  id            String    @id @default(cuid(1))
+  id            String               @id @default(cuid(1))
   name          String
-  email         String    @unique
-  isAdmin       Boolean   @default(false)
+  email         String               @unique
+  isAdmin       Boolean              @default(false)
   rentals       Rental[]
-  emailVerified Boolean   @default(false)
+  transactions  NewRentTransaction[]
+  emailVerified Boolean              @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
   sessions      Session[]
   accounts      Account[]
 
@@ -122,4 +124,23 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model NewRentTransaction {
+  id String @id @default(cuid(1))
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  game   Game   @relation(fields: [gameId], references: [id])
+  gameId String
+
+  rentType    RentType
+  accountPlan AccountPlan
+  rentPayment Int
+  rentDeposit Int
+
+  isConfirmed Boolean
+
+  createdAt DateTime @default(now())
 }

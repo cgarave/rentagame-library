@@ -8,8 +8,11 @@ import AddGameModal from "@/components/AddGameModal";
 import { Button } from "@/components/ui/button"
 import { DropdownMenuComponent } from "@/components/DropdownMenu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {deleteUserRental} from "@/lib/actions";
+import {UserTransaction} from "@/types/UserTransaction";
 
 function UserTableRow({user, userRentals}: {user: User, userRentals: UserRentals[]}) {
+
     const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const [viewGames, setViewGames] = useState<boolean>(false)
 
@@ -19,8 +22,16 @@ function UserTableRow({user, userRentals}: {user: User, userRentals: UserRentals
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{String(user.isAdmin)}</TableCell>
-                <TableCell>{`${month[user.createdAt.getMonth()]} ${user.createdAt.getDate()}, ${user.createdAt.getFullYear()}`}</TableCell>
-                <TableCell colSpan={2} align={'right'}>
+                <TableCell>{user.createdAt.toLocaleString('en-US', {
+                    weekday: "short",
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true,
+                })}</TableCell>
+                <TableCell colSpan={3} align={'right'}>
                     <ChevronRight size={'16'} className={`transition-all duration-300 ease-in-out ${viewGames ? 'rotate-90' : 'rotate-0'}`} />
                 </TableCell>
             </TableRow>
@@ -32,7 +43,7 @@ function UserTableRow({user, userRentals}: {user: User, userRentals: UserRentals
                         <TableHead>Status</TableHead>
                         <TableHead>Profile Plan</TableHead>
                         <TableHead>Start Date</TableHead>
-                        <TableHead>Expire Date</TableHead>
+                        <TableHead colSpan={2}>Expire Date</TableHead>
                     </TableRow>
                 )
             }
@@ -44,8 +55,27 @@ function UserTableRow({user, userRentals}: {user: User, userRentals: UserRentals
                         <TableCell>{userRental.rentType}</TableCell>
                         <TableCell>{userRental.status}</TableCell>
                         <TableCell>{userRental.accountPlan}</TableCell>
-                        <TableCell>{`${month[userRental.createdAt.getMonth()]} ${userRental.createdAt.getDate()}, ${userRental.createdAt.getFullYear()}`}</TableCell>
-                        <TableCell>{`${month[userRental.expiresAt.getMonth()]} ${userRental.expiresAt.getDate()}, ${userRental.expiresAt.getFullYear()}`}</TableCell>
+                        <TableCell>{userRental.createdAt.toLocaleString('en-US', {
+                            weekday: "short",
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "2-digit",
+                            hour12: true,
+                        })}</TableCell>
+                        <TableCell>{userRental.expiresAt.toLocaleString('en-US', {
+                            weekday: "short",
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "2-digit",
+                            hour12: true,
+                        })}</TableCell>
+                        <TableCell>
+                            <Button variant={'destructive'} onClick={() => userRental.id ? deleteUserRental(userRental.id) : null}>Delete</Button>
+                        </TableCell>
                     </TableRow>
                 ))
             }
@@ -53,7 +83,7 @@ function UserTableRow({user, userRentals}: {user: User, userRentals: UserRentals
     )
 }
 
-export default function DashboardList({ games, users, userRentals }: { games: GameDetails[], users: User[], userRentals: UserRentals[] }) {
+export default function DashboardList({ games, users, userRentals, userTransactions }: { games: GameDetails[], users: User[], userRentals: UserRentals[], userTransactions: UserTransaction[] }) {
     const [list, setList] = useState('gameList')
     return (
         <>
@@ -142,7 +172,51 @@ export default function DashboardList({ games, users, userRentals }: { games: Ga
                 </Table>
             }
             {
-                list === 'transactionHistoryList'
+                list === 'transactionHistoryList' &&
+                <Table className={'mx-auto border'}>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Transaction Id</TableHead>
+                            <TableHead>Username</TableHead>
+                            <TableHead>Email</TableHead>
+                            <TableHead>Game Title</TableHead>
+                            <TableHead>Rent Type</TableHead>
+                            <TableHead>Account Plan</TableHead>
+                            <TableHead>Rent Payment</TableHead>
+                            <TableHead>Rent Deposit</TableHead>
+                            <TableHead colSpan={2}>Transaction Date</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {
+                            userTransactions.map((userTransaction: UserTransaction) => (
+                                <TableRow key={userTransaction.id}>
+                                    <TableCell>{userTransaction.id}</TableCell>
+                                    <TableCell>{userTransaction.user.name}</TableCell>
+                                    <TableCell>{userTransaction.user.email}</TableCell>
+                                    <TableCell>{userTransaction.game.gameTitle}</TableCell>
+                                    <TableCell>{userTransaction.rentType}</TableCell>
+                                    <TableCell>{userTransaction.accountPlan}</TableCell>
+                                    <TableCell>{userTransaction.rentPayment}</TableCell>
+                                    <TableCell>{userTransaction.rentDeposit}</TableCell>
+                                    <TableCell>{userTransaction.createdAt.toLocaleString('en-US', {
+                                        weekday: "short",
+                                        month: "long",
+                                        day: "numeric",
+                                        year: "numeric",
+                                        hour: "numeric",
+                                        minute: "2-digit",
+                                        hour12: true,
+                                    })}</TableCell>
+                                    <TableCell className={'flex flex-row gap-x-4'}>
+                                        <Button>Confirm Transaction</Button>
+                                        <Button variant={'destructive'}>Cancel</Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        }
+                    </TableBody>
+                </Table>
             }
         </>
     )

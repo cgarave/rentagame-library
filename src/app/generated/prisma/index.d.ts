@@ -43,6 +43,11 @@ export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
  * 
  */
 export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
+/**
+ * Model NewRentTransaction
+ * 
+ */
+export type NewRentTransaction = $Result.DefaultSelection<Prisma.$NewRentTransactionPayload>
 
 /**
  * Enums
@@ -266,6 +271,16 @@ export class PrismaClient<
     * ```
     */
   get verification(): Prisma.VerificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.newRentTransaction`: Exposes CRUD operations for the **NewRentTransaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NewRentTransactions
+    * const newRentTransactions = await prisma.newRentTransaction.findMany()
+    * ```
+    */
+  get newRentTransaction(): Prisma.NewRentTransactionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -705,7 +720,8 @@ export namespace Prisma {
     Rental: 'Rental',
     Session: 'Session',
     Account: 'Account',
-    Verification: 'Verification'
+    Verification: 'Verification',
+    NewRentTransaction: 'NewRentTransaction'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -721,7 +737,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "game" | "user" | "rental" | "session" | "account" | "verification"
+      modelProps: "game" | "user" | "rental" | "session" | "account" | "verification" | "newRentTransaction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1169,6 +1185,80 @@ export namespace Prisma {
           }
         }
       }
+      NewRentTransaction: {
+        payload: Prisma.$NewRentTransactionPayload<ExtArgs>
+        fields: Prisma.NewRentTransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NewRentTransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NewRentTransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.NewRentTransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NewRentTransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload>
+          }
+          findMany: {
+            args: Prisma.NewRentTransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload>[]
+          }
+          create: {
+            args: Prisma.NewRentTransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload>
+          }
+          createMany: {
+            args: Prisma.NewRentTransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NewRentTransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload>[]
+          }
+          delete: {
+            args: Prisma.NewRentTransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload>
+          }
+          update: {
+            args: Prisma.NewRentTransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.NewRentTransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NewRentTransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NewRentTransactionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload>[]
+          }
+          upsert: {
+            args: Prisma.NewRentTransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NewRentTransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.NewRentTransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNewRentTransaction>
+          }
+          groupBy: {
+            args: Prisma.NewRentTransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NewRentTransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NewRentTransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<NewRentTransactionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1283,6 +1373,7 @@ export namespace Prisma {
     session?: SessionOmit
     account?: AccountOmit
     verification?: VerificationOmit
+    newRentTransaction?: NewRentTransactionOmit
   }
 
   /* Types for Logging */
@@ -1364,10 +1455,12 @@ export namespace Prisma {
 
   export type GameCountOutputType = {
     rentals: number
+    transactions: number
   }
 
   export type GameCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rentals?: boolean | GameCountOutputTypeCountRentalsArgs
+    transactions?: boolean | GameCountOutputTypeCountTransactionsArgs
   }
 
   // Custom InputTypes
@@ -1388,6 +1481,13 @@ export namespace Prisma {
     where?: RentalWhereInput
   }
 
+  /**
+   * GameCountOutputType without action
+   */
+  export type GameCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NewRentTransactionWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -1395,12 +1495,14 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     rentals: number
+    transactions: number
     sessions: number
     accounts: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rentals?: boolean | UserCountOutputTypeCountRentalsArgs
+    transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   }
@@ -1421,6 +1523,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountRentalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RentalWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NewRentTransactionWhereInput
   }
 
   /**
@@ -1693,6 +1802,7 @@ export namespace Prisma {
     renters?: boolean
     slot?: boolean
     rentals?: boolean | Game$rentalsArgs<ExtArgs>
+    transactions?: boolean | Game$transactionsArgs<ExtArgs>
     _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["game"]>
 
@@ -1735,6 +1845,7 @@ export namespace Prisma {
   export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gameImage" | "gameTitle" | "weeklyPrice" | "monthlyPrice" | "availableTrophy" | "availableNonTrophy" | "renters" | "slot", ExtArgs["result"]["game"]>
   export type GameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rentals?: boolean | Game$rentalsArgs<ExtArgs>
+    transactions?: boolean | Game$transactionsArgs<ExtArgs>
     _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GameIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1744,6 +1855,7 @@ export namespace Prisma {
     name: "Game"
     objects: {
       rentals: Prisma.$RentalPayload<ExtArgs>[]
+      transactions: Prisma.$NewRentTransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2150,6 +2262,7 @@ export namespace Prisma {
   export interface Prisma__GameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     rentals<T extends Game$rentalsArgs<ExtArgs> = {}>(args?: Subset<T, Game$rentalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    transactions<T extends Game$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Game$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2605,6 +2718,30 @@ export namespace Prisma {
   }
 
   /**
+   * Game.transactions
+   */
+  export type Game$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    where?: NewRentTransactionWhereInput
+    orderBy?: NewRentTransactionOrderByWithRelationInput | NewRentTransactionOrderByWithRelationInput[]
+    cursor?: NewRentTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NewRentTransactionScalarFieldEnum | NewRentTransactionScalarFieldEnum[]
+  }
+
+  /**
    * Game without action
    */
   export type GameDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2812,6 +2949,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     rentals?: boolean | User$rentalsArgs<ExtArgs>
+    transactions?: boolean | User$transactionsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2853,6 +2991,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "isAdmin" | "emailVerified" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rentals?: boolean | User$rentalsArgs<ExtArgs>
+    transactions?: boolean | User$transactionsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2864,6 +3003,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       rentals: Prisma.$RentalPayload<ExtArgs>[]
+      transactions: Prisma.$NewRentTransactionPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
     }
@@ -3271,6 +3411,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     rentals<T extends User$rentalsArgs<ExtArgs> = {}>(args?: Subset<T, User$rentalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    transactions<T extends User$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -3724,6 +3865,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RentalScalarFieldEnum | RentalScalarFieldEnum[]
+  }
+
+  /**
+   * User.transactions
+   */
+  export type User$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    where?: NewRentTransactionWhereInput
+    orderBy?: NewRentTransactionOrderByWithRelationInput | NewRentTransactionOrderByWithRelationInput[]
+    cursor?: NewRentTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NewRentTransactionScalarFieldEnum | NewRentTransactionScalarFieldEnum[]
   }
 
   /**
@@ -8199,6 +8364,1167 @@ export namespace Prisma {
 
 
   /**
+   * Model NewRentTransaction
+   */
+
+  export type AggregateNewRentTransaction = {
+    _count: NewRentTransactionCountAggregateOutputType | null
+    _avg: NewRentTransactionAvgAggregateOutputType | null
+    _sum: NewRentTransactionSumAggregateOutputType | null
+    _min: NewRentTransactionMinAggregateOutputType | null
+    _max: NewRentTransactionMaxAggregateOutputType | null
+  }
+
+  export type NewRentTransactionAvgAggregateOutputType = {
+    rentPayment: number | null
+    rentDeposit: number | null
+  }
+
+  export type NewRentTransactionSumAggregateOutputType = {
+    rentPayment: number | null
+    rentDeposit: number | null
+  }
+
+  export type NewRentTransactionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    gameId: string | null
+    rentType: $Enums.RentType | null
+    accountPlan: $Enums.AccountPlan | null
+    rentPayment: number | null
+    rentDeposit: number | null
+    isConfirmed: boolean | null
+    createdAt: Date | null
+  }
+
+  export type NewRentTransactionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    gameId: string | null
+    rentType: $Enums.RentType | null
+    accountPlan: $Enums.AccountPlan | null
+    rentPayment: number | null
+    rentDeposit: number | null
+    isConfirmed: boolean | null
+    createdAt: Date | null
+  }
+
+  export type NewRentTransactionCountAggregateOutputType = {
+    id: number
+    userId: number
+    gameId: number
+    rentType: number
+    accountPlan: number
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type NewRentTransactionAvgAggregateInputType = {
+    rentPayment?: true
+    rentDeposit?: true
+  }
+
+  export type NewRentTransactionSumAggregateInputType = {
+    rentPayment?: true
+    rentDeposit?: true
+  }
+
+  export type NewRentTransactionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    gameId?: true
+    rentType?: true
+    accountPlan?: true
+    rentPayment?: true
+    rentDeposit?: true
+    isConfirmed?: true
+    createdAt?: true
+  }
+
+  export type NewRentTransactionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    gameId?: true
+    rentType?: true
+    accountPlan?: true
+    rentPayment?: true
+    rentDeposit?: true
+    isConfirmed?: true
+    createdAt?: true
+  }
+
+  export type NewRentTransactionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    gameId?: true
+    rentType?: true
+    accountPlan?: true
+    rentPayment?: true
+    rentDeposit?: true
+    isConfirmed?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type NewRentTransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NewRentTransaction to aggregate.
+     */
+    where?: NewRentTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NewRentTransactions to fetch.
+     */
+    orderBy?: NewRentTransactionOrderByWithRelationInput | NewRentTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NewRentTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NewRentTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NewRentTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NewRentTransactions
+    **/
+    _count?: true | NewRentTransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NewRentTransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NewRentTransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NewRentTransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NewRentTransactionMaxAggregateInputType
+  }
+
+  export type GetNewRentTransactionAggregateType<T extends NewRentTransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateNewRentTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNewRentTransaction[P]>
+      : GetScalarType<T[P], AggregateNewRentTransaction[P]>
+  }
+
+
+
+
+  export type NewRentTransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NewRentTransactionWhereInput
+    orderBy?: NewRentTransactionOrderByWithAggregationInput | NewRentTransactionOrderByWithAggregationInput[]
+    by: NewRentTransactionScalarFieldEnum[] | NewRentTransactionScalarFieldEnum
+    having?: NewRentTransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NewRentTransactionCountAggregateInputType | true
+    _avg?: NewRentTransactionAvgAggregateInputType
+    _sum?: NewRentTransactionSumAggregateInputType
+    _min?: NewRentTransactionMinAggregateInputType
+    _max?: NewRentTransactionMaxAggregateInputType
+  }
+
+  export type NewRentTransactionGroupByOutputType = {
+    id: string
+    userId: string
+    gameId: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
+    createdAt: Date
+    _count: NewRentTransactionCountAggregateOutputType | null
+    _avg: NewRentTransactionAvgAggregateOutputType | null
+    _sum: NewRentTransactionSumAggregateOutputType | null
+    _min: NewRentTransactionMinAggregateOutputType | null
+    _max: NewRentTransactionMaxAggregateOutputType | null
+  }
+
+  type GetNewRentTransactionGroupByPayload<T extends NewRentTransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NewRentTransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NewRentTransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NewRentTransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], NewRentTransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NewRentTransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    gameId?: boolean
+    rentType?: boolean
+    accountPlan?: boolean
+    rentPayment?: boolean
+    rentDeposit?: boolean
+    isConfirmed?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["newRentTransaction"]>
+
+  export type NewRentTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    gameId?: boolean
+    rentType?: boolean
+    accountPlan?: boolean
+    rentPayment?: boolean
+    rentDeposit?: boolean
+    isConfirmed?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["newRentTransaction"]>
+
+  export type NewRentTransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    gameId?: boolean
+    rentType?: boolean
+    accountPlan?: boolean
+    rentPayment?: boolean
+    rentDeposit?: boolean
+    isConfirmed?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["newRentTransaction"]>
+
+  export type NewRentTransactionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    gameId?: boolean
+    rentType?: boolean
+    accountPlan?: boolean
+    rentPayment?: boolean
+    rentDeposit?: boolean
+    isConfirmed?: boolean
+    createdAt?: boolean
+  }
+
+  export type NewRentTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "gameId" | "rentType" | "accountPlan" | "rentPayment" | "rentDeposit" | "isConfirmed" | "createdAt", ExtArgs["result"]["newRentTransaction"]>
+  export type NewRentTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }
+  export type NewRentTransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }
+  export type NewRentTransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    game?: boolean | GameDefaultArgs<ExtArgs>
+  }
+
+  export type $NewRentTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NewRentTransaction"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      game: Prisma.$GamePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      gameId: string
+      rentType: $Enums.RentType
+      accountPlan: $Enums.AccountPlan
+      rentPayment: number
+      rentDeposit: number
+      isConfirmed: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["newRentTransaction"]>
+    composites: {}
+  }
+
+  type NewRentTransactionGetPayload<S extends boolean | null | undefined | NewRentTransactionDefaultArgs> = $Result.GetResult<Prisma.$NewRentTransactionPayload, S>
+
+  type NewRentTransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NewRentTransactionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NewRentTransactionCountAggregateInputType | true
+    }
+
+  export interface NewRentTransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NewRentTransaction'], meta: { name: 'NewRentTransaction' } }
+    /**
+     * Find zero or one NewRentTransaction that matches the filter.
+     * @param {NewRentTransactionFindUniqueArgs} args - Arguments to find a NewRentTransaction
+     * @example
+     * // Get one NewRentTransaction
+     * const newRentTransaction = await prisma.newRentTransaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NewRentTransactionFindUniqueArgs>(args: SelectSubset<T, NewRentTransactionFindUniqueArgs<ExtArgs>>): Prisma__NewRentTransactionClient<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NewRentTransaction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NewRentTransactionFindUniqueOrThrowArgs} args - Arguments to find a NewRentTransaction
+     * @example
+     * // Get one NewRentTransaction
+     * const newRentTransaction = await prisma.newRentTransaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NewRentTransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, NewRentTransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NewRentTransactionClient<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NewRentTransaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewRentTransactionFindFirstArgs} args - Arguments to find a NewRentTransaction
+     * @example
+     * // Get one NewRentTransaction
+     * const newRentTransaction = await prisma.newRentTransaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NewRentTransactionFindFirstArgs>(args?: SelectSubset<T, NewRentTransactionFindFirstArgs<ExtArgs>>): Prisma__NewRentTransactionClient<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NewRentTransaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewRentTransactionFindFirstOrThrowArgs} args - Arguments to find a NewRentTransaction
+     * @example
+     * // Get one NewRentTransaction
+     * const newRentTransaction = await prisma.newRentTransaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NewRentTransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, NewRentTransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__NewRentTransactionClient<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NewRentTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewRentTransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NewRentTransactions
+     * const newRentTransactions = await prisma.newRentTransaction.findMany()
+     * 
+     * // Get first 10 NewRentTransactions
+     * const newRentTransactions = await prisma.newRentTransaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const newRentTransactionWithIdOnly = await prisma.newRentTransaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NewRentTransactionFindManyArgs>(args?: SelectSubset<T, NewRentTransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NewRentTransaction.
+     * @param {NewRentTransactionCreateArgs} args - Arguments to create a NewRentTransaction.
+     * @example
+     * // Create one NewRentTransaction
+     * const NewRentTransaction = await prisma.newRentTransaction.create({
+     *   data: {
+     *     // ... data to create a NewRentTransaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends NewRentTransactionCreateArgs>(args: SelectSubset<T, NewRentTransactionCreateArgs<ExtArgs>>): Prisma__NewRentTransactionClient<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NewRentTransactions.
+     * @param {NewRentTransactionCreateManyArgs} args - Arguments to create many NewRentTransactions.
+     * @example
+     * // Create many NewRentTransactions
+     * const newRentTransaction = await prisma.newRentTransaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NewRentTransactionCreateManyArgs>(args?: SelectSubset<T, NewRentTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NewRentTransactions and returns the data saved in the database.
+     * @param {NewRentTransactionCreateManyAndReturnArgs} args - Arguments to create many NewRentTransactions.
+     * @example
+     * // Create many NewRentTransactions
+     * const newRentTransaction = await prisma.newRentTransaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NewRentTransactions and only return the `id`
+     * const newRentTransactionWithIdOnly = await prisma.newRentTransaction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NewRentTransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, NewRentTransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NewRentTransaction.
+     * @param {NewRentTransactionDeleteArgs} args - Arguments to delete one NewRentTransaction.
+     * @example
+     * // Delete one NewRentTransaction
+     * const NewRentTransaction = await prisma.newRentTransaction.delete({
+     *   where: {
+     *     // ... filter to delete one NewRentTransaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NewRentTransactionDeleteArgs>(args: SelectSubset<T, NewRentTransactionDeleteArgs<ExtArgs>>): Prisma__NewRentTransactionClient<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NewRentTransaction.
+     * @param {NewRentTransactionUpdateArgs} args - Arguments to update one NewRentTransaction.
+     * @example
+     * // Update one NewRentTransaction
+     * const newRentTransaction = await prisma.newRentTransaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NewRentTransactionUpdateArgs>(args: SelectSubset<T, NewRentTransactionUpdateArgs<ExtArgs>>): Prisma__NewRentTransactionClient<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NewRentTransactions.
+     * @param {NewRentTransactionDeleteManyArgs} args - Arguments to filter NewRentTransactions to delete.
+     * @example
+     * // Delete a few NewRentTransactions
+     * const { count } = await prisma.newRentTransaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NewRentTransactionDeleteManyArgs>(args?: SelectSubset<T, NewRentTransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NewRentTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewRentTransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NewRentTransactions
+     * const newRentTransaction = await prisma.newRentTransaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NewRentTransactionUpdateManyArgs>(args: SelectSubset<T, NewRentTransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NewRentTransactions and returns the data updated in the database.
+     * @param {NewRentTransactionUpdateManyAndReturnArgs} args - Arguments to update many NewRentTransactions.
+     * @example
+     * // Update many NewRentTransactions
+     * const newRentTransaction = await prisma.newRentTransaction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NewRentTransactions and only return the `id`
+     * const newRentTransactionWithIdOnly = await prisma.newRentTransaction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NewRentTransactionUpdateManyAndReturnArgs>(args: SelectSubset<T, NewRentTransactionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NewRentTransaction.
+     * @param {NewRentTransactionUpsertArgs} args - Arguments to update or create a NewRentTransaction.
+     * @example
+     * // Update or create a NewRentTransaction
+     * const newRentTransaction = await prisma.newRentTransaction.upsert({
+     *   create: {
+     *     // ... data to create a NewRentTransaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NewRentTransaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NewRentTransactionUpsertArgs>(args: SelectSubset<T, NewRentTransactionUpsertArgs<ExtArgs>>): Prisma__NewRentTransactionClient<$Result.GetResult<Prisma.$NewRentTransactionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NewRentTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewRentTransactionCountArgs} args - Arguments to filter NewRentTransactions to count.
+     * @example
+     * // Count the number of NewRentTransactions
+     * const count = await prisma.newRentTransaction.count({
+     *   where: {
+     *     // ... the filter for the NewRentTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends NewRentTransactionCountArgs>(
+      args?: Subset<T, NewRentTransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NewRentTransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NewRentTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewRentTransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NewRentTransactionAggregateArgs>(args: Subset<T, NewRentTransactionAggregateArgs>): Prisma.PrismaPromise<GetNewRentTransactionAggregateType<T>>
+
+    /**
+     * Group by NewRentTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NewRentTransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NewRentTransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NewRentTransactionGroupByArgs['orderBy'] }
+        : { orderBy?: NewRentTransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NewRentTransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNewRentTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NewRentTransaction model
+   */
+  readonly fields: NewRentTransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NewRentTransaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NewRentTransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    game<T extends GameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameDefaultArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NewRentTransaction model
+   */
+  interface NewRentTransactionFieldRefs {
+    readonly id: FieldRef<"NewRentTransaction", 'String'>
+    readonly userId: FieldRef<"NewRentTransaction", 'String'>
+    readonly gameId: FieldRef<"NewRentTransaction", 'String'>
+    readonly rentType: FieldRef<"NewRentTransaction", 'RentType'>
+    readonly accountPlan: FieldRef<"NewRentTransaction", 'AccountPlan'>
+    readonly rentPayment: FieldRef<"NewRentTransaction", 'Int'>
+    readonly rentDeposit: FieldRef<"NewRentTransaction", 'Int'>
+    readonly isConfirmed: FieldRef<"NewRentTransaction", 'Boolean'>
+    readonly createdAt: FieldRef<"NewRentTransaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NewRentTransaction findUnique
+   */
+  export type NewRentTransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which NewRentTransaction to fetch.
+     */
+    where: NewRentTransactionWhereUniqueInput
+  }
+
+  /**
+   * NewRentTransaction findUniqueOrThrow
+   */
+  export type NewRentTransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which NewRentTransaction to fetch.
+     */
+    where: NewRentTransactionWhereUniqueInput
+  }
+
+  /**
+   * NewRentTransaction findFirst
+   */
+  export type NewRentTransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which NewRentTransaction to fetch.
+     */
+    where?: NewRentTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NewRentTransactions to fetch.
+     */
+    orderBy?: NewRentTransactionOrderByWithRelationInput | NewRentTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NewRentTransactions.
+     */
+    cursor?: NewRentTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NewRentTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NewRentTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NewRentTransactions.
+     */
+    distinct?: NewRentTransactionScalarFieldEnum | NewRentTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * NewRentTransaction findFirstOrThrow
+   */
+  export type NewRentTransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which NewRentTransaction to fetch.
+     */
+    where?: NewRentTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NewRentTransactions to fetch.
+     */
+    orderBy?: NewRentTransactionOrderByWithRelationInput | NewRentTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NewRentTransactions.
+     */
+    cursor?: NewRentTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NewRentTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NewRentTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NewRentTransactions.
+     */
+    distinct?: NewRentTransactionScalarFieldEnum | NewRentTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * NewRentTransaction findMany
+   */
+  export type NewRentTransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which NewRentTransactions to fetch.
+     */
+    where?: NewRentTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NewRentTransactions to fetch.
+     */
+    orderBy?: NewRentTransactionOrderByWithRelationInput | NewRentTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NewRentTransactions.
+     */
+    cursor?: NewRentTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NewRentTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NewRentTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NewRentTransactions.
+     */
+    distinct?: NewRentTransactionScalarFieldEnum | NewRentTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * NewRentTransaction create
+   */
+  export type NewRentTransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NewRentTransaction.
+     */
+    data: XOR<NewRentTransactionCreateInput, NewRentTransactionUncheckedCreateInput>
+  }
+
+  /**
+   * NewRentTransaction createMany
+   */
+  export type NewRentTransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NewRentTransactions.
+     */
+    data: NewRentTransactionCreateManyInput | NewRentTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NewRentTransaction createManyAndReturn
+   */
+  export type NewRentTransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * The data used to create many NewRentTransactions.
+     */
+    data: NewRentTransactionCreateManyInput | NewRentTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NewRentTransaction update
+   */
+  export type NewRentTransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NewRentTransaction.
+     */
+    data: XOR<NewRentTransactionUpdateInput, NewRentTransactionUncheckedUpdateInput>
+    /**
+     * Choose, which NewRentTransaction to update.
+     */
+    where: NewRentTransactionWhereUniqueInput
+  }
+
+  /**
+   * NewRentTransaction updateMany
+   */
+  export type NewRentTransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NewRentTransactions.
+     */
+    data: XOR<NewRentTransactionUpdateManyMutationInput, NewRentTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which NewRentTransactions to update
+     */
+    where?: NewRentTransactionWhereInput
+    /**
+     * Limit how many NewRentTransactions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NewRentTransaction updateManyAndReturn
+   */
+  export type NewRentTransactionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * The data used to update NewRentTransactions.
+     */
+    data: XOR<NewRentTransactionUpdateManyMutationInput, NewRentTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which NewRentTransactions to update
+     */
+    where?: NewRentTransactionWhereInput
+    /**
+     * Limit how many NewRentTransactions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NewRentTransaction upsert
+   */
+  export type NewRentTransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NewRentTransaction to update in case it exists.
+     */
+    where: NewRentTransactionWhereUniqueInput
+    /**
+     * In case the NewRentTransaction found by the `where` argument doesn't exist, create a new NewRentTransaction with this data.
+     */
+    create: XOR<NewRentTransactionCreateInput, NewRentTransactionUncheckedCreateInput>
+    /**
+     * In case the NewRentTransaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NewRentTransactionUpdateInput, NewRentTransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * NewRentTransaction delete
+   */
+  export type NewRentTransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+    /**
+     * Filter which NewRentTransaction to delete.
+     */
+    where: NewRentTransactionWhereUniqueInput
+  }
+
+  /**
+   * NewRentTransaction deleteMany
+   */
+  export type NewRentTransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NewRentTransactions to delete
+     */
+    where?: NewRentTransactionWhereInput
+    /**
+     * Limit how many NewRentTransactions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NewRentTransaction without action
+   */
+  export type NewRentTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NewRentTransaction
+     */
+    select?: NewRentTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NewRentTransaction
+     */
+    omit?: NewRentTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NewRentTransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8299,6 +9625,21 @@ export namespace Prisma {
   };
 
   export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+  export const NewRentTransactionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    gameId: 'gameId',
+    rentType: 'rentType',
+    accountPlan: 'accountPlan',
+    rentPayment: 'rentPayment',
+    rentDeposit: 'rentDeposit',
+    isConfirmed: 'isConfirmed',
+    createdAt: 'createdAt'
+  };
+
+  export type NewRentTransactionScalarFieldEnum = (typeof NewRentTransactionScalarFieldEnum)[keyof typeof NewRentTransactionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8452,6 +9793,7 @@ export namespace Prisma {
     renters?: IntFilter<"Game"> | number
     slot?: IntFilter<"Game"> | number
     rentals?: RentalListRelationFilter
+    transactions?: NewRentTransactionListRelationFilter
   }
 
   export type GameOrderByWithRelationInput = {
@@ -8465,6 +9807,7 @@ export namespace Prisma {
     renters?: SortOrder
     slot?: SortOrder
     rentals?: RentalOrderByRelationAggregateInput
+    transactions?: NewRentTransactionOrderByRelationAggregateInput
   }
 
   export type GameWhereUniqueInput = Prisma.AtLeast<{
@@ -8481,6 +9824,7 @@ export namespace Prisma {
     renters?: IntFilter<"Game"> | number
     slot?: IntFilter<"Game"> | number
     rentals?: RentalListRelationFilter
+    transactions?: NewRentTransactionListRelationFilter
   }, "id">
 
   export type GameOrderByWithAggregationInput = {
@@ -8528,6 +9872,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     rentals?: RentalListRelationFilter
+    transactions?: NewRentTransactionListRelationFilter
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
   }
@@ -8542,6 +9887,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     rentals?: RentalOrderByRelationAggregateInput
+    transactions?: NewRentTransactionOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
   }
@@ -8559,6 +9905,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     rentals?: RentalListRelationFilter
+    transactions?: NewRentTransactionListRelationFilter
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
   }, "id" | "email">
@@ -8891,6 +10238,86 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Verification"> | Date | string
   }
 
+  export type NewRentTransactionWhereInput = {
+    AND?: NewRentTransactionWhereInput | NewRentTransactionWhereInput[]
+    OR?: NewRentTransactionWhereInput[]
+    NOT?: NewRentTransactionWhereInput | NewRentTransactionWhereInput[]
+    id?: StringFilter<"NewRentTransaction"> | string
+    userId?: StringFilter<"NewRentTransaction"> | string
+    gameId?: StringFilter<"NewRentTransaction"> | string
+    rentType?: EnumRentTypeFilter<"NewRentTransaction"> | $Enums.RentType
+    accountPlan?: EnumAccountPlanFilter<"NewRentTransaction"> | $Enums.AccountPlan
+    rentPayment?: IntFilter<"NewRentTransaction"> | number
+    rentDeposit?: IntFilter<"NewRentTransaction"> | number
+    isConfirmed?: BoolFilter<"NewRentTransaction"> | boolean
+    createdAt?: DateTimeFilter<"NewRentTransaction"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    game?: XOR<GameScalarRelationFilter, GameWhereInput>
+  }
+
+  export type NewRentTransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    rentType?: SortOrder
+    accountPlan?: SortOrder
+    rentPayment?: SortOrder
+    rentDeposit?: SortOrder
+    isConfirmed?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    game?: GameOrderByWithRelationInput
+  }
+
+  export type NewRentTransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NewRentTransactionWhereInput | NewRentTransactionWhereInput[]
+    OR?: NewRentTransactionWhereInput[]
+    NOT?: NewRentTransactionWhereInput | NewRentTransactionWhereInput[]
+    userId?: StringFilter<"NewRentTransaction"> | string
+    gameId?: StringFilter<"NewRentTransaction"> | string
+    rentType?: EnumRentTypeFilter<"NewRentTransaction"> | $Enums.RentType
+    accountPlan?: EnumAccountPlanFilter<"NewRentTransaction"> | $Enums.AccountPlan
+    rentPayment?: IntFilter<"NewRentTransaction"> | number
+    rentDeposit?: IntFilter<"NewRentTransaction"> | number
+    isConfirmed?: BoolFilter<"NewRentTransaction"> | boolean
+    createdAt?: DateTimeFilter<"NewRentTransaction"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    game?: XOR<GameScalarRelationFilter, GameWhereInput>
+  }, "id">
+
+  export type NewRentTransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    rentType?: SortOrder
+    accountPlan?: SortOrder
+    rentPayment?: SortOrder
+    rentDeposit?: SortOrder
+    isConfirmed?: SortOrder
+    createdAt?: SortOrder
+    _count?: NewRentTransactionCountOrderByAggregateInput
+    _avg?: NewRentTransactionAvgOrderByAggregateInput
+    _max?: NewRentTransactionMaxOrderByAggregateInput
+    _min?: NewRentTransactionMinOrderByAggregateInput
+    _sum?: NewRentTransactionSumOrderByAggregateInput
+  }
+
+  export type NewRentTransactionScalarWhereWithAggregatesInput = {
+    AND?: NewRentTransactionScalarWhereWithAggregatesInput | NewRentTransactionScalarWhereWithAggregatesInput[]
+    OR?: NewRentTransactionScalarWhereWithAggregatesInput[]
+    NOT?: NewRentTransactionScalarWhereWithAggregatesInput | NewRentTransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"NewRentTransaction"> | string
+    userId?: StringWithAggregatesFilter<"NewRentTransaction"> | string
+    gameId?: StringWithAggregatesFilter<"NewRentTransaction"> | string
+    rentType?: EnumRentTypeWithAggregatesFilter<"NewRentTransaction"> | $Enums.RentType
+    accountPlan?: EnumAccountPlanWithAggregatesFilter<"NewRentTransaction"> | $Enums.AccountPlan
+    rentPayment?: IntWithAggregatesFilter<"NewRentTransaction"> | number
+    rentDeposit?: IntWithAggregatesFilter<"NewRentTransaction"> | number
+    isConfirmed?: BoolWithAggregatesFilter<"NewRentTransaction"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"NewRentTransaction"> | Date | string
+  }
+
   export type GameCreateInput = {
     id?: string
     gameImage: string
@@ -8902,6 +10329,7 @@ export namespace Prisma {
     renters?: number
     slot: number
     rentals?: RentalCreateNestedManyWithoutGameInput
+    transactions?: NewRentTransactionCreateNestedManyWithoutGameInput
   }
 
   export type GameUncheckedCreateInput = {
@@ -8915,6 +10343,7 @@ export namespace Prisma {
     renters?: number
     slot: number
     rentals?: RentalUncheckedCreateNestedManyWithoutGameInput
+    transactions?: NewRentTransactionUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GameUpdateInput = {
@@ -8928,6 +10357,7 @@ export namespace Prisma {
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
     rentals?: RentalUpdateManyWithoutGameNestedInput
+    transactions?: NewRentTransactionUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateInput = {
@@ -8941,6 +10371,7 @@ export namespace Prisma {
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
     rentals?: RentalUncheckedUpdateManyWithoutGameNestedInput
+    transactions?: NewRentTransactionUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type GameCreateManyInput = {
@@ -8989,6 +10420,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     rentals?: RentalCreateNestedManyWithoutUserInput
+    transactions?: NewRentTransactionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
   }
@@ -9003,6 +10435,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     rentals?: RentalUncheckedCreateNestedManyWithoutUserInput
+    transactions?: NewRentTransactionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
   }
@@ -9017,6 +10450,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rentals?: RentalUpdateManyWithoutUserNestedInput
+    transactions?: NewRentTransactionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
   }
@@ -9031,6 +10465,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rentals?: RentalUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: NewRentTransactionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -9400,6 +10835,88 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NewRentTransactionCreateInput = {
+    id?: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTransactionsInput
+    game: GameCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type NewRentTransactionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    gameId: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
+    createdAt?: Date | string
+  }
+
+  export type NewRentTransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    game?: GameUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type NewRentTransactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NewRentTransactionCreateManyInput = {
+    id?: string
+    userId: string
+    gameId: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
+    createdAt?: Date | string
+  }
+
+  export type NewRentTransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NewRentTransactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9432,7 +10949,17 @@ export namespace Prisma {
     none?: RentalWhereInput
   }
 
+  export type NewRentTransactionListRelationFilter = {
+    every?: NewRentTransactionWhereInput
+    some?: NewRentTransactionWhereInput
+    none?: NewRentTransactionWhereInput
+  }
+
   export type RentalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NewRentTransactionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9883,6 +11410,52 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type NewRentTransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    rentType?: SortOrder
+    accountPlan?: SortOrder
+    rentPayment?: SortOrder
+    rentDeposit?: SortOrder
+    isConfirmed?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NewRentTransactionAvgOrderByAggregateInput = {
+    rentPayment?: SortOrder
+    rentDeposit?: SortOrder
+  }
+
+  export type NewRentTransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    rentType?: SortOrder
+    accountPlan?: SortOrder
+    rentPayment?: SortOrder
+    rentDeposit?: SortOrder
+    isConfirmed?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NewRentTransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    rentType?: SortOrder
+    accountPlan?: SortOrder
+    rentPayment?: SortOrder
+    rentDeposit?: SortOrder
+    isConfirmed?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NewRentTransactionSumOrderByAggregateInput = {
+    rentPayment?: SortOrder
+    rentDeposit?: SortOrder
+  }
+
   export type RentalCreateNestedManyWithoutGameInput = {
     create?: XOR<RentalCreateWithoutGameInput, RentalUncheckedCreateWithoutGameInput> | RentalCreateWithoutGameInput[] | RentalUncheckedCreateWithoutGameInput[]
     connectOrCreate?: RentalCreateOrConnectWithoutGameInput | RentalCreateOrConnectWithoutGameInput[]
@@ -9890,11 +11463,25 @@ export namespace Prisma {
     connect?: RentalWhereUniqueInput | RentalWhereUniqueInput[]
   }
 
+  export type NewRentTransactionCreateNestedManyWithoutGameInput = {
+    create?: XOR<NewRentTransactionCreateWithoutGameInput, NewRentTransactionUncheckedCreateWithoutGameInput> | NewRentTransactionCreateWithoutGameInput[] | NewRentTransactionUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: NewRentTransactionCreateOrConnectWithoutGameInput | NewRentTransactionCreateOrConnectWithoutGameInput[]
+    createMany?: NewRentTransactionCreateManyGameInputEnvelope
+    connect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+  }
+
   export type RentalUncheckedCreateNestedManyWithoutGameInput = {
     create?: XOR<RentalCreateWithoutGameInput, RentalUncheckedCreateWithoutGameInput> | RentalCreateWithoutGameInput[] | RentalUncheckedCreateWithoutGameInput[]
     connectOrCreate?: RentalCreateOrConnectWithoutGameInput | RentalCreateOrConnectWithoutGameInput[]
     createMany?: RentalCreateManyGameInputEnvelope
     connect?: RentalWhereUniqueInput | RentalWhereUniqueInput[]
+  }
+
+  export type NewRentTransactionUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<NewRentTransactionCreateWithoutGameInput, NewRentTransactionUncheckedCreateWithoutGameInput> | NewRentTransactionCreateWithoutGameInput[] | NewRentTransactionUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: NewRentTransactionCreateOrConnectWithoutGameInput | NewRentTransactionCreateOrConnectWithoutGameInput[]
+    createMany?: NewRentTransactionCreateManyGameInputEnvelope
+    connect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -9923,6 +11510,20 @@ export namespace Prisma {
     deleteMany?: RentalScalarWhereInput | RentalScalarWhereInput[]
   }
 
+  export type NewRentTransactionUpdateManyWithoutGameNestedInput = {
+    create?: XOR<NewRentTransactionCreateWithoutGameInput, NewRentTransactionUncheckedCreateWithoutGameInput> | NewRentTransactionCreateWithoutGameInput[] | NewRentTransactionUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: NewRentTransactionCreateOrConnectWithoutGameInput | NewRentTransactionCreateOrConnectWithoutGameInput[]
+    upsert?: NewRentTransactionUpsertWithWhereUniqueWithoutGameInput | NewRentTransactionUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: NewRentTransactionCreateManyGameInputEnvelope
+    set?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    disconnect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    delete?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    connect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    update?: NewRentTransactionUpdateWithWhereUniqueWithoutGameInput | NewRentTransactionUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: NewRentTransactionUpdateManyWithWhereWithoutGameInput | NewRentTransactionUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: NewRentTransactionScalarWhereInput | NewRentTransactionScalarWhereInput[]
+  }
+
   export type RentalUncheckedUpdateManyWithoutGameNestedInput = {
     create?: XOR<RentalCreateWithoutGameInput, RentalUncheckedCreateWithoutGameInput> | RentalCreateWithoutGameInput[] | RentalUncheckedCreateWithoutGameInput[]
     connectOrCreate?: RentalCreateOrConnectWithoutGameInput | RentalCreateOrConnectWithoutGameInput[]
@@ -9937,11 +11538,32 @@ export namespace Prisma {
     deleteMany?: RentalScalarWhereInput | RentalScalarWhereInput[]
   }
 
+  export type NewRentTransactionUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<NewRentTransactionCreateWithoutGameInput, NewRentTransactionUncheckedCreateWithoutGameInput> | NewRentTransactionCreateWithoutGameInput[] | NewRentTransactionUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: NewRentTransactionCreateOrConnectWithoutGameInput | NewRentTransactionCreateOrConnectWithoutGameInput[]
+    upsert?: NewRentTransactionUpsertWithWhereUniqueWithoutGameInput | NewRentTransactionUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: NewRentTransactionCreateManyGameInputEnvelope
+    set?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    disconnect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    delete?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    connect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    update?: NewRentTransactionUpdateWithWhereUniqueWithoutGameInput | NewRentTransactionUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: NewRentTransactionUpdateManyWithWhereWithoutGameInput | NewRentTransactionUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: NewRentTransactionScalarWhereInput | NewRentTransactionScalarWhereInput[]
+  }
+
   export type RentalCreateNestedManyWithoutUserInput = {
     create?: XOR<RentalCreateWithoutUserInput, RentalUncheckedCreateWithoutUserInput> | RentalCreateWithoutUserInput[] | RentalUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RentalCreateOrConnectWithoutUserInput | RentalCreateOrConnectWithoutUserInput[]
     createMany?: RentalCreateManyUserInputEnvelope
     connect?: RentalWhereUniqueInput | RentalWhereUniqueInput[]
+  }
+
+  export type NewRentTransactionCreateNestedManyWithoutUserInput = {
+    create?: XOR<NewRentTransactionCreateWithoutUserInput, NewRentTransactionUncheckedCreateWithoutUserInput> | NewRentTransactionCreateWithoutUserInput[] | NewRentTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NewRentTransactionCreateOrConnectWithoutUserInput | NewRentTransactionCreateOrConnectWithoutUserInput[]
+    createMany?: NewRentTransactionCreateManyUserInputEnvelope
+    connect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
   }
 
   export type SessionCreateNestedManyWithoutUserInput = {
@@ -9963,6 +11585,13 @@ export namespace Prisma {
     connectOrCreate?: RentalCreateOrConnectWithoutUserInput | RentalCreateOrConnectWithoutUserInput[]
     createMany?: RentalCreateManyUserInputEnvelope
     connect?: RentalWhereUniqueInput | RentalWhereUniqueInput[]
+  }
+
+  export type NewRentTransactionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NewRentTransactionCreateWithoutUserInput, NewRentTransactionUncheckedCreateWithoutUserInput> | NewRentTransactionCreateWithoutUserInput[] | NewRentTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NewRentTransactionCreateOrConnectWithoutUserInput | NewRentTransactionCreateOrConnectWithoutUserInput[]
+    createMany?: NewRentTransactionCreateManyUserInputEnvelope
+    connect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
   }
 
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
@@ -10005,6 +11634,20 @@ export namespace Prisma {
     deleteMany?: RentalScalarWhereInput | RentalScalarWhereInput[]
   }
 
+  export type NewRentTransactionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NewRentTransactionCreateWithoutUserInput, NewRentTransactionUncheckedCreateWithoutUserInput> | NewRentTransactionCreateWithoutUserInput[] | NewRentTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NewRentTransactionCreateOrConnectWithoutUserInput | NewRentTransactionCreateOrConnectWithoutUserInput[]
+    upsert?: NewRentTransactionUpsertWithWhereUniqueWithoutUserInput | NewRentTransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NewRentTransactionCreateManyUserInputEnvelope
+    set?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    disconnect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    delete?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    connect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    update?: NewRentTransactionUpdateWithWhereUniqueWithoutUserInput | NewRentTransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NewRentTransactionUpdateManyWithWhereWithoutUserInput | NewRentTransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NewRentTransactionScalarWhereInput | NewRentTransactionScalarWhereInput[]
+  }
+
   export type SessionUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -10045,6 +11688,20 @@ export namespace Prisma {
     update?: RentalUpdateWithWhereUniqueWithoutUserInput | RentalUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: RentalUpdateManyWithWhereWithoutUserInput | RentalUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: RentalScalarWhereInput | RentalScalarWhereInput[]
+  }
+
+  export type NewRentTransactionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NewRentTransactionCreateWithoutUserInput, NewRentTransactionUncheckedCreateWithoutUserInput> | NewRentTransactionCreateWithoutUserInput[] | NewRentTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NewRentTransactionCreateOrConnectWithoutUserInput | NewRentTransactionCreateOrConnectWithoutUserInput[]
+    upsert?: NewRentTransactionUpsertWithWhereUniqueWithoutUserInput | NewRentTransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NewRentTransactionCreateManyUserInputEnvelope
+    set?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    disconnect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    delete?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    connect?: NewRentTransactionWhereUniqueInput | NewRentTransactionWhereUniqueInput[]
+    update?: NewRentTransactionUpdateWithWhereUniqueWithoutUserInput | NewRentTransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NewRentTransactionUpdateManyWithWhereWithoutUserInput | NewRentTransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NewRentTransactionScalarWhereInput | NewRentTransactionScalarWhereInput[]
   }
 
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
@@ -10145,6 +11802,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAccountsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountsInput, UserUpdateWithoutAccountsInput>, UserUncheckedUpdateWithoutAccountsInput>
+  }
+
+  export type UserCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTransactionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GameCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<GameCreateWithoutTransactionsInput, GameUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: GameCreateOrConnectWithoutTransactionsInput
+    connect?: GameWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTransactionsInput
+    upsert?: UserUpsertWithoutTransactionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTransactionsInput, UserUpdateWithoutTransactionsInput>, UserUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type GameUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<GameCreateWithoutTransactionsInput, GameUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: GameCreateOrConnectWithoutTransactionsInput
+    upsert?: GameUpsertWithoutTransactionsInput
+    connect?: GameWhereUniqueInput
+    update?: XOR<XOR<GameUpdateToOneWithWhereWithoutTransactionsInput, GameUpdateWithoutTransactionsInput>, GameUncheckedUpdateWithoutTransactionsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10404,6 +12089,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NewRentTransactionCreateWithoutGameInput = {
+    id?: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type NewRentTransactionUncheckedCreateWithoutGameInput = {
+    id?: string
+    userId: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
+    createdAt?: Date | string
+  }
+
+  export type NewRentTransactionCreateOrConnectWithoutGameInput = {
+    where: NewRentTransactionWhereUniqueInput
+    create: XOR<NewRentTransactionCreateWithoutGameInput, NewRentTransactionUncheckedCreateWithoutGameInput>
+  }
+
+  export type NewRentTransactionCreateManyGameInputEnvelope = {
+    data: NewRentTransactionCreateManyGameInput | NewRentTransactionCreateManyGameInput[]
+    skipDuplicates?: boolean
+  }
+
   export type RentalUpsertWithWhereUniqueWithoutGameInput = {
     where: RentalWhereUniqueInput
     update: XOR<RentalUpdateWithoutGameInput, RentalUncheckedUpdateWithoutGameInput>
@@ -10435,6 +12152,37 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Rental"> | Date | string
   }
 
+  export type NewRentTransactionUpsertWithWhereUniqueWithoutGameInput = {
+    where: NewRentTransactionWhereUniqueInput
+    update: XOR<NewRentTransactionUpdateWithoutGameInput, NewRentTransactionUncheckedUpdateWithoutGameInput>
+    create: XOR<NewRentTransactionCreateWithoutGameInput, NewRentTransactionUncheckedCreateWithoutGameInput>
+  }
+
+  export type NewRentTransactionUpdateWithWhereUniqueWithoutGameInput = {
+    where: NewRentTransactionWhereUniqueInput
+    data: XOR<NewRentTransactionUpdateWithoutGameInput, NewRentTransactionUncheckedUpdateWithoutGameInput>
+  }
+
+  export type NewRentTransactionUpdateManyWithWhereWithoutGameInput = {
+    where: NewRentTransactionScalarWhereInput
+    data: XOR<NewRentTransactionUpdateManyMutationInput, NewRentTransactionUncheckedUpdateManyWithoutGameInput>
+  }
+
+  export type NewRentTransactionScalarWhereInput = {
+    AND?: NewRentTransactionScalarWhereInput | NewRentTransactionScalarWhereInput[]
+    OR?: NewRentTransactionScalarWhereInput[]
+    NOT?: NewRentTransactionScalarWhereInput | NewRentTransactionScalarWhereInput[]
+    id?: StringFilter<"NewRentTransaction"> | string
+    userId?: StringFilter<"NewRentTransaction"> | string
+    gameId?: StringFilter<"NewRentTransaction"> | string
+    rentType?: EnumRentTypeFilter<"NewRentTransaction"> | $Enums.RentType
+    accountPlan?: EnumAccountPlanFilter<"NewRentTransaction"> | $Enums.AccountPlan
+    rentPayment?: IntFilter<"NewRentTransaction"> | number
+    rentDeposit?: IntFilter<"NewRentTransaction"> | number
+    isConfirmed?: BoolFilter<"NewRentTransaction"> | boolean
+    createdAt?: DateTimeFilter<"NewRentTransaction"> | Date | string
+  }
+
   export type RentalCreateWithoutUserInput = {
     id?: string
     rentType: $Enums.RentType
@@ -10464,6 +12212,38 @@ export namespace Prisma {
 
   export type RentalCreateManyUserInputEnvelope = {
     data: RentalCreateManyUserInput | RentalCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NewRentTransactionCreateWithoutUserInput = {
+    id?: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
+    createdAt?: Date | string
+    game: GameCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type NewRentTransactionUncheckedCreateWithoutUserInput = {
+    id?: string
+    gameId: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
+    createdAt?: Date | string
+  }
+
+  export type NewRentTransactionCreateOrConnectWithoutUserInput = {
+    where: NewRentTransactionWhereUniqueInput
+    create: XOR<NewRentTransactionCreateWithoutUserInput, NewRentTransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type NewRentTransactionCreateManyUserInputEnvelope = {
+    data: NewRentTransactionCreateManyUserInput | NewRentTransactionCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -10553,6 +12333,22 @@ export namespace Prisma {
     data: XOR<RentalUpdateManyMutationInput, RentalUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type NewRentTransactionUpsertWithWhereUniqueWithoutUserInput = {
+    where: NewRentTransactionWhereUniqueInput
+    update: XOR<NewRentTransactionUpdateWithoutUserInput, NewRentTransactionUncheckedUpdateWithoutUserInput>
+    create: XOR<NewRentTransactionCreateWithoutUserInput, NewRentTransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type NewRentTransactionUpdateWithWhereUniqueWithoutUserInput = {
+    where: NewRentTransactionWhereUniqueInput
+    data: XOR<NewRentTransactionUpdateWithoutUserInput, NewRentTransactionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NewRentTransactionUpdateManyWithWhereWithoutUserInput = {
+    where: NewRentTransactionScalarWhereInput
+    data: XOR<NewRentTransactionUpdateManyMutationInput, NewRentTransactionUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
@@ -10627,6 +12423,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    transactions?: NewRentTransactionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
   }
@@ -10640,6 +12437,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    transactions?: NewRentTransactionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
   }
@@ -10659,6 +12457,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters?: number
     slot: number
+    transactions?: NewRentTransactionCreateNestedManyWithoutGameInput
   }
 
   export type GameUncheckedCreateWithoutRentalsInput = {
@@ -10671,6 +12470,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters?: number
     slot: number
+    transactions?: NewRentTransactionUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GameCreateOrConnectWithoutRentalsInput = {
@@ -10698,6 +12498,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: NewRentTransactionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
   }
@@ -10711,6 +12512,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: NewRentTransactionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -10736,6 +12538,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    transactions?: NewRentTransactionUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateWithoutRentalsInput = {
@@ -10748,6 +12551,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    transactions?: NewRentTransactionUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -10760,6 +12564,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     rentals?: RentalCreateNestedManyWithoutUserInput
+    transactions?: NewRentTransactionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
   }
 
@@ -10773,6 +12578,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     rentals?: RentalUncheckedCreateNestedManyWithoutUserInput
+    transactions?: NewRentTransactionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -10802,6 +12608,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rentals?: RentalUpdateManyWithoutUserNestedInput
+    transactions?: NewRentTransactionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
   }
 
@@ -10815,6 +12622,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rentals?: RentalUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: NewRentTransactionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -10828,6 +12636,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     rentals?: RentalCreateNestedManyWithoutUserInput
+    transactions?: NewRentTransactionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
@@ -10841,6 +12650,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     rentals?: RentalUncheckedCreateNestedManyWithoutUserInput
+    transactions?: NewRentTransactionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -10870,6 +12680,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rentals?: RentalUpdateManyWithoutUserNestedInput
+    transactions?: NewRentTransactionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
@@ -10883,7 +12694,148 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rentals?: RentalUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: NewRentTransactionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutTransactionsInput = {
+    id?: string
+    name: string
+    email: string
+    isAdmin?: boolean
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rentals?: RentalCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    name: string
+    email: string
+    isAdmin?: boolean
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rentals?: RentalUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTransactionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type GameCreateWithoutTransactionsInput = {
+    id?: string
+    gameImage: string
+    gameTitle: string
+    weeklyPrice: number
+    monthlyPrice: number
+    availableTrophy: number
+    availableNonTrophy: number
+    renters?: number
+    slot: number
+    rentals?: RentalCreateNestedManyWithoutGameInput
+  }
+
+  export type GameUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    gameImage: string
+    gameTitle: string
+    weeklyPrice: number
+    monthlyPrice: number
+    availableTrophy: number
+    availableNonTrophy: number
+    renters?: number
+    slot: number
+    rentals?: RentalUncheckedCreateNestedManyWithoutGameInput
+  }
+
+  export type GameCreateOrConnectWithoutTransactionsInput = {
+    where: GameWhereUniqueInput
+    create: XOR<GameCreateWithoutTransactionsInput, GameUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type UserUpsertWithoutTransactionsInput = {
+    update: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type UserUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rentals?: RentalUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rentals?: RentalUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type GameUpsertWithoutTransactionsInput = {
+    update: XOR<GameUpdateWithoutTransactionsInput, GameUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<GameCreateWithoutTransactionsInput, GameUncheckedCreateWithoutTransactionsInput>
+    where?: GameWhereInput
+  }
+
+  export type GameUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: GameWhereInput
+    data: XOR<GameUpdateWithoutTransactionsInput, GameUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type GameUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameImage?: StringFieldUpdateOperationsInput | string
+    gameTitle?: StringFieldUpdateOperationsInput | string
+    weeklyPrice?: IntFieldUpdateOperationsInput | number
+    monthlyPrice?: IntFieldUpdateOperationsInput | number
+    availableTrophy?: IntFieldUpdateOperationsInput | number
+    availableNonTrophy?: IntFieldUpdateOperationsInput | number
+    renters?: IntFieldUpdateOperationsInput | number
+    slot?: IntFieldUpdateOperationsInput | number
+    rentals?: RentalUpdateManyWithoutGameNestedInput
+  }
+
+  export type GameUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameImage?: StringFieldUpdateOperationsInput | string
+    gameTitle?: StringFieldUpdateOperationsInput | string
+    weeklyPrice?: IntFieldUpdateOperationsInput | number
+    monthlyPrice?: IntFieldUpdateOperationsInput | number
+    availableTrophy?: IntFieldUpdateOperationsInput | number
+    availableNonTrophy?: IntFieldUpdateOperationsInput | number
+    renters?: IntFieldUpdateOperationsInput | number
+    slot?: IntFieldUpdateOperationsInput | number
+    rentals?: RentalUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type RentalCreateManyGameInput = {
@@ -10894,6 +12846,17 @@ export namespace Prisma {
     accountPlan?: $Enums.AccountPlan
     rentedAt?: Date | string
     expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type NewRentTransactionCreateManyGameInput = {
+    id?: string
+    userId: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
     createdAt?: Date | string
   }
 
@@ -10930,6 +12893,39 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NewRentTransactionUpdateWithoutGameInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type NewRentTransactionUncheckedUpdateWithoutGameInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NewRentTransactionUncheckedUpdateManyWithoutGameInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type RentalCreateManyUserInput = {
     id?: string
     gameId: string
@@ -10938,6 +12934,17 @@ export namespace Prisma {
     accountPlan?: $Enums.AccountPlan
     rentedAt?: Date | string
     expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type NewRentTransactionCreateManyUserInput = {
+    id?: string
+    gameId: string
+    rentType: $Enums.RentType
+    accountPlan: $Enums.AccountPlan
+    rentPayment: number
+    rentDeposit: number
+    isConfirmed: boolean
     createdAt?: Date | string
   }
 
@@ -10996,6 +13003,39 @@ export namespace Prisma {
     accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
     rentedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NewRentTransactionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    game?: GameUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type NewRentTransactionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NewRentTransactionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    rentType?: EnumRentTypeFieldUpdateOperationsInput | $Enums.RentType
+    accountPlan?: EnumAccountPlanFieldUpdateOperationsInput | $Enums.AccountPlan
+    rentPayment?: IntFieldUpdateOperationsInput | number
+    rentDeposit?: IntFieldUpdateOperationsInput | number
+    isConfirmed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

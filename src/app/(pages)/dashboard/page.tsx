@@ -1,4 +1,5 @@
-import {getUsers, getUserRentals, getGames} from "@/lib/actions";
+import {getGames, getUsers, getUserRentals} from "@/lib/actions";
+import {getUserTransactions} from "@/lib/rentTransactionAction";
 import {redirect} from "next/navigation";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -16,15 +17,16 @@ export default async function DashboardPage() {
         redirect('/');
     }
 
+    const games = await getGames()
     const users = await getUsers()
     const userRentals = await getUserRentals()
-    const games = await getGames()
+    const userTransactions = await getUserTransactions()
 
     return (
         <>
             <main className={'flex flex-col gap-y-6 py-30 px-40 h-screen'}>
                 <h1 className={'font-bold text-4xl'}>Dashboard</h1>
-                <DashboardList games={games} users={users} userRentals={userRentals}/>
+                <DashboardList games={games} users={users} userRentals={userRentals} userTransactions={userTransactions} />
             </main>
         </>
     )

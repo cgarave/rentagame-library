@@ -191,6 +191,18 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.NewRentTransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameId: 'gameId',
+  rentType: 'rentType',
+  accountPlan: 'accountPlan',
+  rentPayment: 'rentPayment',
+  rentDeposit: 'rentDeposit',
+  isConfirmed: 'isConfirmed',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -227,7 +239,8 @@ exports.Prisma.ModelName = {
   Rental: 'Rental',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  NewRentTransaction: 'NewRentTransaction'
 };
 
 /**
