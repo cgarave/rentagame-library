@@ -111,6 +111,9 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                             setSelectedAccountPlan={setSelectedAccountPlan}
                         />
                     </div>
+                    <DialogDescription className={'text-xs'}><span className={'font-semibold text-black'}>Note:</span> We will also ask a 150 pesos deposit for account security. Ibabalik din po namin ito after your game rental expires.</DialogDescription>
+                    <DialogDescription className={'text-xs'}><span className={'font-semibold text-black'}>Mode of Payment:</span> Gcash, Maya, Maribank, Bank Transfer</DialogDescription>
+                    <DialogDescription className={'text-xs'}>Clicking <span className={'font-semibold text-black'}>Proceed to Payment</span> will redirect you to our Facebook page messenger to continue the payment.</DialogDescription>
                 </div>
 
                 <DialogFooter className="flex justify-end items-center">

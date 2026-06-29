@@ -18,7 +18,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                     <Field orientation="horizontal" className={'cursor-pointer'}>
                         <FieldContent>
                             <FieldTitle>Speedrunner Plan</FieldTitle>
-                            <FieldDescription>For gamers who loves speedrunning or just want to try the game.</FieldDescription>
+                            <FieldDescription>Para sa mga gamers na mabilis tumapos ng laro or gusto lang talaga mag try.</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>₱{weeklyPrice} per week</FieldDescription>
                         </FieldContent>
                         <RadioGroupItem value="weekly" id="weekly-plan" />
@@ -27,8 +27,8 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                 <FieldLabel htmlFor="monthly-plan">
                     <Field orientation="horizontal" className={'cursor-pointer'}>
                         <FieldContent>
-                            <FieldTitle>Casual Dad Plan</FieldTitle>
-                            <FieldDescription>For gamers with limited play time but wants to finish the game.</FieldDescription>
+                            <FieldTitle>Casual Plan</FieldTitle>
+                            <FieldDescription>Para sa mga kulang sa oras ang paglalaro pero gustong makatapos ng game.</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>₱{monthlyPrice} per month</FieldDescription>
                         </FieldContent>
                         <RadioGroupItem value="monthly" id="monthly-plan" />
@@ -44,8 +44,8 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                                 Primary
                                 <Badge variant={availableTrophy !== 0 ? 'outline' : 'destructive'}>{availableTrophy !== 0 ? 'Available' : 'Unavailable'}: {availableTrophy}</Badge>
                             </FieldTitle>
-                            <FieldDescription>Progress and achievements on your main account are tracked. Ideal for trophy hunters and completionists.</FieldDescription>
-                            <FieldDescription className={'font-semibold text-blue-600'}>+₱50 (One-time)</FieldDescription>
+                            <FieldDescription>Play on your main profile, earn trophies and achievements</FieldDescription>
+                            <FieldDescription className={'font-semibold text-blue-600'}>+₱50</FieldDescription>
                         </FieldContent>
                         <RadioGroupItem value="trophy" id="primary-account" disabled={availableTrophy === 0} />
                     </Field>
@@ -57,7 +57,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                                 Secondary
                                 <Badge variant={availableNonTrophy !== 0 ? 'outline' : 'destructive'}>{availableNonTrophy !== 0 ? 'Available' : 'Unavailable'}: {availableNonTrophy}</Badge>
                             </FieldTitle>
-                            <FieldDescription>Full game access without restrictions. Simpler experience but no trophy syncing.</FieldDescription>
+                            <FieldDescription>You can only play the game on the provided account profile. No trophies, no achievements.</FieldDescription>
                         </FieldContent>
                         <RadioGroupItem value="nonTrophy" id="secondary-account" disabled={availableNonTrophy === 0} />
                     </Field>
