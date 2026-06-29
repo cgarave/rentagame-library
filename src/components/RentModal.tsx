@@ -6,7 +6,6 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 import { GameDetails } from "@/types/GameDetails";
-import {updateGame, createRental} from "@/lib/actions";
 import { createRentTransaction } from "@/lib/rentTransactionAction";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client"
@@ -26,18 +25,6 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                 case 'weekly':
                     switch (selectedAccountPlan){
                         case 'trophy':
-                            // await updateGame(id, {
-                            //     availableTrophy: availableTrophy! - 1,
-                            //     renters: renters! + 1,
-                            //     slot: slot! - 1,
-                            // })
-                            // await createRental({
-                            //     userId: session?.user.id,
-                            //     gameId: id,
-                            //     status: "ACTIVE",
-                            //     rentType: "WEEKLY",
-                            //     accountPlan: "TROPHY"
-                            // })
                             await createRentTransaction({
                                 userId: session?.user.id,
                                 gameId: id,
@@ -46,21 +33,10 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 rentPayment: weeklyPrice! + 50,
                                 rentDeposit: 150,
                                 isConfirmed: false,
+                                isCancelled: false,
                             })
                             break
                         case 'nonTrophy':
-                            // await updateGame(id, {
-                            //     availableNonTrophy: availableNonTrophy! - 1,
-                            //     renters: renters! + 1,
-                            //     slot: slot! - 1,
-                            // })
-                            // await createRental({
-                            //     userId: session?.user.id,
-                            //     gameId: id,
-                            //     status: "ACTIVE",
-                            //     rentType: "WEEKLY",
-                            //     accountPlan: "NONTROPHY"
-                            // })
                             await createRentTransaction({
                                 userId: session?.user.id,
                                 gameId: id,
@@ -69,26 +45,15 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 rentPayment: weeklyPrice!,
                                 rentDeposit: 150,
                                 isConfirmed: false,
+                                isCancelled: false,
                             })
                             break
                     }
-                    // router.push('https://m.me/1152961824575684')
+                    router.push('https://m.me/1152961824575684')
                     break
                 case 'monthly':
                     switch (selectedAccountPlan){
                         case 'trophy':
-                            // await updateGame(id, {
-                            //     availableTrophy: availableTrophy! - 1,
-                            //     renters: renters! + 1,
-                            //     slot: slot! - 1,
-                            // })
-                            // await createRental({
-                            //     userId: session?.user.id,
-                            //     gameId: id,
-                            //     status: "ACTIVE",
-                            //     rentType: "MONTHLY",
-                            //     accountPlan: "TROPHY"
-                            // })
                             await createRentTransaction({
                                 userId: session?.user.id,
                                 gameId: id,
@@ -97,21 +62,10 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 rentPayment: monthlyPrice! + 50,
                                 rentDeposit: 150,
                                 isConfirmed: false,
+                                isCancelled: false,
                             })
                             break
                         case 'nonTrophy':
-                            // await updateGame(id, {
-                            //     availableNonTrophy: availableNonTrophy! - 1,
-                            //     renters: renters! + 1,
-                            //     slot: slot! - 1,
-                            // })
-                            // await createRental({
-                            //     userId: session?.user.id,
-                            //     gameId: id,
-                            //     status: "ACTIVE",
-                            //     rentType: "MONTHLY",
-                            //     accountPlan: "NONTROPHY"
-                            // })
                             await createRentTransaction({
                                 userId: session?.user.id,
                                 gameId: id,
@@ -120,10 +74,11 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 rentPayment: monthlyPrice!,
                                 rentDeposit: 150,
                                 isConfirmed: false,
+                                isCancelled: false,
                             })
                             break
                     }
-                    // router.push('https://m.me/1152961824575684')
+                    router.push('https://m.me/1152961824575684')
                     break
             }
         } else {

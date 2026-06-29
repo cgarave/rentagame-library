@@ -200,6 +200,7 @@ exports.Prisma.NewRentTransactionScalarFieldEnum = {
   rentPayment: 'rentPayment',
   rentDeposit: 'rentDeposit',
   isConfirmed: 'isConfirmed',
+  isCancelled: 'isCancelled',
   createdAt: 'createdAt'
 };
 

@@ -10,5 +10,6 @@ export interface UserTransaction {
     rentPayment: number;
     rentDeposit: number;
     isConfirmed: boolean;
+    isCancelled: boolean;
     createdAt: Date;
 }

@@ -1,21 +1,23 @@
 'use client'
 import {Fragment, useState} from "react";
-import {GameDetails} from "@/types/GameDetails";
-import { UserRentals } from "@/types/UserRentals";
-import { User } from "@/types/User";
 import { Plus, Users, List, ChevronRight, FileText } from "lucide-react"
 import AddGameModal from "@/components/AddGameModal";
 import { Button } from "@/components/ui/button"
 import { DropdownMenuComponent } from "@/components/DropdownMenu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import {deleteUserRental} from "@/lib/actions";
+
+//Types
+import {GameDetails} from "@/types/GameDetails";
+import { UserRentals } from "@/types/UserRentals";
+import { User } from "@/types/User";
+
+//Actions
+import {updateGame, createRental, deleteUserRental} from "@/lib/actions";
 import {UserTransaction} from "@/types/UserTransaction";
+import { confirmRentTransaction, cancelRentTransaction } from "@/lib/rentTransactionAction";
 
 function UserTableRow({user, userRentals}: {user: User, userRentals: UserRentals[]}) {
-
-    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const [viewGames, setViewGames] = useState<boolean>(false)
-
     return (
         <Fragment key={user.id}>
             <TableRow key={user.id} className={'cursor-pointer'} onClick={() => setViewGames(!viewGames)}>
@@ -80,6 +82,66 @@ function UserTableRow({user, userRentals}: {user: User, userRentals: UserRentals
                 ))
             }
         </Fragment>
+    )
+}
+
+function UserTransactionTableRow({ userTransaction }: {userTransaction: UserTransaction}) {
+
+    async function createRentOnceConfirmed(userTransaction: UserTransaction) {
+        if(userTransaction.id && userTransaction.user.id && userTransaction.game.id) {
+            await confirmRentTransaction(userTransaction.id, {
+                isConfirmed: true
+            })
+            await createRental({
+                userId: userTransaction.user.id,
+                gameId: userTransaction.game.id,
+                status: "ACTIVE",
+                rentType: userTransaction.rentType,
+                accountPlan: userTransaction.accountPlan
+            })
+            // await updateGame(userTransaction.game.id, {
+            //     availableTrophy: availableTrophy! - 1,
+            //     renters: renters! + 1,
+            //     slot: slot! - 1,
+            // })
+        }
+    }
+
+    return (
+        <TableRow key={userTransaction.id}>
+            <TableCell>{userTransaction.user.name}</TableCell>
+            <TableCell>{userTransaction.user.email}</TableCell>
+            <TableCell>{userTransaction.game.gameTitle}</TableCell>
+            <TableCell>{userTransaction.rentType}</TableCell>
+            <TableCell>{userTransaction.accountPlan}</TableCell>
+            <TableCell>{userTransaction.rentPayment}</TableCell>
+            <TableCell>{userTransaction.rentDeposit}</TableCell>
+            <TableCell>{userTransaction.createdAt.toLocaleString('en-US', {
+                weekday: "short",
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true,
+            })}</TableCell>
+            <TableCell className={'flex flex-row gap-x-4'}>
+                {
+                    !userTransaction.isConfirmed && !userTransaction.isCancelled ?
+                    <>
+                        <Button onClick={() => userTransaction ? createRentOnceConfirmed(userTransaction) : null}>Confirm Transaction</Button>
+                        <Button variant={'destructive'} onClick={() => userTransaction.id ? cancelRentTransaction(userTransaction.id, {
+                            isCancelled: true
+                        }) : null}>Cancel</Button>
+                    </>
+                    : userTransaction.isConfirmed ?
+                        <Button disabled={true} className={'bg-green-400/50 text-black disabled:opacity-100'}>Transaction Confirmed</Button>
+                    : userTransaction.isCancelled ?
+                        <Button disabled={true}>Transaction Cancelled</Button>
+                    : null
+                }
+            </TableCell>
+        </TableRow>
     )
 }
 
@@ -176,7 +238,6 @@ export default function DashboardList({ games, users, userRentals, userTransacti
                 <Table className={'mx-auto border'}>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Transaction Id</TableHead>
                             <TableHead>Username</TableHead>
                             <TableHead>Email</TableHead>
                             <TableHead>Game Title</TableHead>
@@ -190,29 +251,7 @@ export default function DashboardList({ games, users, userRentals, userTransacti
                     <TableBody>
                         {
                             userTransactions.map((userTransaction: UserTransaction) => (
-                                <TableRow key={userTransaction.id}>
-                                    <TableCell>{userTransaction.id}</TableCell>
-                                    <TableCell>{userTransaction.user.name}</TableCell>
-                                    <TableCell>{userTransaction.user.email}</TableCell>
-                                    <TableCell>{userTransaction.game.gameTitle}</TableCell>
-                                    <TableCell>{userTransaction.rentType}</TableCell>
-                                    <TableCell>{userTransaction.accountPlan}</TableCell>
-                                    <TableCell>{userTransaction.rentPayment}</TableCell>
-                                    <TableCell>{userTransaction.rentDeposit}</TableCell>
-                                    <TableCell>{userTransaction.createdAt.toLocaleString('en-US', {
-                                        weekday: "short",
-                                        month: "long",
-                                        day: "numeric",
-                                        year: "numeric",
-                                        hour: "numeric",
-                                        minute: "2-digit",
-                                        hour12: true,
-                                    })}</TableCell>
-                                    <TableCell className={'flex flex-row gap-x-4'}>
-                                        <Button>Confirm Transaction</Button>
-                                        <Button variant={'destructive'}>Cancel</Button>
-                                    </TableCell>
-                                </TableRow>
+                                <UserTransactionTableRow key={userTransaction.id} userTransaction={userTransaction} />
                             ))
                         }
                     </TableBody>

@@ -8394,6 +8394,7 @@ export namespace Prisma {
     rentPayment: number | null
     rentDeposit: number | null
     isConfirmed: boolean | null
+    isCancelled: boolean | null
     createdAt: Date | null
   }
 
@@ -8406,6 +8407,7 @@ export namespace Prisma {
     rentPayment: number | null
     rentDeposit: number | null
     isConfirmed: boolean | null
+    isCancelled: boolean | null
     createdAt: Date | null
   }
 
@@ -8418,6 +8420,7 @@ export namespace Prisma {
     rentPayment: number
     rentDeposit: number
     isConfirmed: number
+    isCancelled: number
     createdAt: number
     _all: number
   }
@@ -8442,6 +8445,7 @@ export namespace Prisma {
     rentPayment?: true
     rentDeposit?: true
     isConfirmed?: true
+    isCancelled?: true
     createdAt?: true
   }
 
@@ -8454,6 +8458,7 @@ export namespace Prisma {
     rentPayment?: true
     rentDeposit?: true
     isConfirmed?: true
+    isCancelled?: true
     createdAt?: true
   }
 
@@ -8466,6 +8471,7 @@ export namespace Prisma {
     rentPayment?: true
     rentDeposit?: true
     isConfirmed?: true
+    isCancelled?: true
     createdAt?: true
     _all?: true
   }
@@ -8565,6 +8571,7 @@ export namespace Prisma {
     rentPayment: number
     rentDeposit: number
     isConfirmed: boolean
+    isCancelled: boolean
     createdAt: Date
     _count: NewRentTransactionCountAggregateOutputType | null
     _avg: NewRentTransactionAvgAggregateOutputType | null
@@ -8596,6 +8603,7 @@ export namespace Prisma {
     rentPayment?: boolean
     rentDeposit?: boolean
     isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     game?: boolean | GameDefaultArgs<ExtArgs>
@@ -8610,6 +8618,7 @@ export namespace Prisma {
     rentPayment?: boolean
     rentDeposit?: boolean
     isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     game?: boolean | GameDefaultArgs<ExtArgs>
@@ -8624,6 +8633,7 @@ export namespace Prisma {
     rentPayment?: boolean
     rentDeposit?: boolean
     isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     game?: boolean | GameDefaultArgs<ExtArgs>
@@ -8638,10 +8648,11 @@ export namespace Prisma {
     rentPayment?: boolean
     rentDeposit?: boolean
     isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: boolean
   }
 
-  export type NewRentTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "gameId" | "rentType" | "accountPlan" | "rentPayment" | "rentDeposit" | "isConfirmed" | "createdAt", ExtArgs["result"]["newRentTransaction"]>
+  export type NewRentTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "gameId" | "rentType" | "accountPlan" | "rentPayment" | "rentDeposit" | "isConfirmed" | "isCancelled" | "createdAt", ExtArgs["result"]["newRentTransaction"]>
   export type NewRentTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     game?: boolean | GameDefaultArgs<ExtArgs>
@@ -8670,6 +8681,7 @@ export namespace Prisma {
       rentPayment: number
       rentDeposit: number
       isConfirmed: boolean
+      isCancelled: boolean
       createdAt: Date
     }, ExtArgs["result"]["newRentTransaction"]>
     composites: {}
@@ -9104,6 +9116,7 @@ export namespace Prisma {
     readonly rentPayment: FieldRef<"NewRentTransaction", 'Int'>
     readonly rentDeposit: FieldRef<"NewRentTransaction", 'Int'>
     readonly isConfirmed: FieldRef<"NewRentTransaction", 'Boolean'>
+    readonly isCancelled: FieldRef<"NewRentTransaction", 'Boolean'>
     readonly createdAt: FieldRef<"NewRentTransaction", 'DateTime'>
   }
     
@@ -9636,6 +9649,7 @@ export namespace Prisma {
     rentPayment: 'rentPayment',
     rentDeposit: 'rentDeposit',
     isConfirmed: 'isConfirmed',
+    isCancelled: 'isCancelled',
     createdAt: 'createdAt'
   };
 
@@ -10250,6 +10264,7 @@ export namespace Prisma {
     rentPayment?: IntFilter<"NewRentTransaction"> | number
     rentDeposit?: IntFilter<"NewRentTransaction"> | number
     isConfirmed?: BoolFilter<"NewRentTransaction"> | boolean
+    isCancelled?: BoolFilter<"NewRentTransaction"> | boolean
     createdAt?: DateTimeFilter<"NewRentTransaction"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     game?: XOR<GameScalarRelationFilter, GameWhereInput>
@@ -10264,6 +10279,7 @@ export namespace Prisma {
     rentPayment?: SortOrder
     rentDeposit?: SortOrder
     isConfirmed?: SortOrder
+    isCancelled?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     game?: GameOrderByWithRelationInput
@@ -10281,6 +10297,7 @@ export namespace Prisma {
     rentPayment?: IntFilter<"NewRentTransaction"> | number
     rentDeposit?: IntFilter<"NewRentTransaction"> | number
     isConfirmed?: BoolFilter<"NewRentTransaction"> | boolean
+    isCancelled?: BoolFilter<"NewRentTransaction"> | boolean
     createdAt?: DateTimeFilter<"NewRentTransaction"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     game?: XOR<GameScalarRelationFilter, GameWhereInput>
@@ -10295,6 +10312,7 @@ export namespace Prisma {
     rentPayment?: SortOrder
     rentDeposit?: SortOrder
     isConfirmed?: SortOrder
+    isCancelled?: SortOrder
     createdAt?: SortOrder
     _count?: NewRentTransactionCountOrderByAggregateInput
     _avg?: NewRentTransactionAvgOrderByAggregateInput
@@ -10315,6 +10333,7 @@ export namespace Prisma {
     rentPayment?: IntWithAggregatesFilter<"NewRentTransaction"> | number
     rentDeposit?: IntWithAggregatesFilter<"NewRentTransaction"> | number
     isConfirmed?: BoolWithAggregatesFilter<"NewRentTransaction"> | boolean
+    isCancelled?: BoolWithAggregatesFilter<"NewRentTransaction"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"NewRentTransaction"> | Date | string
   }
 
@@ -10841,7 +10860,8 @@ export namespace Prisma {
     accountPlan: $Enums.AccountPlan
     rentPayment: number
     rentDeposit: number
-    isConfirmed: boolean
+    isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTransactionsInput
     game: GameCreateNestedOneWithoutTransactionsInput
@@ -10855,7 +10875,8 @@ export namespace Prisma {
     accountPlan: $Enums.AccountPlan
     rentPayment: number
     rentDeposit: number
-    isConfirmed: boolean
+    isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: Date | string
   }
 
@@ -10866,6 +10887,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
     game?: GameUpdateOneRequiredWithoutTransactionsNestedInput
@@ -10880,6 +10902,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10891,7 +10914,8 @@ export namespace Prisma {
     accountPlan: $Enums.AccountPlan
     rentPayment: number
     rentDeposit: number
-    isConfirmed: boolean
+    isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: Date | string
   }
 
@@ -10902,6 +10926,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10914,6 +10939,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11419,6 +11445,7 @@ export namespace Prisma {
     rentPayment?: SortOrder
     rentDeposit?: SortOrder
     isConfirmed?: SortOrder
+    isCancelled?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -11436,6 +11463,7 @@ export namespace Prisma {
     rentPayment?: SortOrder
     rentDeposit?: SortOrder
     isConfirmed?: SortOrder
+    isCancelled?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -11448,6 +11476,7 @@ export namespace Prisma {
     rentPayment?: SortOrder
     rentDeposit?: SortOrder
     isConfirmed?: SortOrder
+    isCancelled?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12095,7 +12124,8 @@ export namespace Prisma {
     accountPlan: $Enums.AccountPlan
     rentPayment: number
     rentDeposit: number
-    isConfirmed: boolean
+    isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTransactionsInput
   }
@@ -12107,7 +12137,8 @@ export namespace Prisma {
     accountPlan: $Enums.AccountPlan
     rentPayment: number
     rentDeposit: number
-    isConfirmed: boolean
+    isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: Date | string
   }
 
@@ -12180,6 +12211,7 @@ export namespace Prisma {
     rentPayment?: IntFilter<"NewRentTransaction"> | number
     rentDeposit?: IntFilter<"NewRentTransaction"> | number
     isConfirmed?: BoolFilter<"NewRentTransaction"> | boolean
+    isCancelled?: BoolFilter<"NewRentTransaction"> | boolean
     createdAt?: DateTimeFilter<"NewRentTransaction"> | Date | string
   }
 
@@ -12221,7 +12253,8 @@ export namespace Prisma {
     accountPlan: $Enums.AccountPlan
     rentPayment: number
     rentDeposit: number
-    isConfirmed: boolean
+    isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: Date | string
     game: GameCreateNestedOneWithoutTransactionsInput
   }
@@ -12233,7 +12266,8 @@ export namespace Prisma {
     accountPlan: $Enums.AccountPlan
     rentPayment: number
     rentDeposit: number
-    isConfirmed: boolean
+    isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: Date | string
   }
 
@@ -12856,7 +12890,8 @@ export namespace Prisma {
     accountPlan: $Enums.AccountPlan
     rentPayment: number
     rentDeposit: number
-    isConfirmed: boolean
+    isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: Date | string
   }
 
@@ -12900,6 +12935,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
   }
@@ -12912,6 +12948,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12923,6 +12960,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12944,7 +12982,8 @@ export namespace Prisma {
     accountPlan: $Enums.AccountPlan
     rentPayment: number
     rentDeposit: number
-    isConfirmed: boolean
+    isConfirmed?: boolean
+    isCancelled?: boolean
     createdAt?: Date | string
   }
 
@@ -13013,6 +13052,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     game?: GameUpdateOneRequiredWithoutTransactionsNestedInput
   }
@@ -13025,6 +13065,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13036,6 +13077,7 @@ export namespace Prisma {
     rentPayment?: IntFieldUpdateOperationsInput | number
     rentDeposit?: IntFieldUpdateOperationsInput | number
     isConfirmed?: BoolFieldUpdateOperationsInput | boolean
+    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

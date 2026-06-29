@@ -12,6 +12,7 @@ interface TransactionData {
     rentPayment: number;
     rentDeposit: number;
     isConfirmed: boolean;
+    isCancelled: boolean;
 }
 
 export async function getUserTransactions() {
@@ -24,7 +25,9 @@ export async function getUserTransactions() {
 }
 
 export async function createRentTransaction(input: TransactionData) {
-    const { userId, gameId, rentType, accountPlan, rentPayment, rentDeposit, isConfirmed } = input;
+
+    const { userId, gameId, rentType, accountPlan, rentPayment, rentDeposit, isConfirmed, isCancelled } = input;
+
     await prisma.newRentTransaction.create({
         data: {
             userId,
@@ -33,8 +36,25 @@ export async function createRentTransaction(input: TransactionData) {
             accountPlan,
             rentPayment,
             rentDeposit,
-            isConfirmed
+            isConfirmed,
+            isCancelled
         }
+    })
+    revalidatePath('/dashboard');
+}
+
+export async function confirmRentTransaction(id: string, data: Prisma.NewRentTransactionUpdateInput) {
+    await prisma.newRentTransaction.update({
+        where: {id: id},
+        data
+    })
+    revalidatePath('/dashboard');
+}
+
+export async function cancelRentTransaction(id: string, data: Prisma.NewRentTransactionUpdateInput) {
+    await prisma.newRentTransaction.update({
+        where: {id: id},
+        data
     })
     revalidatePath('/dashboard');
 }
