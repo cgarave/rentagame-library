@@ -31,7 +31,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 rentType: "WEEKLY",
                                 accountPlan: "TROPHY",
                                 rentPayment: weeklyPrice! + 50,
-                                rentDeposit: 150,
+                                rentDeposit: 0,
                                 isConfirmed: false,
                                 isCancelled: false,
                             })
@@ -43,7 +43,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 rentType: "WEEKLY",
                                 accountPlan: "NONTROPHY",
                                 rentPayment: weeklyPrice!,
-                                rentDeposit: 150,
+                                rentDeposit: 0,
                                 isConfirmed: false,
                                 isCancelled: false,
                             })
@@ -60,7 +60,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 rentType: "MONTHLY",
                                 accountPlan: "TROPHY",
                                 rentPayment: monthlyPrice! + 50,
-                                rentDeposit: 150,
+                                rentDeposit: 0,
                                 isConfirmed: false,
                                 isCancelled: false,
                             })
@@ -72,7 +72,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                                 rentType: "MONTHLY",
                                 accountPlan: "NONTROPHY",
                                 rentPayment: monthlyPrice!,
-                                rentDeposit: 150,
+                                rentDeposit: 0,
                                 isConfirmed: false,
                                 isCancelled: false,
                             })

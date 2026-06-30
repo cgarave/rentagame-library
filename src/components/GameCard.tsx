@@ -9,11 +9,11 @@ export default function GameCard({ id, gameImage, gameTitle, weeklyPrice, monthl
     return (
         <Card className="relative mx-auto w-full max-w-sm pt-0" size={'sm'}>
             <Image src={gameImage} alt={gameTitle} width={500} height={500} className="h-28 md:h-48 w-full object-cover object-top" />
-            {
-                includeBadge && <Badge variant={'secondary'} className={'absolute top-4 right-4'}>Expires at: {expiresAt}</Badge>
-            }
             <CardHeader>
                 <CardTitle className='text-sm md:text-lg truncate'>{gameTitle}</CardTitle>
+                {
+                    includeBadge && <p>Expires at: {expiresAt}</p>
+                }
                 {slot || slot == 0 ? <Badge variant={slot !== 0 ? 'outline' : 'destructive'}>Available slot: {slot ? slot : 0}</Badge> : null}
                 {renters || renters == 0 ? <Badge variant="outline">Renters: {renters ? renters : 0}</Badge> : null}
             </CardHeader>

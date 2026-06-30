@@ -31,7 +31,15 @@ export default async function MyRentalsPage() {
                                           gameTitle={game.game.gameTitle}
                                           includeButton={false}
                                           includeBadge={true}
-                                          expiresAt={`${month[game.expiresAt.getMonth()]} ${game.expiresAt.getDate()}`}
+                                          expiresAt={game.expiresAt.toLocaleString('en-US', {
+                                              weekday: "short",
+                                              month: "long",
+                                              day: "numeric",
+                                              year: "numeric",
+                                              hour: "numeric",
+                                              minute: "2-digit",
+                                              hour12: true,
+                                          })}
                                 />
                             )
                         })
