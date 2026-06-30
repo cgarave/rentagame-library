@@ -135,9 +135,9 @@ function UserTransactionTableRow({ userTransaction }: {userTransaction: UserTran
                         }) : null}>Cancel</Button>
                     </>
                     : userTransaction.isConfirmed ?
-                        <Button disabled={true} className={'bg-green-400/50 text-black disabled:opacity-100'}>Transaction Confirmed</Button>
+                        <p className={'text-green-700 font-semibold'}>Transaction Confirmed</p>
                     : userTransaction.isCancelled ?
-                        <Button disabled={true}>Transaction Cancelled</Button>
+                        <p className={'text-zinc-500 font-semibold'}>Transaction Cancelled</p>
                     : null
                 }
             </TableCell>
