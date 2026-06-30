@@ -44,7 +44,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                                 Primary
                                 <Badge variant={availableTrophy !== 0 ? 'outline' : 'destructive'}>{availableTrophy !== 0 ? 'Available' : 'Unavailable'}: {availableTrophy}</Badge>
                             </FieldTitle>
-                            <FieldDescription>Play on your main profile, earn trophies and achievements</FieldDescription>
+                            <FieldDescription>Pwede malaro ang game sa main profile, you can also earn trophies and achievements</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>+₱50</FieldDescription>
                         </FieldContent>
                         <RadioGroupItem value="trophy" id="primary-account" disabled={availableTrophy === 0} />
@@ -57,7 +57,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                                 Secondary
                                 <Badge variant={availableNonTrophy !== 0 ? 'outline' : 'destructive'}>{availableNonTrophy !== 0 ? 'Available' : 'Unavailable'}: {availableNonTrophy}</Badge>
                             </FieldTitle>
-                            <FieldDescription>You can only play the game on the provided account profile. No trophies, no achievements.</FieldDescription>
+                            <FieldDescription>Malalaro lang ang game sa provided account profile. No trophies, no achievements.</FieldDescription>
                         </FieldContent>
                         <RadioGroupItem value="nonTrophy" id="secondary-account" disabled={availableNonTrophy === 0} />
                     </Field>
