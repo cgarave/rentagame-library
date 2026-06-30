@@ -129,7 +129,8 @@ exports.Prisma.GameScalarFieldEnum = {
   availableTrophy: 'availableTrophy',
   availableNonTrophy: 'availableNonTrophy',
   renters: 'renters',
-  slot: 'slot'
+  slot: 'slot',
+  isGameReleased: 'isGameReleased'
 };
 
 exports.Prisma.UserScalarFieldEnum = {

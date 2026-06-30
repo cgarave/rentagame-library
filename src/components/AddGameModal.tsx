@@ -2,9 +2,10 @@
 
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Field, FieldGroup } from "@/components/ui/field"
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { GameDetails } from "@/types/GameDetails";
 import { ChangeEvent, useState, ReactNode } from "react"
 import { createGame, updateGame } from "@/lib/actions";
@@ -45,6 +46,7 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
         availableNonTrophy: 0,
         slot: 0,
         renters: 0,
+        isGameReleased: true,
     } as GameDetails)
 
     const newMap = gameListTitle?.flatMap(game => {
@@ -84,6 +86,7 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                 availableNonTrophy: inputFieldsToAddGame.availableNonTrophy,
                 slot: inputFieldsToAddGame.slot,
                 renters: inputFieldsToAddGame.renters,
+                isGameReleased: inputFieldsToAddGame.isGameReleased,
             })
             toast.success('Game Added!', { position: 'top-center' })
         } else {
@@ -107,6 +110,7 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                     availableNonTrophy: inputFieldsToAddGame.availableNonTrophy,
                     slot: inputFieldsToAddGame.slot,
                     renters: inputFieldsToAddGame.renters,
+                    isGameReleased: inputFieldsToAddGame.isGameReleased,
                 }
             )
             toast.success('Game has been updated!', { position: 'top-center' })
@@ -132,6 +136,7 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                                 availableNonTrophy: 0,
                                 slot: 0,
                                 renters: 0,
+                                isGameReleased: true,
                             } as GameDetails) : undefined } 
                     >
                         {buttonIcon}
@@ -159,6 +164,23 @@ export default function AddGameModal({gameListTitle, buttonVariant, buttonIcon, 
                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setInputFieldsToAddGame({...inputFieldsToAddGame, gameTitle: e.target.value })}
                                    value={inputFieldsToAddGame.gameTitle}
                             />
+                        </Field>
+                        <Field>
+                            <Label htmlFor="isGameReleased">Is Game Released</Label>
+                            <RadioGroup defaultValue={String(inputFieldsToAddGame.isGameReleased)} className="w-fit flex" onValueChange={(value) => value === 'true' ? setInputFieldsToAddGame({...inputFieldsToAddGame, isGameReleased: true}) : setInputFieldsToAddGame({...inputFieldsToAddGame, isGameReleased: false})}>
+                                <Field orientation="horizontal">
+                                    <RadioGroupItem value="true" id="gameReleased" />
+                                    <FieldLabel htmlFor="gameReleased" className="font-normal">
+                                        Yes
+                                    </FieldLabel>
+                                </Field>
+                                <Field orientation="horizontal">
+                                    <RadioGroupItem value="false" id="gameNotReleased" />
+                                    <FieldLabel htmlFor="gameNotReleased" className="font-normal">
+                                        No
+                                    </FieldLabel>
+                                </Field>
+                            </RadioGroup>
                         </Field>
                         <Field>
                             <Label htmlFor="slot">Slot</Label>

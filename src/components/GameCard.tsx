@@ -4,7 +4,7 @@ import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { GameDetails } from '@/types/GameDetails'
 
-export default function GameCard({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot, includeButton, includeBadge, expiresAt }: GameDetails) {
+export default function GameCard({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot, includeButton, includeBadge, expiresAt, isGameReleased }: GameDetails) {
 
     return (
         <Card className="relative mx-auto w-full max-w-sm pt-0" size={'sm'}>
@@ -29,6 +29,7 @@ export default function GameCard({ id, gameImage, gameTitle, weeklyPrice, monthl
                                             availableNonTrophy={availableNonTrophy}
                                             renters={renters}
                                             slot={slot}
+                                            isGameReleased={isGameReleased}
                         />
                         {weeklyPrice && <Badge variant={"ghost"} className={'mx-auto text-zinc-500'}>Starts at ₱{weeklyPrice} per week</Badge>}
                     </CardFooter>

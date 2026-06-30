@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client"
 import { toast } from 'sonner'
 
-export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot }: GameDetails) {
+export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot, isGameReleased }: GameDetails) {
     const [selectedPlan, setSelectedPlan] = useState<string>('weekly')
     const [selectedAccountPlan, setSelectedAccountPlan] = useState<string>('trophy')
     const {data: session} = useSession()
@@ -89,7 +89,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className={'w-full cursor-pointer'} variant="default">Rent Now</Button>
+                <Button className={'w-full cursor-pointer'} variant="default">{isGameReleased == true ? 'Rent Now' : 'Reserve Now'}</Button>
             </DialogTrigger>
             <DialogContent className="h-[36rem] md:h-fit sm:max-w-md md:max-w-xl overflow-y-scroll">
                 <DialogHeader>

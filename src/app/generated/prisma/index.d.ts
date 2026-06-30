@@ -1591,6 +1591,7 @@ export namespace Prisma {
     availableNonTrophy: number | null
     renters: number | null
     slot: number | null
+    isGameReleased: boolean | null
   }
 
   export type GameMaxAggregateOutputType = {
@@ -1603,6 +1604,7 @@ export namespace Prisma {
     availableNonTrophy: number | null
     renters: number | null
     slot: number | null
+    isGameReleased: boolean | null
   }
 
   export type GameCountAggregateOutputType = {
@@ -1615,6 +1617,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters: number
     slot: number
+    isGameReleased: number
     _all: number
   }
 
@@ -1647,6 +1650,7 @@ export namespace Prisma {
     availableNonTrophy?: true
     renters?: true
     slot?: true
+    isGameReleased?: true
   }
 
   export type GameMaxAggregateInputType = {
@@ -1659,6 +1663,7 @@ export namespace Prisma {
     availableNonTrophy?: true
     renters?: true
     slot?: true
+    isGameReleased?: true
   }
 
   export type GameCountAggregateInputType = {
@@ -1671,6 +1676,7 @@ export namespace Prisma {
     availableNonTrophy?: true
     renters?: true
     slot?: true
+    isGameReleased?: true
     _all?: true
   }
 
@@ -1770,6 +1776,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters: number
     slot: number
+    isGameReleased: boolean
     _count: GameCountAggregateOutputType | null
     _avg: GameAvgAggregateOutputType | null
     _sum: GameSumAggregateOutputType | null
@@ -1801,6 +1808,7 @@ export namespace Prisma {
     availableNonTrophy?: boolean
     renters?: boolean
     slot?: boolean
+    isGameReleased?: boolean
     rentals?: boolean | Game$rentalsArgs<ExtArgs>
     transactions?: boolean | Game$transactionsArgs<ExtArgs>
     _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
@@ -1816,6 +1824,7 @@ export namespace Prisma {
     availableNonTrophy?: boolean
     renters?: boolean
     slot?: boolean
+    isGameReleased?: boolean
   }, ExtArgs["result"]["game"]>
 
   export type GameSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1828,6 +1837,7 @@ export namespace Prisma {
     availableNonTrophy?: boolean
     renters?: boolean
     slot?: boolean
+    isGameReleased?: boolean
   }, ExtArgs["result"]["game"]>
 
   export type GameSelectScalar = {
@@ -1840,9 +1850,10 @@ export namespace Prisma {
     availableNonTrophy?: boolean
     renters?: boolean
     slot?: boolean
+    isGameReleased?: boolean
   }
 
-  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gameImage" | "gameTitle" | "weeklyPrice" | "monthlyPrice" | "availableTrophy" | "availableNonTrophy" | "renters" | "slot", ExtArgs["result"]["game"]>
+  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gameImage" | "gameTitle" | "weeklyPrice" | "monthlyPrice" | "availableTrophy" | "availableNonTrophy" | "renters" | "slot" | "isGameReleased", ExtArgs["result"]["game"]>
   export type GameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rentals?: boolean | Game$rentalsArgs<ExtArgs>
     transactions?: boolean | Game$transactionsArgs<ExtArgs>
@@ -1867,6 +1878,7 @@ export namespace Prisma {
       availableNonTrophy: number
       renters: number
       slot: number
+      isGameReleased: boolean
     }, ExtArgs["result"]["game"]>
     composites: {}
   }
@@ -2301,6 +2313,7 @@ export namespace Prisma {
     readonly availableNonTrophy: FieldRef<"Game", 'Int'>
     readonly renters: FieldRef<"Game", 'Int'>
     readonly slot: FieldRef<"Game", 'Int'>
+    readonly isGameReleased: FieldRef<"Game", 'Boolean'>
   }
     
 
@@ -9560,7 +9573,8 @@ export namespace Prisma {
     availableTrophy: 'availableTrophy',
     availableNonTrophy: 'availableNonTrophy',
     renters: 'renters',
-    slot: 'slot'
+    slot: 'slot',
+    isGameReleased: 'isGameReleased'
   };
 
   export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
@@ -9806,6 +9820,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFilter<"Game"> | number
     renters?: IntFilter<"Game"> | number
     slot?: IntFilter<"Game"> | number
+    isGameReleased?: BoolFilter<"Game"> | boolean
     rentals?: RentalListRelationFilter
     transactions?: NewRentTransactionListRelationFilter
   }
@@ -9820,6 +9835,7 @@ export namespace Prisma {
     availableNonTrophy?: SortOrder
     renters?: SortOrder
     slot?: SortOrder
+    isGameReleased?: SortOrder
     rentals?: RentalOrderByRelationAggregateInput
     transactions?: NewRentTransactionOrderByRelationAggregateInput
   }
@@ -9837,6 +9853,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFilter<"Game"> | number
     renters?: IntFilter<"Game"> | number
     slot?: IntFilter<"Game"> | number
+    isGameReleased?: BoolFilter<"Game"> | boolean
     rentals?: RentalListRelationFilter
     transactions?: NewRentTransactionListRelationFilter
   }, "id">
@@ -9851,6 +9868,7 @@ export namespace Prisma {
     availableNonTrophy?: SortOrder
     renters?: SortOrder
     slot?: SortOrder
+    isGameReleased?: SortOrder
     _count?: GameCountOrderByAggregateInput
     _avg?: GameAvgOrderByAggregateInput
     _max?: GameMaxOrderByAggregateInput
@@ -9871,6 +9889,7 @@ export namespace Prisma {
     availableNonTrophy?: IntWithAggregatesFilter<"Game"> | number
     renters?: IntWithAggregatesFilter<"Game"> | number
     slot?: IntWithAggregatesFilter<"Game"> | number
+    isGameReleased?: BoolWithAggregatesFilter<"Game"> | boolean
   }
 
   export type UserWhereInput = {
@@ -10347,6 +10366,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters?: number
     slot: number
+    isGameReleased?: boolean
     rentals?: RentalCreateNestedManyWithoutGameInput
     transactions?: NewRentTransactionCreateNestedManyWithoutGameInput
   }
@@ -10361,6 +10381,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters?: number
     slot: number
+    isGameReleased?: boolean
     rentals?: RentalUncheckedCreateNestedManyWithoutGameInput
     transactions?: NewRentTransactionUncheckedCreateNestedManyWithoutGameInput
   }
@@ -10375,6 +10396,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    isGameReleased?: BoolFieldUpdateOperationsInput | boolean
     rentals?: RentalUpdateManyWithoutGameNestedInput
     transactions?: NewRentTransactionUpdateManyWithoutGameNestedInput
   }
@@ -10389,6 +10411,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    isGameReleased?: BoolFieldUpdateOperationsInput | boolean
     rentals?: RentalUncheckedUpdateManyWithoutGameNestedInput
     transactions?: NewRentTransactionUncheckedUpdateManyWithoutGameNestedInput
   }
@@ -10403,6 +10426,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters?: number
     slot: number
+    isGameReleased?: boolean
   }
 
   export type GameUpdateManyMutationInput = {
@@ -10415,6 +10439,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    isGameReleased?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GameUncheckedUpdateManyInput = {
@@ -10427,6 +10452,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    isGameReleased?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateInput = {
@@ -10969,6 +10995,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type RentalListRelationFilter = {
     every?: RentalWhereInput
     some?: RentalWhereInput
@@ -10999,6 +11030,7 @@ export namespace Prisma {
     availableNonTrophy?: SortOrder
     renters?: SortOrder
     slot?: SortOrder
+    isGameReleased?: SortOrder
   }
 
   export type GameAvgOrderByAggregateInput = {
@@ -11020,6 +11052,7 @@ export namespace Prisma {
     availableNonTrophy?: SortOrder
     renters?: SortOrder
     slot?: SortOrder
+    isGameReleased?: SortOrder
   }
 
   export type GameMinOrderByAggregateInput = {
@@ -11032,6 +11065,7 @@ export namespace Prisma {
     availableNonTrophy?: SortOrder
     renters?: SortOrder
     slot?: SortOrder
+    isGameReleased?: SortOrder
   }
 
   export type GameSumOrderByAggregateInput = {
@@ -11077,9 +11111,12 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -11164,14 +11201,6 @@ export namespace Prisma {
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11525,6 +11554,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type RentalUpdateManyWithoutGameNestedInput = {
     create?: XOR<RentalCreateWithoutGameInput, RentalUncheckedCreateWithoutGameInput> | RentalCreateWithoutGameInput[] | RentalUncheckedCreateWithoutGameInput[]
     connectOrCreate?: RentalCreateOrConnectWithoutGameInput | RentalCreateOrConnectWithoutGameInput[]
@@ -11635,10 +11668,6 @@ export namespace Prisma {
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
     createMany?: AccountCreateManyUserInputEnvelope
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -11886,6 +11915,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11930,9 +11964,12 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -11958,14 +11995,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12491,6 +12520,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters?: number
     slot: number
+    isGameReleased?: boolean
     transactions?: NewRentTransactionCreateNestedManyWithoutGameInput
   }
 
@@ -12504,6 +12534,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters?: number
     slot: number
+    isGameReleased?: boolean
     transactions?: NewRentTransactionUncheckedCreateNestedManyWithoutGameInput
   }
 
@@ -12572,6 +12603,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    isGameReleased?: BoolFieldUpdateOperationsInput | boolean
     transactions?: NewRentTransactionUpdateManyWithoutGameNestedInput
   }
 
@@ -12585,6 +12617,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    isGameReleased?: BoolFieldUpdateOperationsInput | boolean
     transactions?: NewRentTransactionUncheckedUpdateManyWithoutGameNestedInput
   }
 
@@ -12775,6 +12808,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters?: number
     slot: number
+    isGameReleased?: boolean
     rentals?: RentalCreateNestedManyWithoutGameInput
   }
 
@@ -12788,6 +12822,7 @@ export namespace Prisma {
     availableNonTrophy: number
     renters?: number
     slot: number
+    isGameReleased?: boolean
     rentals?: RentalUncheckedCreateNestedManyWithoutGameInput
   }
 
@@ -12856,6 +12891,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    isGameReleased?: BoolFieldUpdateOperationsInput | boolean
     rentals?: RentalUpdateManyWithoutGameNestedInput
   }
 
@@ -12869,6 +12905,7 @@ export namespace Prisma {
     availableNonTrophy?: IntFieldUpdateOperationsInput | number
     renters?: IntFieldUpdateOperationsInput | number
     slot?: IntFieldUpdateOperationsInput | number
+    isGameReleased?: BoolFieldUpdateOperationsInput | boolean
     rentals?: RentalUncheckedUpdateManyWithoutGameNestedInput
   }
 

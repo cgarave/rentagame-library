@@ -22,6 +22,7 @@ model Game {
   availableNonTrophy Int
   renters            Int      @default(0)
   slot               Int
+  isGameReleased     Boolean  @default(true)
   rentals            Rental[]
   transactions       NewRentTransaction[]
 }

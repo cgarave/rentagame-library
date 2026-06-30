@@ -191,6 +191,7 @@ export default function DashboardList({ games, users, userRentals, userTransacti
                             <TableHead>Monthly Price</TableHead>
                             <TableHead>Available Primary</TableHead>
                             <TableHead>Available Secondary</TableHead>
+                            <TableHead>Is Game Released</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -204,6 +205,7 @@ export default function DashboardList({ games, users, userRentals, userTransacti
                                     <TableCell>{game.monthlyPrice}</TableCell>
                                     <TableCell>{game.availableTrophy}</TableCell>
                                     <TableCell>{game.availableNonTrophy}</TableCell>
+                                    <TableCell>{String(game.isGameReleased)}</TableCell>
                                     <TableCell>
                                         <DropdownMenuComponent game={game}/>
                                     </TableCell>

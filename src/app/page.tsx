@@ -37,6 +37,7 @@ export default async function Home() {
                                           slot={game.slot}
                                           includeButton={true}
                                           includeBadge={false}
+                                          isGameReleased={game.isGameReleased}
                                 />
                             ))
                         }
@@ -80,6 +81,7 @@ export default async function Home() {
                                           slot={game.slot}
                                           includeButton={true}
                                           includeBadge={false}
+                                          isGameReleased={game.isGameReleased}
                                 />
                             ))
                         }
