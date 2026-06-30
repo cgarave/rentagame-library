@@ -15,7 +15,7 @@ export default function GameCard({ id, gameImage, gameTitle, weeklyPrice, monthl
                     includeBadge && <p>Expires at: {expiresAt}</p>
                 }
                 {slot || slot == 0 ? <Badge variant={slot !== 0 ? 'outline' : 'destructive'}>Available slot: {slot ? slot : 0}</Badge> : null}
-                {renters || renters == 0 ? <Badge variant="outline">Renters: {renters ? renters : 0}</Badge> : null}
+                {renters || renters == 0 ? <Badge variant="outline">{isGameReleased ? 'Renters' : 'Reserved'}: {renters ? renters : 0}</Badge> : null}
             </CardHeader>
             {
                 includeButton && (

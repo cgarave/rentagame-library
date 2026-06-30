@@ -99,7 +99,7 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                 <div className="flex flex-col gap-2">
                     <div className={'flex flex-row gap-x-2'}>
                         <Badge variant={slot !== 0 ? 'default' : 'destructive'}>Available slot: {slot ? slot : 0}</Badge>
-                        <Badge variant="secondary">Renters: {renters ? renters : 0}</Badge>
+                        <Badge variant="secondary">{isGameReleased ? 'Renters' : 'Reserved'}: {renters ? renters : 0}</Badge>
                     </div>
                     <div className="grid flex-1 gap-2">
                         <RadioGroupChoiceCard
