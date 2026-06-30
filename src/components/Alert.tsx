@@ -1,4 +1,4 @@
-import { CheckCircle2Icon } from "lucide-react"
+import { Megaphone } from "lucide-react"
 
 import {
     Alert,
@@ -9,8 +9,8 @@ import {
 export function AlertBasic({title, description}: {title: string; description: string[]}) {
     return (
         <Alert className="w-full">
-            <CheckCircle2Icon />
-            <AlertTitle>{title}</AlertTitle>
+            <Megaphone />
+            <AlertTitle className={'mb-2'}>{title}</AlertTitle>
             <AlertDescription>
                 {
                     description.map((desc: string, id) => (
