@@ -45,7 +45,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                                 <Badge variant={availableTrophy !== 0 ? 'outline' : 'destructive'}>{availableTrophy !== 0 ? 'Available' : 'Unavailable'}: {availableTrophy}</Badge>
                             </FieldTitle>
                             <FieldDescription>Pwede malaro ang game sa main profile, you can also earn trophies and achievements</FieldDescription>
-                            <FieldDescription className={'font-semibold text-blue-600'}>+₱50</FieldDescription>
+                            <FieldDescription className={'font-semibold text-blue-600'}>+₱50 (One-time payment if you extend your current plan)</FieldDescription>
                         </FieldContent>
                         <RadioGroupItem value="trophy" id="primary-account" disabled={availableTrophy === 0} />
                     </Field>

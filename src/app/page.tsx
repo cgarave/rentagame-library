@@ -17,10 +17,10 @@ export default async function Home() {
         return (
             <>
                 <main className={'flex flex-col gap-y-6 mt-30 px-3 xl:px-0 xl:w-[1280px] xl:mx-auto'}>
-                    <AlertBasic title={'Announcement'}
-                                description={['Effective today, we are removing the account deposit requirement. We realized that requiring a deposit goes against our goal of providing an affordable game rental service.',
-                                            'For existing renters who have already paid an account deposit, your deposit will be refunded once your rental period expires.']}
-                    />
+                    {/*<AlertBasic title={'Announcement'}*/}
+                    {/*            description={['Effective today, we are removing the account deposit requirement. We realized that requiring a deposit goes against our goal of providing an affordable game rental service.',*/}
+                    {/*                        'For existing renters who have already paid an account deposit, your deposit will be refunded once your rental period expires.']}*/}
+                    {/*/>*/}
                     <h1 className={'font-bold text-4xl'}>Browse Games</h1>
                     <GamesContainer>
                         {
@@ -61,10 +61,10 @@ export default async function Home() {
         return (
             <>
                 <main className={'flex flex-col gap-y-6 mt-30 px-3 xl:px-0 xl:w-[1280px] xl:mx-auto'}>
-                    <AlertBasic title={'Announcement'}
-                                description={['Effective today, we are removing the account deposit requirement. We realized that requiring a deposit goes against our goal of providing an affordable game rental service.',
-                                    'For existing renters who have already paid an account deposit, your deposit will be refunded once your rental period expires.']}
-                    />
+                    {/*<AlertBasic title={'Announcement'}*/}
+                    {/*            description={['Effective today, we are removing the account deposit requirement. We realized that requiring a deposit goes against our goal of providing an affordable game rental service.',*/}
+                    {/*                'For existing renters who have already paid an account deposit, your deposit will be refunded once your rental period expires.']}*/}
+                    {/*/>*/}
                     <h1 className={'font-bold text-4xl'}>Browse Games</h1>
                     <GamesContainer>
                         {

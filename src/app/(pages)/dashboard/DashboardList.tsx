@@ -109,6 +109,7 @@ function UserTransactionTableRow({ userTransaction }: {userTransaction: UserTran
 
     return (
         <TableRow key={userTransaction.id}>
+            <TableCell>{userTransaction.id}</TableCell>
             <TableCell>{userTransaction.user.name}</TableCell>
             <TableCell>{userTransaction.user.email}</TableCell>
             <TableCell>{userTransaction.game.gameTitle}</TableCell>
@@ -240,6 +241,7 @@ export default function DashboardList({ games, users, userRentals, userTransacti
                 <Table className={'mx-auto border'}>
                     <TableHeader>
                         <TableRow>
+                            <TableHead>Transaction Id</TableHead>
                             <TableHead>Username</TableHead>
                             <TableHead>Email</TableHead>
                             <TableHead>Game Title</TableHead>
