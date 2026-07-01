@@ -1,19 +1,28 @@
 'use client'
 
+import React, { useState } from "react"
+import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client"
+
+//Components
 import { Button } from "@/components/ui/button"
 import { RadioGroupChoiceCard} from "@/components/RadioGroup";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
-import { useState } from "react"
-import { GameDetails } from "@/types/GameDetails";
-import { createRentTransaction } from "@/lib/rentTransactionAction";
-import { useRouter } from "next/navigation";
-import { useSession } from "@/lib/auth-client"
 import { toast } from 'sonner'
+import { AlertBasic } from "@/components/Alert";
+import { Spinner } from "@/components/ui/spinner"
+
+//Types
+import { GameDetails } from "@/types/GameDetails";
+
+//Actions
+import { createRentTransaction } from "@/lib/rentTransactionAction";
 
 export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, renters, slot, isGameReleased }: GameDetails) {
     const [selectedPlan, setSelectedPlan] = useState<string>('weekly')
     const [selectedAccountPlan, setSelectedAccountPlan] = useState<string>('trophy')
+    const [createTransaction, setCreateTransaction] = useState<boolean>(false)
     const {data: session} = useSession()
     const router = useRouter()
 
@@ -49,7 +58,6 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                             })
                             break
                     }
-                    router.push('https://m.me/1152961824575684')
                     break
                 case 'monthly':
                     switch (selectedAccountPlan){
@@ -78,11 +86,59 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                             })
                             break
                     }
-                    router.push('https://m.me/1152961824575684')
                     break
             }
-        } else {
-            toast.error('You need to sign in first', { position: 'top-center' })
+        }
+    }
+
+    // async function handleClose() {
+    //     if(id && session?.user.id){
+    //         setCreateTransaction(true)
+    //         await handlePayment()
+    //         setTimeout(() => {
+    //             router.push('https://m.me/1152961824575684')
+    //             setCreateTransaction(false)
+    //         }, 4000)
+    //     } else {
+    //         toast.error('You need to sign in first', { position: 'top-center' })
+    //     }
+    // }
+
+    async function handleClose() {
+        if (!id || !session?.user.id) {
+            toast.error('You need to sign in first', {
+                position: 'top-center',
+            });
+            return;
+        }
+
+        setCreateTransaction(true);
+
+        const transactionPromise = (async () => {
+            await handlePayment();
+
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+
+            return 'Transaction created successfully! You will be redirected to our Facebook page shortly.';
+        })();
+
+        toast.promise(transactionPromise, {
+            loading: 'Processing your request, please wait...',
+            success: (message) => {
+                setTimeout(() => {
+                    router.push('https://m.me/1152961824575684');
+                }, 4000)
+                return message;
+            },
+            error: 'Failed to create transaction.',
+            position: 'top-center',
+            duration: 4000,
+        });
+
+        try {
+            await transactionPromise;
+        } finally {
+            setCreateTransaction(false);
         }
     }
 
@@ -109,19 +165,20 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
                             availableNonTrophy={availableNonTrophy!}
                             setSelectedPlan={setSelectedPlan}
                             setSelectedAccountPlan={setSelectedAccountPlan}
+                            createTransaction={createTransaction}
                         />
                     </div>
                     <DialogDescription className={'text-xs'}><span className={'font-semibold text-black'}>Mode of Payment:</span> Gcash, Maya, Maribank, Bank Transfer</DialogDescription>
-                    <DialogDescription className={'text-xs'}>Clicking <span className={'font-semibold text-black'}>Proceed to Payment</span> will redirect you to our Facebook page messenger to continue the payment.</DialogDescription>
                 </div>
 
                 <DialogFooter className="flex justify-end items-center">
                     <DialogTitle>Total: ₱{(selectedPlan === 'weekly' ? weeklyPrice! : monthlyPrice!) + (selectedAccountPlan === 'trophy' ? 50 : 0)}</DialogTitle>
                     <DialogClose asChild>
-                        <Button type="button" 
-                                className={'cursor-pointer'} 
-                                disabled={slot === 0} 
-                                onClick={handlePayment}>Proceed to Payment</Button>
+                        <Button type="button"
+                                className={'cursor-pointer'}
+                                disabled={createTransaction || slot === 0}
+                                onClick={handleClose}>Proceed to Payment
+                        </Button>
                     </DialogClose>
                 </DialogFooter>
             </DialogContent>

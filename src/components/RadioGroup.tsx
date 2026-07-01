@@ -9,8 +9,9 @@ type Props = {
     availableNonTrophy: number,
     setSelectedPlan: React.Dispatch<React.SetStateAction<string>>,
     setSelectedAccountPlan: React.Dispatch<React.SetStateAction<string>>,
+    createTransaction: boolean,
 }
-export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, setSelectedPlan, setSelectedAccountPlan }: Props) {
+export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTrophy, availableNonTrophy, setSelectedPlan, setSelectedAccountPlan, createTransaction }: Props) {
     return (
         <>
              <RadioGroup defaultValue="weekly" className="w-full grid grid-cols-1 md:grid-cols-2" onValueChange={(value) => setSelectedPlan(value)}>
@@ -21,7 +22,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                             <FieldDescription>Para sa mga gamers na mabilis tumapos ng laro or gusto lang talaga mag try.</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>₱{weeklyPrice} per week</FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="weekly" id="weekly-plan" />
+                        <RadioGroupItem value="weekly" id="weekly-plan" disabled={createTransaction} />
                     </Field>
                 </FieldLabel>
                 <FieldLabel htmlFor="monthly-plan">
@@ -31,7 +32,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                             <FieldDescription>Para sa mga kulang sa oras ang paglalaro pero gustong makatapos ng game.</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>₱{monthlyPrice} per month</FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="monthly" id="monthly-plan" />
+                        <RadioGroupItem value="monthly" id="monthly-plan" disabled={createTransaction} />
                     </Field>
                 </FieldLabel>
             </RadioGroup>
@@ -47,7 +48,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                             <FieldDescription>Pwede malaro ang game sa main profile, you can also earn trophies and achievements</FieldDescription>
                             <FieldDescription className={'font-semibold text-blue-600'}>+₱50 (One-time payment if you extend your current plan)</FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="trophy" id="primary-account" disabled={availableTrophy === 0} />
+                        <RadioGroupItem value="trophy" id="primary-account" disabled={availableTrophy === 0 || createTransaction} />
                     </Field>
                 </FieldLabel>
                 <FieldLabel htmlFor="secondary-account">
@@ -59,7 +60,7 @@ export function RadioGroupChoiceCard({ weeklyPrice, monthlyPrice, availableTroph
                             </FieldTitle>
                             <FieldDescription>Malalaro lang ang game sa provided account profile. No trophies, no achievements.</FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="nonTrophy" id="secondary-account" disabled={availableNonTrophy === 0} />
+                        <RadioGroupItem value="nonTrophy" id="secondary-account" disabled={availableNonTrophy === 0 || createTransaction} />
                     </Field>
                 </FieldLabel>
             </RadioGroup>
