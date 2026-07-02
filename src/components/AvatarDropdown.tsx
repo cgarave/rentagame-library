@@ -1,4 +1,4 @@
-import { BadgeCheckIcon, BellIcon, CreditCardIcon, LogOutIcon } from "lucide-react"
+import { BadgeCheckIcon, BellIcon, CreditCardIcon, LogOutIcon, HandCoins } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -22,6 +22,10 @@ export function UserDropdown({ logout }: Props) {
                     <DropdownMenuItem className={'py-0'}>
                         <BadgeCheckIcon />
                         <Link href="/my-rentals" className={'w-full py-2'}>My Rentals</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <HandCoins />
+                        My Transactions
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <CreditCardIcon />

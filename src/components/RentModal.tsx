@@ -10,8 +10,6 @@ import { RadioGroupChoiceCard} from "@/components/RadioGroup";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { toast } from 'sonner'
-import { AlertBasic } from "@/components/Alert";
-import { Spinner } from "@/components/ui/spinner"
 
 //Types
 import { GameDetails } from "@/types/GameDetails";
@@ -90,19 +88,6 @@ export function DialogCloseButton({ id, gameImage, gameTitle, weeklyPrice, month
             }
         }
     }
-
-    // async function handleClose() {
-    //     if(id && session?.user.id){
-    //         setCreateTransaction(true)
-    //         await handlePayment()
-    //         setTimeout(() => {
-    //             router.push('https://m.me/1152961824575684')
-    //             setCreateTransaction(false)
-    //         }, 4000)
-    //     } else {
-    //         toast.error('You need to sign in first', { position: 'top-center' })
-    //     }
-    // }
 
     async function handleClose() {
         if (!id || !session?.user.id) {
