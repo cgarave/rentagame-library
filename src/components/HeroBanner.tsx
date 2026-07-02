@@ -1,4 +1,7 @@
+"use client"
+
 import * as React from "react"
+import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
 
 import { Card, CardContent } from "@/components/ui/card"
@@ -12,7 +15,17 @@ import {
 
 export function HeroBanner() {
     return (
-        <Carousel className="w-full h-fit bg-red-600">
+        <Carousel
+            opts={{
+                align: "start",
+                loop: true,
+            }}
+            plugins={[
+                Autoplay({
+                    delay: 4000,
+                }),
+            ]}
+        >
             <CarouselContent>
                 {Array.from({ length: 5 }).map((_, index) => (
                     <CarouselItem key={index}>
@@ -24,8 +37,8 @@ export function HeroBanner() {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            {/*<CarouselPrevious className={'left-10'} />*/}
-            {/*<CarouselNext className={'right-10'} />*/}
+            <CarouselPrevious className={'hidden md:flex'} />
+            <CarouselNext className={'hidden md:flex'} />
         </Carousel>
     )
 }
